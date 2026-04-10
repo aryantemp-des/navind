@@ -8,15 +8,15 @@ const TOTAL_FRAMES = FRAME_SEQUENCE_TOTAL;
 
 const getFramePath = (index: number) => {
   if (index <= 240) {
-    return `/images/a (${index}).jpg`;
+    return `/images/a/a (${index}).jpg`;
   } else if (index <= 480) {
-    return `/images/b (${index - 240}).jpg`;
+    return `/images/b/b (${index - 240}).jpg`;
   } else if (index <= 720) {
-    return `/images/c (${index - 480}).jpg`;
+    return `/images/c/c (${index - 480}).jpg`;
   } else if (index <= 960) {
-    return `/images/d (${index - 720}).jpg`;
+    return `/images/d/d (${index - 720}).jpg`;
   } else {
-    return `/images/e (${Math.min(240, index - 960)}).jpg`;
+    return `/images/e/e (${Math.min(240, index - 960)}).jpg`;
   }
 };
 
@@ -35,61 +35,8 @@ export default function CanvasSequence() {
   // Map 0% to 90% scroll so pacing covers the shortened page cleanly
   const frameIndex = useTransform(smoothProgress, [0, FRAME_INDEX_SCROLL_END], [1, TOTAL_FRAMES]);
 
-  // Preloader
-  useEffect(() => {
-    const initialMap = imagesMapRef.current;
-    
-    // We preload all frames sequentially to ensure smooth background animation.
-    // This avoids blocking the network with 1200 simultaneous requests.
-    let sequentialIndex = 1;
-    const preloadSequential = () => {
-      if (sequentialIndex > TOTAL_FRAMES) return;
-      
-      if (!initialMap.has(sequentialIndex)) {
-        const img = new Image();
-        img.src = getFramePath(sequentialIndex);
-        img.onload = () => {
-          // If this happens to be the current frame, draw it
-          if (Math.round(frameIndex.get()) === sequentialIndex) {
-            const canvas = canvasRef.current;
-            if (canvas) {
-              const ctx = canvas.getContext("2d");
-              if (ctx) drawCenteredImage(ctx, canvas, img);
-            }
-          }
-          sequentialIndex++;
-          // Yield to main thread, then load next
-          setTimeout(preloadSequential, 10);
-        };
-        initialMap.set(sequentialIndex, img);
-      } else {
-        sequentialIndex++;
-        preloadSequential();
-      }
-    };
-    
-    // Fire off the first 30 frames quickly
-    for (let i = 1; i <= 30; i++) {
-      if (!initialMap.has(i)) {
-        const img = new Image();
-        img.src = getFramePath(i);
-        img.onload = () => {
-           if (Math.round(frameIndex.get()) === i) {
-             const canvas = canvasRef.current;
-             if (canvas) {
-              const ctx = canvas.getContext("2d");
-              if (ctx) drawCenteredImage(ctx, canvas, img);
-             }
-           }
-        }
-        initialMap.set(i, img);
-      }
-    }
-
-    // Start sequential preloading of ALL background frame images
-    setTimeout(preloadSequential, 1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Removed the aggressive 1200-frame auto-preload to save mobile bandwidth.
+  // Instead relies purely on the sliding window lazy-loader triggered on scroll.
 
   const drawFrame = (index: number) => {
     const canvas = canvasRef.current;
@@ -125,19 +72,34 @@ export default function CanvasSequence() {
       };
     }
 
-    // Preload next 10 frames for smoother fast-scrolling without blocking
-    for (let i = index + 1; i <= Math.min(TOTAL_FRAMES, index + 10); i++) {
-        if (!imagesMapRef.current.has(i)) {
-            const nextImg = new Image();
-            nextImg.src = getFramePath(i);
-            nextImg.onload = () => {
-              if (Math.round(frameIndex.get()) === i) {
-                drawCenteredImage(ctx, canvas, nextImg);
-              }
-            };
-            imagesMapRef.current.set(i, nextImg);
-        }
+    // Sliding Window Preload Array - Loads 45 frames ahead and 15 frames behind
+    const preloadAhead = 45;
+    const preloadBehind = 15;
+
+    for (let i = Math.max(1, index - preloadBehind); i <= Math.min(TOTAL_FRAMES, index + preloadAhead); i++) {
+      if (!imagesMapRef.current.has(i)) {
+          const nextImg = new Image();
+          nextImg.src = getFramePath(i);
+          nextImg.onload = () => {
+            if (Math.round(frameIndex.get()) === i) {
+              drawCenteredImage(ctx, canvas, nextImg);
+            }
+          };
+          imagesMapRef.current.set(i, nextImg);
+      }
     }
+
+    // Memory Management / Garbage Collection
+    // Deletes frames extremely far out of the rendering window to prevent mobile crashing
+    requestAnimationFrame(() => {
+        for (const [key, cachedImg] of Array.from(imagesMapRef.current.entries())) {
+            if (key < index - 150 || key > index + 250) {
+               // Remove src reference fully so garbage collector releases image buffer fast
+               cachedImg.src = "";
+               imagesMapRef.current.delete(key);
+            }
+        }
+    });
   };
 
   const drawCenteredImage = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) => {

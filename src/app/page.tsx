@@ -38,8 +38,8 @@ export default function Home() {
 
   const { scrollYProgress } = useScroll();
 
-  const canvasZIndex = useTransform(scrollYProgress, v => v >= SCROLL_AT_FIRST_FRAME_TRANSITION ? -1 : -3);
-  const splineZIndex = useTransform(scrollYProgress, v => v >= SCROLL_AT_FIRST_FRAME_TRANSITION ? -4 : -1);
+  const canvasZIndex = -3;
+  const splineZIndex = -2;
 
   return (
     <main style={{ position: "relative" }}>
@@ -58,7 +58,7 @@ export default function Home() {
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        padding: "clamp(120px, 20vh + 5vw, calc(80px + 14cm)) 5% 5rem 5%",
+        padding: "calc(80px + 15cm) 5% 5rem 5%",
         position: "relative"
       }}>
 
