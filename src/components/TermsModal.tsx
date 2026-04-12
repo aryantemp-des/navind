@@ -280,7 +280,7 @@ export default function TermsModal({ isOpen, onClose }: TermsModalProps) {
                     color: "rgba(255,255,255,0.85)", 
                     textShadow: "0 0 15px rgba(255,159,252,0.3)" 
                   }}>
-                    Elevating brands through high-converting and Next-Gen digital experiences.
+                    Elevating brands with high-converting, next-gen digital experiences.
                   </div>
                 </div>
               </div>
