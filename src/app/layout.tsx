@@ -19,17 +19,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://navyatech.co.in",
   },
-  manifest: "/favicon/site.webmanifest",
-  icons: {
-    icon: [
-      { url: "/favicon/favicon.ico" },
-      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [
-      { url: "/favicon/apple-touch-icon.png", sizes: "180x180" }
-    ],
-  },
+
   openGraph: {
     title: "Navya Tech Industry | Next-Gen Web Experiences",
     description: "Your digital presence, built to convert. Fast, modern, and high-converting websites.",
@@ -70,6 +60,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon/favicon-32x32.png" type="image/png" />
+        <link rel="icon" href="/favicon/favicon-16x16.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+      </head>
       <body>
         <SmoothScrolling>
           <Navbar />
