@@ -1,15 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <url><loc>https://navyatech.co.in/</loc><priority>1.0</priority></url>
-    <url><loc>https://navyatech.co.in/about</loc><priority>0.8</priority></url>
-    <url><loc>https://navyatech.co.in/services</loc><priority>0.8</priority></url>
-    <url><loc>https://navyatech.co.in/projects</loc><priority>0.8</priority></url>
-    <url><loc>https://navyatech.co.in/contact</loc><priority>0.8</priority></url>
-    <url><loc>https://navyatech.co.in/blog</loc><priority>0.8</priority></url>
-    <url><loc>https://navyatech.co.in/blog/category/web-development</loc><priority>0.8</priority></url>
-    <url><loc>https://navyatech.co.in/blog/category/web-design</loc><priority>0.8</priority></url>
-    <url><loc>https://navyatech.co.in/blog/category/web-development</loc><priority>0.8</priority></url>
+  <!-- MAIN PAGES -->
+  <url><loc>https://navyatech.co.in/</loc><priority>1.0</priority></url>
+  <url><loc>https://navyatech.co.in/about</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/projects</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog</loc><priority>0.8</priority></url>
 
+  <!-- CORE CATEGORIES -->
+  <url><loc>https://navyatech.co.in/blog/category/web-development</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/web-design</loc><priority>0.8</priority></url>
+
+  <!-- WEB DEV -->
+  <url><loc>https://navyatech.co.in/blog/category/web-development-services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/professional-web-developer</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/custom-website-development</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/business-website-development</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/startup-website-development</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/ecommerce-website-development</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/corporate-website-design</loc><priority>0.8</priority></url>
+
+  <!-- LOCATION WEB DEV -->
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-mumbai</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-delhi</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-bangalore</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-pune</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-hyderabad</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-chennai</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-kolkata</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-ahmedabad</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-jaipur</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-company-surat</loc><priority>0.8</priority></url>
+
+  <!-- SEO -->
+  <url><loc>https://navyatech.co.in/blog/category/seo-services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/local-seo-services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/technical-seo-optimization</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/on-page-seo</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/off-page-seo</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/google-ranking-services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/search-engine-optimization-company</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/seo-agency-india</loc><priority>0.8</priority></url>
+
+  <!-- 3D & FUTURISTIC -->
+  <url><loc>https://navyatech.co.in/blog/category/3d-website-development</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/interactive-3d-websites</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/immersive-web-design</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/webgl-websites</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/futuristic-website-design</loc><priority>0.8</priority></url>
+
+  <!-- HOSTING -->
+  <url><loc>https://navyatech.co.in/blog/category/web-hosting-services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/cloud-hosting-services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/vps-hosting-india</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/domain-registration-services</loc><priority>0.8</priority></url>
+
+  <!-- CONVERSION -->
+  <url><loc>https://navyatech.co.in/blog/category/conversion-rate-optimization</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/high-converting-websites</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/generate-more-sales-online</loc><priority>0.8</priority></url>
+
+  <!-- SECURITY -->
+  <url><loc>https://navyatech.co.in/blog/category/website-security-services</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/cybersecurity-solutions</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/secure-website-development</loc><priority>0.8</priority></url>
+
+  <!-- BUYER INTENT -->
+  <url><loc>https://navyatech.co.in/blog/category/hire-web-developer</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/best-website-development-company</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/website-development-cost</loc><priority>0.8</priority></url>
+  <url><loc>https://navyatech.co.in/blog/category/create-website-for-business</loc><priority>0.8</priority></url>
 </urlset>
+

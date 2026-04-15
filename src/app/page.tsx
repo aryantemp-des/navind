@@ -1,16 +1,15 @@
 "use client";
 
-import { motion, Variants, useScroll, useTransform } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowRight, LayoutGrid, MonitorSmartphone, Rocket, Zap, MousePointer2, Search } from "lucide-react";
 import Link from "next/link";
-import SplineBackground from "@/components/SplineBackground";
+import dynamic from "next/dynamic";
+const SplineBackground = dynamic(() => import("@/components/SplineBackground"), { ssr: false });
 import CanvasSequence from "@/components/CanvasSequence";
 import RotatingText from "@/components/RotatingText";
 import FinalCTA from "@/components/FinalCTA";
 import GradientText from "@/components/GradientText";
-
 import ScrollBelowSplineButton from "@/components/ScrollBelowSplineButton";
-import { SCROLL_AT_FIRST_FRAME_TRANSITION } from "@/lib/heroScroll";
 import ShapeBlur from "@/components/ShapeBlur";
 import CircularGallery from "@/components/CircularGallery";
 import ShinyText from "@/components/ShinyText";
@@ -35,8 +34,6 @@ export default function Home() {
       transition: { staggerChildren: 0.2 }
     }
   };
-
-  const { scrollYProgress } = useScroll();
 
   const canvasZIndex = -3;
   const splineZIndex = -2;
