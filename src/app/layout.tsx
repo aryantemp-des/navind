@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://navyatech.co.in"),
   title: {
-    default: "Navya Tech Industry",
+    default: "Navya Tech Industry | Next-Gen Web Experiences",
     template: "%s | Navya Tech Industry",
   },
   description: "Your digital presence, built to convert. Fast, modern, and high-converting websites for businesses.",
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     title: "Navya Tech Industry | Next-Gen Web Experiences",
     description: "Your digital presence, built to convert. Fast, modern, and high-converting websites.",
     url: "https://navyatech.co.in",
+    siteName: "Navya Tech Industry",
     type: "website",
     images: [
       {
@@ -67,6 +68,22 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Navya Tech Industry",
+              url: "https://navyatech.co.in",
+              logo: "https://navyatech.co.in/favicon/favicon-32x32.png",
+              sameAs: [
+                "https://www.linkedin.com",
+                "https://www.instagram.com"
+              ]
+            })
+          }}
+        />
       </head>
       <body>
         <SmoothScrolling>
