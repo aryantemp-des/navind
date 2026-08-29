@@ -1,19 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Phone, ArrowRight, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const StickyMobileCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const isVisibleRef = useRef(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Show on mobile after passing hero section (300px), hide near the very bottom footer
-      const scrollY = window.scrollY;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const windowHeight = window.innerHeight;
-      const nearBottom = windowHeight + scrollY >= scrollHeight - 300;
+    let ticking = false;
 
-      setIsVisible(scrollY > 300 && !nearBottom);
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const scrollHeight = document.documentElement.scrollHeight;
+          const windowHeight = window.innerHeight;
+          const nearBottom = windowHeight + scrollY >= scrollHeight - 300;
+          const shouldShow = scrollY > 300 && !nearBottom;
+
+          if (isVisibleRef.current !== shouldShow) {
+            isVisibleRef.current = shouldShow;
+            setIsVisible(shouldShow);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

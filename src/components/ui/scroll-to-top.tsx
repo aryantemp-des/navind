@@ -1,13 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const isVisibleRef = useRef(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const shouldShow = window.scrollY > 400;
+          if (isVisibleRef.current !== shouldShow) {
+            isVisibleRef.current = shouldShow;
+            setIsVisible(shouldShow);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, ArrowRight, Search, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ui/theme-toggle";
@@ -9,6 +9,7 @@ export interface GlobalHeaderProps {
 
 export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onOpenSearch }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolledRef = useRef(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,11 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onOpenSearch }) => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 30);
+          const shouldBeScrolled = window.scrollY > 30;
+          if (isScrolledRef.current !== shouldBeScrolled) {
+            isScrolledRef.current = shouldBeScrolled;
+            setIsScrolled(shouldBeScrolled);
+          }
           ticking = false;
         });
         ticking = true;

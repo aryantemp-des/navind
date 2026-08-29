@@ -4,16 +4,33 @@ export const useMousePositionRef = (
   containerRef?: RefObject<HTMLElement | SVGElement | null>
 ) => {
   const positionRef = useRef({ x: 0, y: 0 });
+  const rectRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null);
 
   useEffect(() => {
-    const updatePosition = (x: number, y: number) => {
+    const updateRect = () => {
       if (containerRef && containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
-        const relativeX = x - rect.left;
-        const relativeY = y - rect.top;
+        rectRef.current = {
+          left: rect.left + window.scrollX,
+          top: rect.top + window.scrollY,
+          width: rect.width,
+          height: rect.height,
+        };
+      }
+    };
+
+    updateRect();
+    window.addEventListener("resize", updateRect, { passive: true });
+
+    const updatePosition = (clientX: number, clientY: number) => {
+      if (containerRef && containerRef.current && rectRef.current) {
+        const pageX = clientX + window.scrollX;
+        const pageY = clientY + window.scrollY;
+        const relativeX = pageX - rectRef.current.left;
+        const relativeY = pageY - rectRef.current.top;
         positionRef.current = { x: relativeX, y: relativeY };
       } else {
-        positionRef.current = { x, y };
+        positionRef.current = { x: clientX, y: clientY };
       }
     };
 
@@ -28,10 +45,11 @@ export const useMousePositionRef = (
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     return () => {
+      window.removeEventListener("resize", updateRect);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchmove", handleTouchMove);
     };
@@ -39,3 +57,4 @@ export const useMousePositionRef = (
 
   return positionRef;
 };
+

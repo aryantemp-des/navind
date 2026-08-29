@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, ReactNode } from 'react';
+import React, { useEffect, useRef, useState, ReactNode } from 'react';
 
 interface ParticleHeroProps {
   title?: string;
@@ -19,7 +19,7 @@ interface ParticleHeroProps {
 }
 
 export const ParticleHero: React.FC<ParticleHeroProps> = ({
-  title = "N A V Y A",
+  title = "NAVYA",
   subtitle = "Tech Industry",
   description = "Growth shouldn’t be this stressful. We’ll take the headache. You handle the business. We’ll handle the chaos behind the growth.",
   primaryButton,
@@ -35,6 +35,19 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
   const animFrameRef = useRef<number | null>(null);
   const isVisibleRef = useRef<boolean>(true);
 
+  // Responsive particle density: 9 rows on mobile, 12 on desktop
+  const [activeRows, setActiveRows] = useState<number>(particleCount);
+
+  useEffect(() => {
+    const updateDensity = () => {
+      const isMobile = window.innerWidth < 640;
+      setActiveRows(isMobile ? Math.min(9, particleCount) : particleCount);
+    };
+    updateDensity();
+    window.addEventListener('resize', updateDensity, { passive: true });
+    return () => window.removeEventListener('resize', updateDensity);
+  }, [particleCount]);
+
   // Position refs to avoid high-frequency React re-renders
   const cursorRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const staticCursorRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -44,8 +57,7 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
   const lastMouseMoveRef = useRef<number>(Date.now());
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const rows = particleCount;
-  const totalParticles = rows * rows;
+  const totalParticles = activeRows * activeRows;
 
   // Initialize particles once into DOM
   useEffect(() => {
@@ -57,19 +69,19 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
 
     for (let i = 0; i < totalParticles; i++) {
       const particle = document.createElement('div');
-      particle.className = 'particle absolute rounded-full';
+      particle.className = 'particle absolute rounded-full pointer-events-none will-change-transform';
 
-      const row = Math.floor(i / rows);
-      const col = i % rows;
-      const centerRow = Math.floor(rows / 2);
-      const centerCol = Math.floor(rows / 2);
+      const row = Math.floor(i / activeRows);
+      const col = i % activeRows;
+      const centerRow = Math.floor(activeRows / 2);
+      const centerCol = Math.floor(activeRows / 2);
 
       const distanceFromCenter = Math.sqrt(
         Math.pow(row - centerRow, 2) + Math.pow(col - centerCol, 2)
       );
 
       const scale = Math.max(0.1, 1.2 - distanceFromCenter * 0.12);
-      const opacity = Math.max(0.05, 1 - distanceFromCenter * 0.1);
+      const opacity = Math.max(0.08, 1 - distanceFromCenter * 0.1);
       const lightness = Math.max(15, 75 - distanceFromCenter * 6);
       const glowSize = Math.max(0.5, 6 - distanceFromCenter * 0.5);
 
@@ -78,20 +90,18 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
         height: 0.4rem;
         left: ${col * 1.8}rem;
         top: ${row * 1.8}rem;
-        transform: scale(${scale});
+        transform: translate3d(0, 0, 0) scale(${scale});
         opacity: ${opacity};
         background: hsl(4, 85%, ${lightness}%);
         box-shadow: 0 0 ${glowSize * 0.2}rem 0 hsl(4, 85%, 60%);
-        mix-blend-mode: screen;
         z-index: ${Math.round(totalParticles - distanceFromCenter * 5)};
-        transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         pointer-events: none;
       `;
 
       container.appendChild(particle);
       particlesRef.current.push(particle);
     }
-  }, [rows, totalParticles]);
+  }, [activeRows, totalParticles]);
 
   // High-performance animation loop (Zero CPU drain when off-screen)
   useEffect(() => {
@@ -99,7 +109,7 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
     let isRunning = false;
 
     const animate = (timestamp: number) => {
-      if (!isVisibleRef.current) {
+      if (!isVisibleRef.current || document.hidden) {
         isRunning = false;
         return;
       }
@@ -128,15 +138,15 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
         const currentX = cursorRef.current.x;
         const currentY = cursorRef.current.y;
         const particles = particlesRef.current;
-        const centerRow = Math.floor(rows / 2);
-        const centerCol = Math.floor(rows / 2);
+        const centerRow = Math.floor(activeRows / 2);
+        const centerCol = Math.floor(activeRows / 2);
 
         for (let i = 0; i < particles.length; i++) {
           const p = particles[i];
           if (!p) continue;
 
-          const row = Math.floor(i / rows);
-          const col = i % rows;
+          const row = Math.floor(i / activeRows);
+          const col = i % activeRows;
           const dist = Math.sqrt(Math.pow(row - centerRow, 2) + Math.pow(col - centerCol, 2));
           const originalScale = Math.max(0.1, 1.2 - dist * 0.12);
           const dampening = Math.max(0.3, 1 - dist * 0.08);
@@ -174,16 +184,25 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
 
     startLoop();
 
+    const handleVisibility = () => {
+      if (!document.hidden && isVisibleRef.current) {
+        startLoop();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     return () => {
       isRunning = false;
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, [rows]);
+  }, [activeRows]);
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     const event = 'touches' in e ? e.touches[0] : e;
+    if (!event) return;
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
@@ -219,7 +238,7 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
       ref={sectionRef}
       className={`relative w-full min-h-screen bg-black/50 overflow-hidden flex items-center justify-center ${className}`}
       onMouseMove={handlePointerMove}
-      onTouchMove={handlePointerMove}
+      onTouchStart={handlePointerMove}
     >
       {/* Particle Animation Background */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -227,8 +246,8 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
           ref={containerRef}
           className="relative"
           style={{
-            width: `${rows * 1.8}rem`,
-            height: `${rows * 1.8}rem`
+            width: `${activeRows * 1.8}rem`,
+            height: `${activeRows * 1.8}rem`
           }}
         />
       </div>
@@ -308,8 +327,8 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
 
       {/* Ambient Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-orange-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-red-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 sm:w-[30rem] h-80 sm:h-[30rem] bg-orange-600/10 rounded-full blur-3xl"></div>
       </div>
 
       {/* Cinematic bottom fade mask into Main Intro */}
@@ -319,3 +338,4 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
 };
 
 export default ParticleHero;
+

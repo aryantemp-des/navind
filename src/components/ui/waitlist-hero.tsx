@@ -184,12 +184,10 @@ export const WaitlistHero: React.FC = () => {
         }}
       >
         {/* Image 3 (Back) - spins clockwise */}
-        <div className="absolute inset-0 animate-spin-slow">
+        <div className="absolute inset-0 animate-spin-slow will-change-transform">
           <div
-            className="absolute top-1/2 left-1/2"
+            className="absolute top-1/2 left-1/2 w-[95vw] h-[95vw] sm:w-[800px] sm:h-[800px] md:w-[1400px] md:h-[1400px] lg:w-[2000px] lg:h-[2000px] max-w-none"
             style={{
-              width: "2000px",
-              height: "2000px",
               transform: "translate(-50%, -50%) rotate(279.05deg)",
               zIndex: 0,
             }}
@@ -199,17 +197,16 @@ export const WaitlistHero: React.FC = () => {
               alt=""
               className="w-full h-full object-cover opacity-50 select-none"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
 
         {/* Image 2 (Middle) - spins counter-clockwise */}
-        <div className="absolute inset-0 animate-spin-slow-reverse">
+        <div className="absolute inset-0 animate-spin-slow-reverse will-change-transform">
           <div
-            className="absolute top-1/2 left-1/2"
+            className="absolute top-1/2 left-1/2 w-[80vw] h-[80vw] sm:w-[600px] sm:h-[600px] md:w-[1000px] md:h-[1000px] max-w-none"
             style={{
-              width: "1000px",
-              height: "1000px",
               transform: "translate(-50%, -50%) rotate(304.42deg)",
               zIndex: 1,
             }}
@@ -219,17 +216,16 @@ export const WaitlistHero: React.FC = () => {
               alt=""
               className="w-full h-full object-cover opacity-60 select-none"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
 
         {/* Image 1 (Front) - spins clockwise */}
-        <div className="absolute inset-0 animate-spin-slow">
+        <div className="absolute inset-0 animate-spin-slow will-change-transform">
           <div
-            className="absolute top-1/2 left-1/2"
+            className="absolute top-1/2 left-1/2 w-[65vw] h-[65vw] sm:w-[480px] sm:h-[480px] md:w-[800px] md:h-[800px] max-w-none"
             style={{
-              width: "800px",
-              height: "800px",
               transform: "translate(-50%, -50%) rotate(48.33deg)",
               zIndex: 2,
             }}
@@ -239,6 +235,7 @@ export const WaitlistHero: React.FC = () => {
               alt="App Rotating Icons"
               className="w-full h-full object-cover opacity-80 select-none"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
@@ -258,7 +255,7 @@ export const WaitlistHero: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="clay-icon-well w-18 h-18 sm:w-20 sm:h-20 rounded-3xl overflow-hidden mb-1 flex items-center justify-center p-3"
         >
@@ -274,7 +271,7 @@ export const WaitlistHero: React.FC = () => {
         <motion.h2
           initial={{ opacity: 0, y: 30, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] font-heading max-w-3xl text-white drop-shadow-lg"
         >
@@ -285,7 +282,7 @@ export const WaitlistHero: React.FC = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-base sm:text-xl text-zinc-300 font-light max-w-2xl leading-relaxed"
         >
@@ -296,7 +293,7 @@ export const WaitlistHero: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="w-full max-w-lg px-4 mt-2 relative flex flex-col items-center justify-center gap-4"
         >

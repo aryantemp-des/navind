@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 /**
  * PlexusCanvas
  * High-performance animated orange/red network of glowing nodes connected by geometric lines.
- * Scroll-reactive with cached layout metrics to eliminate layout thrashing.
+ * Scroll-reactive with cached layout metrics, batched draw calls, and mobile-aware density.
  */
 const PlexusCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -18,7 +18,6 @@ const PlexusCanvas: React.FC = () => {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    // Find parent section for scroll offset calculation
     sectionRef.current = canvas.closest("section");
 
     let width = 0;
@@ -43,7 +42,7 @@ const PlexusCanvas: React.FC = () => {
     const ro = new ResizeObserver(updateMetrics);
     ro.observe(canvas);
 
-    // ── Scroll listener (passive, updates only number ref) ───────────────────
+    // ── Scroll listener (passive) ───────────────────────────────────────────
     const onScroll = () => {
       scrollRef.current = window.scrollY;
     };
@@ -78,13 +77,15 @@ const PlexusCanvas: React.FC = () => {
       layer: number;               // 0=back, 1=mid, 2=front (parallax depth)
     }
 
-    const NODE_COUNT = 55;
+    const isMobile = window.innerWidth < 768;
+    const NODE_COUNT = isMobile ? 28 : 50;
+
     const nodes: Node[] = Array.from({ length: NODE_COUNT }, () => ({
       x: Math.random(),
       y: Math.random(),
       vx: (Math.random() - 0.5) * 0.00012,
       vy: (Math.random() - 0.5) * 0.00012,
-      r: 1.5 + Math.random() * 2.8,
+      r: 1.4 + Math.random() * 2.4,
       pulse: 0,
       pulseSpeed: 0.008 + Math.random() * 0.018,
       pulsePhase: Math.random() * Math.PI * 2,
@@ -92,12 +93,12 @@ const PlexusCanvas: React.FC = () => {
       layer: Math.floor(Math.random() * 3),
     }));
 
-    const CONNECT_DIST = 0.22; // normalised distance threshold
-    const LAYER_PARALLAX = [0.06, 0.12, 0.20]; // parallax factor per layer
+    const CONNECT_DIST = isMobile ? 0.24 : 0.20;
+    const LAYER_PARALLAX = [0.06, 0.12, 0.20];
 
     // ── Draw ─────────────────────────────────────────────────────────────────
     const draw = (t: number) => {
-      if (!isVisibleRef.current) {
+      if (!isVisibleRef.current || document.hidden) {
         animRef.current = 0;
         return;
       }
@@ -110,8 +111,6 @@ const PlexusCanvas: React.FC = () => {
       }
 
       const T = t * 0.001;
-
-      // Pure arithmetic scroll progress without any getBoundingClientRect() calls
       const scrollProgress = (scrollRef.current - sectionTop) / sectionHeight;
 
       ctx.clearRect(0, 0, W, H);
@@ -135,50 +134,44 @@ const PlexusCanvas: React.FC = () => {
         return { px, py };
       };
 
-      // ── Draw connections ──────────────────────────────────────────────────
+      // ── Batched Connections ───────────────────────────────────────────────
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(255, 100, 0, 0.25)";
+      ctx.lineWidth = 0.6;
+
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];
         const { px: ax, py: ay } = worldPos(a);
         for (let j = i + 1; j < nodes.length; j++) {
           const b = nodes[j];
-          const { px: bx, py: by } = worldPos(b);
-
-          const dx = (a.x - b.x);
-          const dy = (a.y - b.y);
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist > CONNECT_DIST) continue;
 
-          const proximity = 1 - dist / CONNECT_DIST;
-          const avgBright = (a.brightness + b.brightness) * 0.5;
-          const alpha = proximity * proximity * avgBright * 0.65;
-
-          const g = Math.round(40 + proximity * 80);
-
-          ctx.beginPath();
+          const { px: bx, py: by } = worldPos(b);
           ctx.moveTo(ax, ay);
           ctx.lineTo(bx, by);
-          ctx.strokeStyle = `rgba(255,${g},0,${alpha})`;
-          ctx.lineWidth = 0.5 + proximity * 0.8;
-          ctx.stroke();
         }
       }
+      ctx.stroke();
 
       // ── Draw nodes ────────────────────────────────────────────────────────
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         const { px, py } = worldPos(n);
-        const glowR = n.r + 5 * n.pulse;
+        const glowR = n.r + 3.5 * n.pulse;
         const alpha = n.brightness;
 
         // Outer glow
         ctx.beginPath();
-        ctx.arc(px, py, glowR * 2.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,90,0,${alpha * 0.22 * n.pulse})`;
+        ctx.arc(px, py, glowR * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,90,0,${alpha * 0.16 * n.pulse})`;
         ctx.fill();
 
         // Core dot
         ctx.beginPath();
-        ctx.arc(px, py, glowR * 0.9, 0, Math.PI * 2);
+        ctx.arc(px, py, glowR * 0.85, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,200,120,${alpha * 0.9})`;
         ctx.fill();
       }
@@ -215,3 +208,4 @@ const PlexusCanvas: React.FC = () => {
 };
 
 export default PlexusCanvas;
+

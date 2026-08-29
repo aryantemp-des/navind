@@ -21,36 +21,48 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);
   const ref = React.useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const springConfig = { stiffness: 300, damping: 35, mass: 0.2 };
+  const springConfig = isMobile
+    ? { stiffness: 220, damping: 30, mass: 0.15 }
+    : { stiffness: 300, damping: 35, mass: 0.2 };
+
+  const translateXDist = isMobile ? 420 : 800;
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 800]),
+    useTransform(scrollYProgress, [0, 1], [0, translateXDist]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -800]),
+    useTransform(scrollYProgress, [0, 1], [0, -translateXDist]),
     springConfig
   );
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.25], [14, 0]),
+    useTransform(scrollYProgress, [0, 0.25], [isMobile ? 6 : 14, 0]),
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.3, 1]),
+    useTransform(scrollYProgress, [0, 0.2], [0.4, 1]),
     springConfig
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.25], [15, 0]),
+    useTransform(scrollYProgress, [0, 0.25], [isMobile ? 4 : 15, 0]),
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.25], [-500, 200]),
+    useTransform(scrollYProgress, [0, 0.25], [isMobile ? -200 : -500, isMobile ? 80 : 200]),
     springConfig
   );
 
@@ -58,7 +70,7 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
     <section
       id="pintro-showcase"
       ref={ref}
-      className="h-[260vh] md:h-[300vh] py-20 md:py-36 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-black/50 text-white"
+      className="h-[220vh] sm:h-[250vh] md:h-[300vh] py-16 sm:py-20 md:py-36 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-black/50 text-white"
     >
       {/* Scroll-driven Magnifying & Edge Fading Reversible Header */}
       <Header scrollYProgress={scrollYProgress} />
@@ -70,9 +82,9 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
           translateY,
           opacity,
         }}
-        className="w-full relative z-10"
+        className="w-full relative z-10 will-change-transform"
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-10 md:space-x-20 mb-10 md:mb-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20 mb-6 sm:mb-10 md:mb-20">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -82,7 +94,7 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
           ))}
         </motion.div>
 
-        <motion.div className="flex flex-row mb-10 md:mb-20 space-x-10 md:space-x-20">
+        <motion.div className="flex flex-row mb-6 sm:mb-10 md:mb-20 space-x-6 sm:space-x-10 md:space-x-20">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -92,7 +104,7 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
           ))}
         </motion.div>
 
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-10 md:space-x-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20">
           {thirdRow.map((product) => (
             <ProductCard
               product={product}

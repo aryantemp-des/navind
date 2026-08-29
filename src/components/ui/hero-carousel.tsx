@@ -333,7 +333,7 @@ export function HeroCarousel({
       >
         <motion.div
           className="flex items-start"
-          style={{ gap, x, cursor: dragging ? "grabbing" : "grab" }}
+          style={{ gap, x, cursor: dragging ? "grabbing" : "grab", touchAction: "pan-y" }}
           drag="x"
           dragMomentum={false}
           dragElastic={0.08}

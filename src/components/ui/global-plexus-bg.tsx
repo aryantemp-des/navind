@@ -6,25 +6,41 @@ import React, { useEffect, useRef } from "react";
  * network. Sits behind the entire site (z-index: 0).
  * Nodes use 3 parallax depth layers that shift as the user scrolls,
  * creating a genuine sense of depth throughout ALL sections.
+ * Optimized with batched draw calls and mobile-aware density.
  */
 const GlobalPlexusBg: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animRef   = useRef<number>(0);
+  const animRef = useRef<number>(0);
   const scrollRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    /* ── Resize ─────────────────────────────────────────────────────────── */
-    const resize = () => {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ── Resize with Address Bar Protection ─────────────────────────────── */
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
+
+    const resize = (force = false) => {
+      const curW = window.innerWidth;
+      const curH = window.innerHeight;
+      // On mobile, scrolling changes height slightly due to address bar without width change
+      if (!force && curW === lastWidth && Math.abs(curH - lastHeight) < 120) {
+        return;
+      }
+      lastWidth = curW;
+      lastHeight = curH;
+      canvas.width = curW;
+      canvas.height = curH;
     };
-    resize();
-    window.addEventListener("resize", resize);
+    resize(true);
+
+    const onResize = () => resize(false);
+    window.addEventListener("resize", onResize, { passive: true });
 
     /* ── Scroll ─────────────────────────────────────────────────────────── */
     const onScroll = () => { scrollRef.current = window.scrollY; };
@@ -41,32 +57,48 @@ const GlobalPlexusBg: React.FC = () => {
       layer: number;               // 0=back 1=mid 2=front
     }
 
-    /* ── Spawn nodes ────────────────────────────────────────────────────── */
-    const COUNT = 80;
+    /* ── Responsive Spawn Nodes ─────────────────────────────────────────── */
+    const isMobile = window.innerWidth < 768;
+    const COUNT = isMobile ? 36 : 72;
+
     const nodes: Node[] = Array.from({ length: COUNT }, () => ({
       x: Math.random(),
       y: Math.random(),
       vx: (Math.random() - 0.5) * 0.00010,
       vy: (Math.random() - 0.5) * 0.00010,
-      r: 1.8 + Math.random() * 3.2,
+      r: 1.6 + Math.random() * 2.8,
       pulsePhase: Math.random() * Math.PI * 2,
-      pulseSpeed: 0.6 + Math.random() * 1.2,
+      pulseSpeed: 0.6 + Math.random() * 1.0,
       brightness: 0.35 + Math.random() * 0.65,
       layer: Math.floor(Math.random() * 3),
     }));
 
     /* parallax multiplier per layer (how many px the layer shifts per px scrolled) */
-    const PARALLAX = [0.04, 0.10, 0.18];
-    const CONNECT  = 0.20; // normalised distance threshold
+    const PARALLAX = [0.04, 0.09, 0.16];
+    const CONNECT = isMobile ? 0.22 : 0.18;
 
     let smoothY = window.scrollY;
     let lastVelocity = 0;
+    let isTabVisible = !document.hidden;
+
+    const handleVisibility = () => {
+      isTabVisible = !document.hidden;
+      if (isTabVisible && !animRef.current) {
+        animRef.current = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
 
     /* ── Draw loop ──────────────────────────────────────────────────────── */
     const draw = (ts: number) => {
-      const T  = ts * 0.001;
-      const W  = canvas.width;
-      const H  = canvas.height;
+      if (!isTabVisible) {
+        animRef.current = 0;
+        return;
+      }
+
+      const T = ts * 0.001;
+      const W = canvas.width;
+      const H = canvas.height;
       const targetY = scrollRef.current;
 
       // Smooth liquid scroll interpolation (lerp)
@@ -78,11 +110,13 @@ const GlobalPlexusBg: React.FC = () => {
       ctx.clearRect(0, 0, W, H);
 
       /* Move nodes with subtle liquid velocity drift */
-      const velocityDrift = lastVelocity * 0.00015;
+      const velocityDrift = prefersReducedMotion ? 0 : lastVelocity * 0.00012;
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
-        n.x += n.vx;
-        n.y += n.vy + velocityDrift * (1 + n.layer * 0.5);
+        if (!prefersReducedMotion) {
+          n.x += n.vx;
+          n.y += n.vy + velocityDrift * (1 + n.layer * 0.5);
+        }
         if (n.x < 0) n.x = 1; if (n.x > 1) n.x = 0;
         if (n.y < 0) n.y = 1; if (n.y > 1) n.y = 0;
       }
@@ -93,48 +127,46 @@ const GlobalPlexusBg: React.FC = () => {
         py: (n.y * H - (smoothY * PARALLAX[n.layer])) % H + (smoothY * PARALLAX[n.layer] < 0 ? H : 0),
       });
 
-      /* ── Connections ─────────────────────────────────────────────────── */
+      /* ── Batched Connections (High Performance) ───────────────────────── */
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(255, 90, 0, 0.22)";
+      ctx.lineWidth = 0.6;
+
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];
         const { px: ax, py: ay } = pos(a);
         for (let j = i + 1; j < nodes.length; j++) {
           const b = nodes[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist > CONNECT) continue;
 
-          const prox = 1 - dist / CONNECT;
-          const alpha = prox * prox * ((a.brightness + b.brightness) * 0.5) * 0.7;
-          const green = Math.round(30 + prox * 90);
-
           const { px: bx, py: by } = pos(b);
-          ctx.beginPath();
           ctx.moveTo(ax, ay);
           ctx.lineTo(bx, by);
-          ctx.strokeStyle = `rgba(255,${green},0,${alpha})`;
-          ctx.lineWidth = 0.4 + prox * 0.9;
-          ctx.stroke();
         }
       }
+      ctx.stroke();
 
-      /* ── Nodes ───────────────────────────────────────────────────────── */
+      /* ── Batched Nodes Core & Halos ───────────────────────────────────── */
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         const { px, py } = pos(n);
-        const pulse = 0.5 + 0.5 * Math.sin(T * n.pulseSpeed + n.pulsePhase);
-        const glowR = n.r + 5 * pulse;
+        const pulse = prefersReducedMotion ? 0.5 : 0.5 + 0.5 * Math.sin(T * n.pulseSpeed + n.pulsePhase);
+        const glowR = n.r + 3.5 * pulse;
         const al = n.brightness;
 
         /* Outer halo */
         ctx.beginPath();
-        ctx.arc(px, py, glowR * 2.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,90,0,${al * 0.18 * pulse})`;
+        ctx.arc(px, py, glowR * 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,90,0,${al * 0.14 * pulse})`;
         ctx.fill();
 
         /* Core */
         ctx.beginPath();
         ctx.arc(px, py, glowR * 0.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,220,130,${al * 0.9})`;
+        ctx.fillStyle = `rgba(255,220,130,${al * 0.85})`;
         ctx.fill();
       }
 
@@ -145,8 +177,9 @@ const GlobalPlexusBg: React.FC = () => {
 
     return () => {
       if (animRef.current) cancelAnimationFrame(animRef.current);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
 
@@ -156,7 +189,8 @@ const GlobalPlexusBg: React.FC = () => {
       aria-hidden="true"
       style={{
         position: "fixed",
-        top: 0, left: 0,
+        top: 0,
+        left: 0,
         width: "100vw",
         height: "100vh",
         display: "block",
@@ -169,3 +203,4 @@ const GlobalPlexusBg: React.FC = () => {
 };
 
 export default GlobalPlexusBg;
+
