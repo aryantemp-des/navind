@@ -349,7 +349,7 @@ export const WaitlistHero: React.FC = () => {
           {/* Response Time Promise Reassurance */}
           <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mt-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
             <Clock className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span>We typically respond within 24 hours. No obligation inquiry.</span>
+            <span>We typically respond within 30 minutes. No obligation inquiry.</span>
           </div>
         </motion.div>
       </div>

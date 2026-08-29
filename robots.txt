@@ -1,0 +1,16 @@
+# ==============================================================================
+# Navya Tech Industry — Production Robots Configuration
+# https://www.navyatech.co.in/
+# ==============================================================================
+
+# Allow legitimate crawlers and indexing
+User-agent: *
+Allow: /
+
+# Keep non-public/internal paths out of search crawlers
+Disallow: /api/
+Disallow: /private/
+Disallow: /draft/
+
+# XML Sitemap
+Sitemap: https://www.navyatech.co.in/sitemap.xml
