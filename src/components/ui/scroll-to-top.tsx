@@ -46,7 +46,7 @@ export const ScrollToTop: React.FC = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
           transition={{ duration: 0.25 }}
-          className="fixed bottom-6 left-6 z-40"
+          className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-6 left-4 md:left-6 z-40"
         >
           <button
             onClick={scrollToTop}

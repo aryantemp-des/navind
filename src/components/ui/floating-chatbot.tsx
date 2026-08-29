@@ -81,8 +81,8 @@ const KNOWLEDGE_BASE: { keywords: string[]; response: string; options?: { label:
 
 export const FloatingChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [greetingIndex, setGreetingIndex] = useState(0);
-  const [showGreetingBubble, setShowGreetingBubble] = useState(true);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [showSecondMessage, setShowSecondMessage] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -119,13 +119,55 @@ export const FloatingChatbot: React.FC = () => {
     }
   }, [messages, isTyping, isOpen]);
 
-  // Rotate greeting bubbles when closed
+  // Two-message sequential auto-popup loop with 5s closed wait
   useEffect(() => {
-    if (isOpen) return;
-    const interval = setInterval(() => {
-      setGreetingIndex((prev) => (prev + 1) % GREETINGS.length);
-    }, 4500);
-    return () => clearInterval(interval);
+    if (isOpen) {
+      setIsPopupVisible(false);
+      setShowSecondMessage(false);
+      return;
+    }
+
+    let isMounted = true;
+    let timerId: ReturnType<typeof setTimeout> | null = null;
+
+    const startMessageSequence = () => {
+      if (!isMounted) return;
+
+      // Step 1: Message 1 appears
+      setIsPopupVisible(true);
+      setShowSecondMessage(false);
+
+      // Step 2: Short natural delay (1.8s) -> Message 2 appears
+      timerId = setTimeout(() => {
+        if (!isMounted) return;
+        setShowSecondMessage(true);
+
+        // Step 3: Both messages remain visible together (3.5s) -> popup closes
+        timerId = setTimeout(() => {
+          if (!isMounted) return;
+          setIsPopupVisible(false);
+          setShowSecondMessage(false);
+
+          // Step 4: Closed for 5 seconds -> restart loop
+          timerId = setTimeout(() => {
+            if (!isMounted) return;
+            startMessageSequence();
+          }, 5000);
+        }, 3500);
+      }, 1800);
+    };
+
+    // Initial natural delay before the first sequence triggers
+    timerId = setTimeout(() => {
+      startMessageSequence();
+    }, 1200);
+
+    return () => {
+      isMounted = false;
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
   }, [isOpen]);
 
   const handleAction = (action: string) => {
@@ -215,29 +257,48 @@ export const FloatingChatbot: React.FC = () => {
   return (
     <div className="fixed bottom-16 right-4 sm:bottom-6 sm:right-6 z-50 font-sans flex flex-col items-end">
       
-      {/* Dynamic Greeting Bubble (when closed) */}
+      {/* Dynamic 2-Message Sequential Greeting Bubble (when closed) */}
       <AnimatePresence>
-        {!isOpen && showGreetingBubble && (
+        {!isOpen && isPopupVisible && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+            initial={{ opacity: 0, y: 12, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="mb-3 max-w-[290px] sm:max-w-xs relative clay-card p-4 cursor-pointer group"
+            exit={{ opacity: 0, y: 8, scale: 0.94 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-3 max-w-[290px] sm:max-w-xs relative clay-card p-4 cursor-pointer group shadow-2xl border border-red-500/30"
             onClick={() => setIsOpen(true)}
           >
             <div className="flex items-start gap-2.5">
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping mt-1.5 flex-shrink-0" />
-              <div>
-                <p className="text-xs font-semibold text-white tracking-wide font-heading">Navya Assistant</p>
+              <div className="flex-1 space-y-1.5 overflow-hidden">
+                <p className="text-xs font-semibold text-white tracking-wide font-heading">
+                  Navya Assistant
+                </p>
+                
+                {/* Message 1 */}
                 <motion.p
-                  key={greetingIndex}
-                  initial={{ opacity: 0, y: 3 }}
+                  initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="text-xs text-zinc-300 font-light mt-0.5"
+                  className="text-xs text-zinc-200 font-light leading-snug"
                 >
-                  {GREETINGS[greetingIndex]}
+                  {GREETINGS[0]}
                 </motion.p>
+
+                {/* Message 2 */}
+                <AnimatePresence>
+                  {showSecondMessage && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, y: 4, height: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-xs text-red-200/95 font-light leading-snug pt-1 border-t border-white/10"
+                    >
+                      {GREETINGS[1]}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
