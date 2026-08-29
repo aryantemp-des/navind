@@ -1,0 +1,222 @@
+import React from "react";
+import { Quote } from "lucide-react";
+
+export interface Testimonial {
+  id: string;
+  quote: string;
+  authorName: string;
+  authorTitle: string;
+  avatarUrl: string;
+}
+
+export interface TestimonialRow {
+  id: string;
+  speed: string;
+  direction: "left" | "right";
+  testimonials: Testimonial[];
+}
+
+export interface TestimonialsData {
+  title: string;
+  subtitle: string;
+  rows: TestimonialRow[];
+}
+
+export const TestimonialCard: React.FC<Testimonial> = ({
+  quote,
+  authorName,
+  authorTitle,
+  avatarUrl,
+}) => {
+  return (
+    <div className="clay-card-interactive flex flex-col justify-between gap-4 p-6 sm:p-7 w-80 sm:w-96 flex-shrink-0 cursor-default">
+      <div className="space-y-3">
+        <div className="clay-icon-well w-8 h-8 flex items-center justify-center rounded-xl">
+          <Quote className="w-4 h-4 text-red-400" />
+        </div>
+        <p className="text-zinc-200 text-sm sm:text-base font-light leading-relaxed">
+          "{quote}"
+        </p>
+      </div>
+
+      <div className="flex items-center gap-3.5 mt-4 pt-4 border-t border-white/10">
+        <img
+          src={avatarUrl}
+          alt={authorName}
+          className="w-11 h-11 rounded-full bg-zinc-800 object-cover border border-white/20 shadow-[0_4px_10px_rgba(0,0,0,0.6)]"
+          loading="lazy"
+        />
+        <div>
+          <h4 className="text-sm font-bold text-white tracking-tight font-heading">
+            {authorName}
+          </h4>
+          <p className="text-xs text-zinc-400 font-mono">{authorTitle}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const HorizontalScroller: React.FC<{
+  children: React.ReactNode;
+  speed?: string;
+  direction?: "left" | "right";
+}> = ({ children, speed = "40s", direction = "left" }) => {
+  const animationClass =
+    direction === "right" ? "animate-scroll-horizontal-reverse" : "animate-scroll-horizontal";
+
+  return (
+    <div className="w-full overflow-hidden group relative mask-fade py-2">
+      <div
+        className={`flex ${animationClass}`}
+        style={{ "--scroll-duration": speed } as React.CSSProperties}
+      >
+        <div className="flex items-stretch justify-center gap-6 px-3">{children}</div>
+        <div className="flex items-stretch justify-center gap-6 px-3" aria-hidden="true">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const defaultTestimonialsData: TestimonialsData = {
+  title: "Don't just take our word for it",
+  subtitle:
+    "See what our users are saying about how our app has transformed their daily routines and helped them build lasting habits.",
+  rows: [
+    {
+      id: "row1",
+      speed: "45s",
+      direction: "left",
+      testimonials: [
+        {
+          id: "t1",
+          quote: "This app completely changed how I approach my goals. The visual feedback is incredibly motivating!",
+          authorName: "Sarah K.",
+          authorTitle: "Productivity Blogger",
+          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+        },
+        {
+          id: "t2",
+          quote: "I've tried countless habit trackers, and this is the first one that actually stuck. It's simple, beautiful, and effective.",
+          authorName: "Michael B.",
+          authorTitle: "Software Engineer",
+          avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+        },
+        {
+          id: "t3",
+          quote: "The team accountability features are a game-changer. Our entire group is more motivated and connected.",
+          authorName: "Emily W.",
+          authorTitle: "Startup Founder",
+          avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
+        },
+      ],
+    },
+    {
+      id: "row2",
+      speed: "35s",
+      direction: "right",
+      testimonials: [
+        {
+          id: "t4",
+          quote: "The design is just stunning. It feels less like a chore and more like a game. I'm hooked!",
+          authorName: "David L.",
+          authorTitle: "UX Designer",
+          avatarUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+        },
+        {
+          id: "t5",
+          quote: "Simple, no clutter, does exactly what it promises. The reminders are gentle but effective.",
+          authorName: "Jessica P.",
+          authorTitle: "Student",
+          avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+        },
+        {
+          id: "t6",
+          quote: "Seeing my progress in the analytics section is the best part of my week. It shows my work is paying off.",
+          authorName: "Alex C.",
+          authorTitle: "Data Analyst",
+          avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
+        },
+      ],
+    },
+    {
+      id: "row3",
+      speed: "50s",
+      direction: "left",
+      testimonials: [
+        {
+          id: "t7",
+          quote: "I love that my data is private. In a world where everything is tracked, this feels safe and personal.",
+          authorName: "Kenji T.",
+          authorTitle: "Privacy Advocate",
+          avatarUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop",
+        },
+        {
+          id: "t8",
+          quote: "Finally, a habit app that isn't bloated with features I don't need. It's focused and powerful.",
+          authorName: "Maria G.",
+          authorTitle: "Writer",
+          avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+        },
+        {
+          id: "t9",
+          quote: "The community support is surprisingly wholesome. It's a great place for accountability.",
+          authorName: "Chris R.",
+          authorTitle: "Fitness Coach",
+          avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
+        },
+      ],
+    },
+  ],
+};
+
+export default function TestimonialsSection({
+  data = defaultTestimonialsData,
+}: {
+  data?: TestimonialsData;
+}) {
+  return (
+    <section
+      id="testimonials"
+      className="testimonials-section relative flex flex-col items-center gap-8 md:gap-10 py-16 md:py-24 w-full bg-black/50 border-t border-zinc-900 overflow-hidden"
+    >
+      <div className="flex flex-col items-center gap-4 text-center z-10 max-w-2xl px-4">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight font-heading">
+          {data.title}
+        </h2>
+        <p className="text-base sm:text-lg text-zinc-400 font-light leading-relaxed">
+          {data.subtitle}
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-6 z-10 w-full max-w-7xl px-2">
+        {data.rows.map((row) => (
+          <HorizontalScroller key={row.id} speed={row.speed} direction={row.direction}>
+            {row.testimonials.map((t) => (
+              <TestimonialCard
+                key={t.id}
+                id={t.id}
+                quote={t.quote}
+                authorName={t.authorName}
+                authorTitle={t.authorTitle}
+                avatarUrl={t.avatarUrl}
+              />
+            ))}
+          </HorizontalScroller>
+        ))}
+      </div>
+
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(239,68,68,0.12) 0%, transparent 60%)",
+          zIndex: 0,
+        }}
+      />
+    </section>
+  );
+}
