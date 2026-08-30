@@ -84,10 +84,15 @@ export const Floating = ({
       const dx = newTargetX - data.currentPosition.x;
       const dy = newTargetY - data.currentPosition.y;
 
+      // If delta is negligible, skip style mutation to prevent continuous GPU work
+      if (Math.abs(dx) < 0.05 && Math.abs(dy) < 0.05) {
+        return;
+      }
+
       data.currentPosition.x += dx * easingFactor;
       data.currentPosition.y += dy * easingFactor;
 
-      data.element.style.transform = `translate3d(${data.currentPosition.x}px, ${data.currentPosition.y}px, 0)`;
+      data.element.style.transform = `translate3d(${data.currentPosition.x.toFixed(2)}px, ${data.currentPosition.y.toFixed(2)}px, 0)`;
     });
   });
 

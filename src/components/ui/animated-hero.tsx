@@ -35,13 +35,13 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
   const animFrameRef = useRef<number | null>(null);
   const isVisibleRef = useRef<boolean>(true);
 
-  // Responsive particle density: 9 rows on mobile, 12 on desktop
+  // Responsive particle density: 6 rows on mobile (36 particles), 12 on desktop (144 particles)
   const [activeRows, setActiveRows] = useState<number>(particleCount);
 
   useEffect(() => {
     const updateDensity = () => {
       const isMobile = window.innerWidth < 640;
-      setActiveRows(isMobile ? Math.min(9, particleCount) : particleCount);
+      setActiveRows(isMobile ? Math.min(6, particleCount) : particleCount);
     };
     updateDensity();
     window.addEventListener('resize', updateDensity, { passive: true });
@@ -107,6 +107,8 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
   useEffect(() => {
     let lastRenderTime = 0;
     let isRunning = false;
+    const isMobile = window.innerWidth < 640;
+    const minFrameInterval = isMobile ? 24 : 16;
 
     const animate = (timestamp: number) => {
       if (!isVisibleRef.current || document.hidden) {
@@ -114,7 +116,7 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
         return;
       }
 
-      if (timestamp - lastRenderTime >= 16) {
+      if (timestamp - lastRenderTime >= minFrameInterval) {
         lastRenderTime = timestamp;
         const currentTime = (Date.now() - startTimeRef.current) * 0.001;
 

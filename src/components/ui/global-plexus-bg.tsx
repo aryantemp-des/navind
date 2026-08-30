@@ -59,7 +59,7 @@ const GlobalPlexusBg: React.FC = () => {
 
     /* ── Responsive Spawn Nodes ─────────────────────────────────────────── */
     const isMobile = window.innerWidth < 768;
-    const COUNT = isMobile ? 36 : 72;
+    const COUNT = isMobile ? 18 : 64;
 
     const nodes: Node[] = Array.from({ length: COUNT }, () => ({
       x: Math.random(),
@@ -75,11 +75,12 @@ const GlobalPlexusBg: React.FC = () => {
 
     /* parallax multiplier per layer (how many px the layer shifts per px scrolled) */
     const PARALLAX = [0.04, 0.09, 0.16];
-    const CONNECT = isMobile ? 0.22 : 0.18;
+    const CONNECT = isMobile ? 0.20 : 0.18;
 
     let smoothY = window.scrollY;
     let lastVelocity = 0;
     let isTabVisible = !document.hidden;
+    let lastDrawTime = 0;
 
     const handleVisibility = () => {
       isTabVisible = !document.hidden;
@@ -95,6 +96,13 @@ const GlobalPlexusBg: React.FC = () => {
         animRef.current = 0;
         return;
       }
+
+      // On mobile, throttle canvas updates to preserve battery and CPU budget
+      if (isMobile && ts - lastDrawTime < 24) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastDrawTime = ts;
 
       const T = ts * 0.001;
       const W = canvas.width;

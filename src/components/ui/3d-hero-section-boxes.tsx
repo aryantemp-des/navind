@@ -8,9 +8,17 @@ function HeroSplineBackground() {
   const [splineLoaded, setSplineLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop, { passive: true });
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current || !isDesktop) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
@@ -19,7 +27,12 @@ function HeroSplineBackground() {
     );
     observer.observe(containerRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [isDesktop]);
+
+  // On mobile screens, skip loading the heavy 40MB Spline 3D runtime and remote scene
+  if (!isDesktop) {
+    return null;
+  }
 
   return (
     <div

@@ -38,20 +38,11 @@ export const useMousePositionRef = (
       updatePosition(ev.clientX, ev.clientY);
     };
 
-    const handleTouchMove = (ev: TouchEvent) => {
-      if (ev.touches.length > 0) {
-        const touch = ev.touches[0];
-        updatePosition(touch.clientX, touch.clientY);
-      }
-    };
-
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     return () => {
       window.removeEventListener("resize", updateRect);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [containerRef]);
 

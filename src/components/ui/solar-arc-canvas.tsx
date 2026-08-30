@@ -50,20 +50,31 @@ const SolarArcCanvas: React.FC = () => {
       phase: number;
     }
 
-    const streaks: Streak[] = Array.from({ length: 110 }, () => ({
+    const isMobile = window.innerWidth < 768;
+    const STREAK_COUNT = isMobile ? 38 : 95;
+
+    const streaks: Streak[] = Array.from({ length: STREAK_COUNT }, () => ({
       angle: Math.random() * Math.PI * 0.55 + Math.PI * 0.05,
-      len: 40 + Math.random() * 220,
+      len: 40 + Math.random() * (isMobile ? 140 : 220),
       width: 0.5 + Math.random() * 1.5,
       alpha: 0.18 + Math.random() * 0.52,
       speed: 0.00012 + Math.random() * 0.0003,
       phase: Math.random() * Math.PI * 2,
     }));
 
+    let lastDrawTime = 0;
+
     const draw = (t: number) => {
-      if (!isVisibleRef.current) {
+      if (!isVisibleRef.current || document.hidden) {
         animRef.current = 0;
         return;
       }
+
+      if (isMobile && t - lastDrawTime < 24) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastDrawTime = t;
 
       const T = t * 0.001;
       const W = width || canvas.width;

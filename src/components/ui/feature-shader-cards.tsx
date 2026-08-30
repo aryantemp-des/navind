@@ -117,6 +117,14 @@ const ShaderCard: React.FC<{
 }> = ({ feature, index, shaderConfig }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop, { passive: true });
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -124,7 +132,7 @@ const ShaderCard: React.FC<{
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { rootMargin: "200px 0px", threshold: 0.01 }
+      { rootMargin: "150px 0px", threshold: 0.01 }
     );
     observer.observe(cardRef.current);
     return () => observer.disconnect();
@@ -136,29 +144,38 @@ const ShaderCard: React.FC<{
       className="clay-card-interactive relative h-80 rounded-3xl overflow-hidden p-2 group cursor-pointer"
       style={{ willChange: "transform" }}
     >
-      {/* Background Warp Shader (Persistently mounted, speed throttled when offscreen) */}
+      {/* Background: WebGL Warp Shader on Desktop, GPU CSS Gradient Mesh on Mobile */}
       <div
         className="absolute inset-2 rounded-2xl overflow-hidden pointer-events-none transition-opacity duration-300"
         style={{
           visibility: isVisible ? "visible" : "hidden",
           opacity: isVisible ? 0.85 : 0,
-          willChange: "transform, opacity",
         }}
       >
-        <Warp
-          style={{ height: "100%", width: "100%" }}
-          proportion={shaderConfig.proportion}
-          softness={shaderConfig.softness}
-          distortion={shaderConfig.distortion}
-          swirl={shaderConfig.swirl}
-          swirlIterations={shaderConfig.swirlIterations}
-          shape={shaderConfig.shape}
-          shapeScale={shaderConfig.shapeScale}
-          scale={1}
-          rotation={0}
-          speed={isVisible ? 0.4 : 0}
-          colors={shaderConfig.colors}
-        />
+        {isDesktop ? (
+          <Warp
+            style={{ height: "100%", width: "100%" }}
+            proportion={shaderConfig.proportion}
+            softness={shaderConfig.softness}
+            distortion={shaderConfig.distortion}
+            swirl={shaderConfig.swirl}
+            swirlIterations={shaderConfig.swirlIterations}
+            shape={shaderConfig.shape}
+            shapeScale={shaderConfig.shapeScale}
+            scale={1}
+            rotation={0}
+            speed={isVisible ? 0.35 : 0}
+            colors={shaderConfig.colors}
+          />
+        ) : (
+          <div
+            className="w-full h-full"
+            style={{
+              background: `radial-gradient(circle at ${30 + (index % 3) * 20}% ${40 + (index % 2) * 20}%, ${shaderConfig.colors[1]} 0%, ${shaderConfig.colors[0]} 50%, rgba(10, 5, 5, 0.95) 100%)`,
+              opacity: 0.65,
+            }}
+          />
+        )}
       </div>
 
       {/* Dark Masked Card Content */}

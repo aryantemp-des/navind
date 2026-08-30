@@ -19,12 +19,36 @@ export const SmoothScrollProvider = () => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    // Detect if device is a touch-first mobile device
-    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    // Detect touch device or mobile screen
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0 || window.innerWidth < 768;
 
-    // Initialize Lenis with liquid inertia physics
+    // On mobile touch devices, use native hardware-accelerated momentum scrolling (120Hz)
+    // and skip JS-driven touch hijacking to eliminate scroll stutter and input lag
+    if (isTouchDevice) {
+      // Global smooth anchor handler using native smooth scroll
+      const handleAnchorClick = (e: MouseEvent) => {
+        const target = (e.target as HTMLElement)?.closest("a, button");
+        if (!target) return;
+
+        const href = target.getAttribute("href");
+        if (href && href.startsWith("#") && href.length > 1) {
+          const element = document.querySelector(href);
+          if (element) {
+            e.preventDefault();
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      };
+
+      document.addEventListener("click", handleAnchorClick, { passive: false });
+      return () => {
+        document.removeEventListener("click", handleAnchorClick);
+      };
+    }
+
+    // Initialize Lenis with liquid inertia physics for desktop mouse-wheel
     const lenis = new Lenis({
-      duration: isTouchDevice ? 1.0 : 1.25,
+      duration: 1.15,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
@@ -69,7 +93,7 @@ export const SmoothScrollProvider = () => {
         const element = document.querySelector(href);
         if (element) {
           e.preventDefault();
-          lenis.scrollTo(element as HTMLElement, { offset: -70, duration: 1.2 });
+          lenis.scrollTo(element as HTMLElement, { offset: -70, duration: 1.1 });
         }
       }
     };

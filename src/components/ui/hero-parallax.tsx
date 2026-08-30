@@ -35,56 +35,56 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
     offset: ["start start", "end start"],
   });
 
-  const springConfig = isMobile
-    ? { stiffness: 220, damping: 30, mass: 0.15 }
-    : { stiffness: 300, damping: 35, mass: 0.2 };
+  const translateXDist = isMobile ? 380 : 800;
 
-  const translateXDist = isMobile ? 420 : 800;
+  // Direct transform for mobile to avoid spring lag, spring physics for desktop
+  const rawTranslateX = useTransform(scrollYProgress, [0, 1], [0, translateXDist]);
+  const rawTranslateXReverse = useTransform(scrollYProgress, [0, 1], [0, -translateXDist]);
+  const rawOpacity = useTransform(scrollYProgress, [0, 0.2], [0.4, 1]);
 
-  const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, translateXDist]),
-    springConfig
-  );
-  const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -translateXDist]),
-    springConfig
-  );
+  const desktopSpring = { stiffness: 300, damping: 35, mass: 0.2 };
+
+  const springTranslateX = useSpring(rawTranslateX, desktopSpring);
+  const springTranslateXReverse = useSpring(rawTranslateXReverse, desktopSpring);
+  const springOpacity = useSpring(rawOpacity, desktopSpring);
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.25], [isMobile ? 6 : 14, 0]),
-    springConfig
-  );
-  const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.4, 1]),
-    springConfig
+    useTransform(scrollYProgress, [0, 0.25], [14, 0]),
+    desktopSpring
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.25], [isMobile ? 4 : 15, 0]),
-    springConfig
+    useTransform(scrollYProgress, [0, 0.25], [15, 0]),
+    desktopSpring
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.25], [isMobile ? -200 : -500, isMobile ? 80 : 200]),
-    springConfig
+    useTransform(scrollYProgress, [0, 0.25], [-500, 200]),
+    desktopSpring
   );
+
+  const translateX = isMobile ? rawTranslateX : springTranslateX;
+  const translateXReverse = isMobile ? rawTranslateXReverse : springTranslateXReverse;
+  const opacity = isMobile ? rawOpacity : springOpacity;
 
   return (
     <section
       id="pintro-showcase"
       ref={ref}
-      className="h-[220vh] sm:h-[250vh] md:h-[300vh] py-16 sm:py-20 md:py-36 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-black/50 text-white"
+      className={`h-[180vh] sm:h-[220vh] md:h-[300vh] py-12 sm:py-16 md:py-36 overflow-hidden antialiased relative flex flex-col self-auto ${
+        isMobile ? "" : "[perspective:1000px] [transform-style:preserve-3d]"
+      } bg-black/50 text-white`}
     >
       {/* Scroll-driven Magnifying & Edge Fading Reversible Header */}
-      <Header scrollYProgress={scrollYProgress} />
+      <Header scrollYProgress={scrollYProgress} isMobile={isMobile} />
 
       <motion.div
         style={{
-          rotateX,
-          rotateZ,
-          translateY,
+          rotateX: isMobile ? 0 : rotateX,
+          rotateZ: isMobile ? 0 : rotateZ,
+          translateY: isMobile ? 0 : translateY,
           opacity,
         }}
         className="w-full relative z-10 will-change-transform"
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20 mb-6 sm:mb-10 md:mb-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-4 sm:space-x-8 md:space-x-20 mb-4 sm:mb-8 md:mb-20">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -94,7 +94,7 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
           ))}
         </motion.div>
 
-        <motion.div className="flex flex-row mb-6 sm:mb-10 md:mb-20 space-x-6 sm:space-x-10 md:space-x-20">
+        <motion.div className="flex flex-row mb-4 sm:mb-8 md:mb-20 space-x-4 sm:space-x-8 md:space-x-20">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -104,7 +104,7 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
           ))}
         </motion.div>
 
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-6 sm:space-x-10 md:space-x-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-4 sm:space-x-8 md:space-x-20">
           {thirdRow.map((product) => (
             <ProductCard
               product={product}
@@ -118,20 +118,16 @@ export const HeroParallax: React.FC<{ products?: ProductItem[] }> = ({
   );
 };
 
-export const Header: React.FC<{ scrollYProgress: MotionValue<number> }> = ({
+export const Header: React.FC<{ scrollYProgress: MotionValue<number>; isMobile?: boolean }> = ({
   scrollYProgress,
+  isMobile = false,
 }) => {
-  // Reversible scroll-driven transformations
-  // Progress 0.0 -> Normal scale(1), full opacity
-  // Progress 0.15 -> Magnified scale(1.2)
-  // Progress 0.32 -> Expanded to visual borders scale(1.4), progressively fades out
-  // Scrolling upward reverses the exact values seamlessly
-  const scale = useTransform(scrollYProgress, [0, 0.16, 0.34], [1, 1.18, 1.42]);
+  const scale = useTransform(scrollYProgress, [0, 0.16, 0.34], [1, isMobile ? 1.05 : 1.18, isMobile ? 1.12 : 1.42]);
   const opacity = useTransform(scrollYProgress, [0, 0.12, 0.25, 0.36], [1, 1, 0.6, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.36], [0, -90]);
+  const y = useTransform(scrollYProgress, [0, 0.36], [0, isMobile ? -40 : -90]);
 
   return (
-    <div className="max-w-7xl relative mx-auto py-16 md:py-28 px-6 w-full left-0 top-0 z-20 pointer-events-none">
+    <div className="max-w-7xl relative mx-auto py-12 md:py-28 px-4 sm:px-6 w-full left-0 top-0 z-20 pointer-events-none">
       <motion.div
         style={{
           scale,

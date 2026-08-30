@@ -716,3 +716,40 @@
   animation: callNowAuraPulse 3.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   will-change: opacity, transform;
 }
+
+/* ==========================================================================
+   Mobile Performance & Layout Rendering Containment
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Defer offscreen section layout and paint until near viewport */
+  #features-cards,
+  #pricing,
+  #ai-section,
+  #testimonials,
+  #floating-preview,
+  #final-project,
+  footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
+
+  /* Optimize touch responsiveness */
+  * {
+    touch-action: manipulation;
+  }
+
+  /* Lightweight backdrop blurs on mobile */
+  .clay-header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* GPU accelerated transform layers */
+  .clay-card,
+  .clay-card-interactive,
+  .clay-surface {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
