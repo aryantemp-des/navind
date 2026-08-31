@@ -3,14 +3,13 @@
 # https://www.navyatech.co.in/
 # ==============================================================================
 
-# Allow legitimate crawlers and indexing
 User-agent: *
 Allow: /
 
-# Keep non-public/internal paths out of search crawlers
+# Disallow non-public internal or development assets
 Disallow: /api/
 Disallow: /private/
 Disallow: /draft/
 
-# XML Sitemap
+# Production XML Sitemap Reference
 Sitemap: https://www.navyatech.co.in/sitemap.xml
