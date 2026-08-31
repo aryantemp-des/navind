@@ -74,6 +74,8 @@ export const Floating = ({
 
   useAnimationFrame(() => {
     if (!containerRef.current || !isVisibleRef.current) return;
+    // Skip floating frame computation on mobile touch screens
+    if (window.innerWidth < 768 || "ontouchstart" in window) return;
 
     elementsMap.current.forEach((data) => {
       const strength = (data.depth * sensitivity) / 20;

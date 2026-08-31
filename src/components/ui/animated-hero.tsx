@@ -103,12 +103,13 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
     }
   }, [activeRows, totalParticles]);
 
-  // High-performance animation loop (Zero CPU drain when off-screen)
+  // High-performance animation loop (Zero CPU drain on mobile/off-screen)
   useEffect(() => {
     let lastRenderTime = 0;
     let isRunning = false;
-    const isMobile = window.innerWidth < 640;
-    const minFrameInterval = isMobile ? 24 : 16;
+    const isMobile = window.innerWidth < 768 || "ontouchstart" in window;
+    if (isMobile) return; // Static grid on mobile, zero CPU drain
+    const minFrameInterval = 16;
 
     const animate = (timestamp: number) => {
       if (!isVisibleRef.current || document.hidden) {

@@ -177,6 +177,17 @@ export default function TestimonialsSection({
 }: {
   data?: TestimonialsData;
 }) {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const displayedRows = isMobile ? data.rows.slice(0, 2) : data.rows;
+
   return (
     <section
       id="testimonials"
@@ -192,7 +203,7 @@ export default function TestimonialsSection({
       </div>
 
       <div className="flex flex-col gap-6 z-10 w-full max-w-7xl px-2">
-        {data.rows.map((row) => (
+        {displayedRows.map((row) => (
           <HorizontalScroller key={row.id} speed={row.speed} direction={row.direction}>
             {row.testimonials.map((t) => (
               <TestimonialCard

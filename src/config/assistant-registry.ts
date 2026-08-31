@@ -3,7 +3,7 @@ export interface AssistantPageItem {
   title: string;
   route: string;
   description: string;
-  category: "commercial" | "services" | "industries" | "pricing" | "conversion" | "resources" | "blog";
+  category: "commercial" | "services" | "industries" | "pricing" | "conversion" | "resources" | "blog" | "geo";
   categoryLabel: string;
   keywords: string[];
   intentPhrases: string[];
@@ -900,6 +900,96 @@ export const ASSISTANT_PAGE_REGISTRY: AssistantPageItem[] = [
     intentPhrases: ["website seo checklist", "seo checklist for new website", "pre launch seo checklist"],
     relatedRoutes: ["/services/seo", "/blog/technical-seo-for-websites"],
   },
+
+  // --- STRATEGIC GEO HUBS ---
+  {
+    id: "geo-india",
+    title: "Website Development in India",
+    route: "/website-development/india",
+    description: "Enterprise web development across India. Fixed ₹79,000 + GST packages, local UPI/Razorpay, and full GST billing.",
+    category: "geo",
+    categoryLabel: "INDIA HUB",
+    keywords: ["website development india", "web design company india", "custom website development india", "web developer in india", "website cost india"],
+    intentPhrases: ["website development in india", "website development company in india", "web design india", "hire web developer in india", "website price in india"],
+    relatedRoutes: ["/pricing/india", "/website-development/mumbai", "/website-development/bangalore", "/get-started"],
+  },
+  {
+    id: "geo-mumbai",
+    title: "Website Development in Mumbai",
+    route: "/website-development/mumbai",
+    description: "High-trust website development for Mumbai financial practices, corporate headquarters, media agencies, and scaleups.",
+    category: "geo",
+    categoryLabel: "MUMBAI HUB",
+    keywords: ["website development mumbai", "web design mumbai", "custom web development mumbai", "business website mumbai", "bkc web development"],
+    intentPhrases: ["website development in mumbai", "website development company in mumbai", "web design in mumbai", "website designer mumbai", "corporate website mumbai"],
+    relatedRoutes: ["/website-development/india", "/pricing/india", "/business-website", "/get-started"],
+  },
+  {
+    id: "geo-bangalore",
+    title: "Website Development in Bangalore",
+    route: "/website-development/bangalore",
+    description: "Engineering-grade website development for Bangalore AI startups, SaaS scaleups, and tech companies. 7-day launch sprint.",
+    category: "geo",
+    categoryLabel: "BANGALORE HUB",
+    keywords: ["website development bangalore", "web design bangalore", "startup website bangalore", "saas web development bangalore", "bengaluru web development"],
+    intentPhrases: ["website development in bangalore", "website development company in bangalore", "web design in bangalore", "startup website development bangalore", "web development bengaluru"],
+    relatedRoutes: ["/website-development/india", "/industries/startups", "/services/3d-website-development", "/get-started"],
+  },
+  {
+    id: "geo-delhi-ncr",
+    title: "Website Development in Delhi NCR",
+    route: "/website-development/delhi-ncr",
+    description: "High-converting corporate and industrial web systems across Delhi, Noida, and Gurugram (Gurgaon). Lead generation & RFQ.",
+    category: "geo",
+    categoryLabel: "DELHI NCR HUB",
+    keywords: ["website development delhi", "web design noida", "web development gurgaon", "business website delhi ncr", "gurugram web development"],
+    intentPhrases: ["website development in delhi", "website development in noida", "website development in gurgaon", "web development in delhi ncr", "website company delhi"],
+    relatedRoutes: ["/website-development/india", "/pricing/india", "/services/business-website-development", "/get-started"],
+  },
+  {
+    id: "geo-usa",
+    title: "Website Development in USA",
+    route: "/website-development/usa",
+    description: "Nationwide US commercial website development at a fixed $1,000 USD. Sub-second US edge delivery and Stripe/ACH support.",
+    category: "geo",
+    categoryLabel: "USA HUB",
+    keywords: ["website development usa", "web design company usa", "custom website development usa", "american web development company", "website cost usa"],
+    intentPhrases: ["website development in usa", "website development company in the usa", "web design in usa", "hire web developer in usa", "website price in usa"],
+    relatedRoutes: ["/pricing/usa", "/website-development/new-york", "/website-development/san-francisco", "/website-development/austin", "/get-started"],
+  },
+  {
+    id: "geo-new-york",
+    title: "Website Development in New York",
+    route: "/website-development/new-york",
+    description: "High-trust corporate and financial web development for New York City advisory firms, media companies, and startups.",
+    category: "geo",
+    categoryLabel: "NYC HUB",
+    keywords: ["website development new york", "web design nyc", "manhattan web development", "corporate website new york", "high trust web design nyc"],
+    intentPhrases: ["website development in new york", "website development in nyc", "web design in new york", "manhattan web design company", "nyc website development"],
+    relatedRoutes: ["/website-development/usa", "/pricing/usa", "/professional-website", "/get-started"],
+  },
+  {
+    id: "geo-san-francisco",
+    title: "Website Development in San Francisco",
+    route: "/website-development/san-francisco",
+    description: "Next-gen web development for San Francisco AI startups, Silicon Valley scaleups, and tech innovators. 3D WebGL & 60fps.",
+    category: "geo",
+    categoryLabel: "SF BAY AREA HUB",
+    keywords: ["website development san francisco", "web design bay area", "ai startup website sf", "silicon valley web developer", "3d web design san francisco"],
+    intentPhrases: ["website development in san francisco", "web development in bay area", "silicon valley website development", "ai startup web design san francisco"],
+    relatedRoutes: ["/website-development/usa", "/industries/startups", "/services/3d-website-development", "/get-started"],
+  },
+  {
+    id: "geo-austin",
+    title: "Website Development in Austin",
+    route: "/website-development/austin",
+    description: "High-performance web development for Austin Silicon Hills startups, technology scaleups, and Texas enterprises. Fixed $1,000.",
+    category: "geo",
+    categoryLabel: "AUSTIN HUB",
+    keywords: ["website development austin", "web design austin texas", "startup website austin", "silicon hills web developer", "business website austin tx"],
+    intentPhrases: ["website development in austin", "website development in austin tx", "web design in austin", "austin web development company"],
+    relatedRoutes: ["/website-development/usa", "/pricing/usa", "/business-website", "/get-started"],
+  },
 ];
 
 export interface AssistantDiscoveryResult {
@@ -1020,12 +1110,30 @@ export function queryAssistantNavigation(rawQuery: string): AssistantDiscoveryRe
       score += 35;
     }
 
-    // Specific Country Boosters
-    if ((query.includes("india") || query.includes("inr") || query.includes("₹") || query.includes("rupee")) && page.route === "/pricing/india") {
+    // Specific Country & City Boosters
+    if ((query.includes("india") || query.includes("inr") || query.includes("₹") || query.includes("rupee")) && (page.route === "/pricing/india" || page.route === "/website-development/india")) {
       score += 45;
     }
-    if ((query.includes("usa") || query.includes("usd") || query.includes("$") || query.includes("dollar") || query.includes("america")) && page.route === "/pricing/usa") {
+    if ((query.includes("usa") || query.includes("usd") || query.includes("$") || query.includes("dollar") || query.includes("america")) && (page.route === "/pricing/usa" || page.route === "/website-development/usa")) {
       score += 45;
+    }
+    if (query.includes("mumbai") && page.route === "/website-development/mumbai") {
+      score += 60;
+    }
+    if ((query.includes("bangalore") || query.includes("bengaluru")) && page.route === "/website-development/bangalore") {
+      score += 60;
+    }
+    if ((query.includes("delhi") || query.includes("noida") || query.includes("gurgaon") || query.includes("gurugram")) && page.route === "/website-development/delhi-ncr") {
+      score += 60;
+    }
+    if ((query.includes("new york") || query.includes("nyc") || query.includes("manhattan")) && page.route === "/website-development/new-york") {
+      score += 60;
+    }
+    if ((query.includes("san francisco") || query.includes("bay area") || query.includes("silicon valley")) && page.route === "/website-development/san-francisco") {
+      score += 60;
+    }
+    if (query.includes("austin") && page.route === "/website-development/austin") {
+      score += 60;
     }
 
     if (score > 0) {

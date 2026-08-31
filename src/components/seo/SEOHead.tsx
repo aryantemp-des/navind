@@ -7,6 +7,7 @@ export interface SEOProps {
   keywords?: string[];
   ogImage?: string;
   structuredData?: Record<string, any>;
+  breadcrumbs?: { label: string; href?: string }[];
 }
 
 export const SEOHead: React.FC<SEOProps> = ({
@@ -16,6 +17,7 @@ export const SEOHead: React.FC<SEOProps> = ({
   keywords = [],
   ogImage = "/logoimg.png",
   structuredData,
+  breadcrumbs,
 }) => {
   useEffect(() => {
     // 1. Update Title
@@ -43,51 +45,97 @@ export const SEOHead: React.FC<SEOProps> = ({
     }
     linkCanonical.setAttribute("href", canonicalUrl);
 
-    // 4. Update OpenGraph Tags
-    const updateOG = (property: string, content: string) => {
-      let ogTag = document.querySelector(`meta[property="${property}"]`);
-      if (!ogTag) {
-        ogTag = document.createElement("meta");
-        ogTag.setAttribute("property", property);
-        document.head.appendChild(ogTag);
+    // Helper for Meta Tags
+    const setMetaTag = (attrName: "name" | "property", attrValue: string, content: string) => {
+      let tag = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute(attrName, attrValue);
+        document.head.appendChild(tag);
       }
-      ogTag.setAttribute("content", content);
+      tag.setAttribute("content", content);
     };
 
-    updateOG("og:title", fullTitle);
-    updateOG("og:description", description);
-    updateOG("og:url", canonicalUrl);
-    updateOG("og:type", "website");
-    updateOG(
-      "og:image",
-      ogImage.startsWith("http") ? ogImage : `https://www.navyatech.co.in${ogImage}`
-    );
+    // 4. Update OpenGraph Tags
+    const fullImageUrl = ogImage.startsWith("http") ? ogImage : `https://www.navyatech.co.in${ogImage}`;
+    setMetaTag("property", "og:title", fullTitle);
+    setMetaTag("property", "og:description", description);
+    setMetaTag("property", "og:url", canonicalUrl);
+    setMetaTag("property", "og:type", "website");
+    setMetaTag("property", "og:image", fullImageUrl);
+    setMetaTag("property", "og:site_name", "Navya Tech Industry");
 
-    // 5. Update Keywords if available
+    // 5. Update Twitter Card Tags
+    setMetaTag("name", "twitter:card", "summary_large_image");
+    setMetaTag("name", "twitter:title", fullTitle);
+    setMetaTag("name", "twitter:description", description);
+    setMetaTag("name", "twitter:image", fullImageUrl);
+
+    // 6. Update Keywords if available
     if (keywords.length > 0) {
-      let metaKw = document.querySelector('meta[name="keywords"]');
-      if (!metaKw) {
-        metaKw = document.createElement("meta");
-        metaKw.setAttribute("name", "keywords");
-        document.head.appendChild(metaKw);
-      }
-      metaKw.setAttribute("content", keywords.join(", "));
+      setMetaTag("name", "keywords", keywords.join(", "));
     }
 
-    // 6. Structured Data (JSON-LD)
+    // 7. Structured Data (JSON-LD)
     const existingScript = document.getElementById("json-ld-subpage");
     if (existingScript) {
       existingScript.remove();
     }
 
-    if (structuredData) {
-      const script = document.createElement("script");
-      script.id = "json-ld-subpage";
-      script.type = "application/ld+json";
-      script.text = JSON.stringify(structuredData);
-      document.head.appendChild(script);
+    // Build Unified Schema Graph
+    const schemaGraph: any[] = [
+      {
+        "@type": "Organization",
+        "@id": "https://www.navyatech.co.in/#organization",
+        name: "Navya Tech Industry",
+        url: "https://www.navyatech.co.in",
+        logo: "https://www.navyatech.co.in/logoimg.png",
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+91-93554-12903",
+          contactType: "customer service",
+          areaServed: ["Global", "India", "United States"],
+          availableLanguage: ["English", "Hindi"],
+        },
+        sameAs: ["https://wa.me/919355412903"],
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: fullTitle,
+        description: description,
+        isPartOf: {
+          "@id": "https://www.navyatech.co.in/#organization",
+        },
+      },
+    ];
+
+    if (breadcrumbs && breadcrumbs.length > 0) {
+      schemaGraph.push({
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbs.map((bc, idx) => ({
+          "@type": "ListItem",
+          position: idx + 1,
+          name: bc.label,
+          item: bc.href ? `https://www.navyatech.co.in${bc.href}` : canonicalUrl,
+        })),
+      });
     }
-  }, [title, description, canonicalPath, keywords, ogImage, structuredData]);
+
+    if (structuredData) {
+      schemaGraph.push(structuredData);
+    }
+
+    const script = document.createElement("script");
+    script.id = "json-ld-subpage";
+    script.type = "application/ld+json";
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": schemaGraph,
+    });
+    document.head.appendChild(script);
+  }, [title, description, canonicalPath, keywords, ogImage, structuredData, breadcrumbs]);
 
   return null;
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import GlobalHeader from "@/components/ui/global-header";
 import ParticleHero from "@/components/ui/animated-hero";
 import { SaaSHero } from "@/components/ui/saa-s-template";
@@ -6,29 +6,49 @@ import HeroSection from "@/components/ui/3d-hero-section-boxes";
 import HeroParallax from "@/components/ui/hero-parallax";
 import GlassmorphismTrustHero from "@/components/ui/glassmorphism-trust-hero";
 import ServicesSection from "@/components/ui/services-section";
-import FeaturesCards from "@/components/ui/feature-shader-cards";
 import { PricingSection } from "@/components/ui/aurora-background-2";
-import AISection from "@/components/ui/hero-carousel";
 import ParallaxComponent from "@/components/ui/parallax-scrolling";
-import TestimonialsSection from "@/components/ui/community-testimonial";
-import ParallaxFloatingShowcase from "@/components/ui/parallax-floating";
-import WaitlistHero from "@/components/ui/waitlist-hero";
 import Footer from "@/components/ui/footer";
 import FloatingChatbot from "@/components/ui/floating-chatbot";
 import ScrollProgress from "@/components/ui/scroll-progress";
 import ScrollToTop from "@/components/ui/scroll-to-top";
 import CookieBanner from "@/components/ui/cookie-banner";
-import GlobalSearch from "@/components/ui/global-search";
 import SmoothScrollProvider from "@/components/ui/smooth-scroll";
-import TermsModal from "@/components/ui/terms-modal";
 import GlobalPlexusBg from "@/components/ui/global-plexus-bg";
 import StickyMobileCTA from "@/components/ui/sticky-mobile-cta";
-import GenericSubpage from "@/components/templates/GenericSubpage";
-import BlogArticleTemplate from "@/components/templates/BlogArticleTemplate";
-import BlogHubTemplate from "@/components/templates/BlogHubTemplate";
 import { getSubpageConfig } from "@/config/subpages";
 import { getBlogArticle, getBlogCategory } from "@/config/blogs";
 import { RouteProvider, useRoute } from "@/context/RouteContext";
+
+// Lazy-load subpage templates & heavy modals for instant mobile initial bundle
+const GenericSubpage = lazy(() => import("@/components/templates/GenericSubpage"));
+const BlogArticleTemplate = lazy(() => import("@/components/templates/BlogArticleTemplate"));
+const BlogHubTemplate = lazy(() => import("@/components/templates/BlogHubTemplate"));
+const GlobalSearch = lazy(() => import("@/components/ui/global-search"));
+const TermsModal = lazy(() => import("@/components/ui/terms-modal"));
+
+// Lazy-load below-the-fold heavy interactive homepage sections
+const FeaturesCards = lazy(() => import("@/components/ui/feature-shader-cards"));
+const AISection = lazy(() => import("@/components/ui/hero-carousel"));
+const TestimonialsSection = lazy(() => import("@/components/ui/community-testimonial"));
+const ParallaxFloatingShowcase = lazy(() => import("@/components/ui/parallax-floating"));
+const WaitlistHero = lazy(() => import("@/components/ui/waitlist-hero"));
+
+const PageFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-[#08080c] text-zinc-400 font-mono text-xs">
+    <div className="flex items-center gap-3">
+      <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+      <span>Loading content...</span>
+    </div>
+  </div>
+);
+
+const SectionFallback = () => (
+  <div className="w-full py-12 flex items-center justify-center min-h-[140px] text-zinc-500 font-mono text-xs">
+    <span className="w-1.5 h-1.5 rounded-full bg-red-500/40 animate-ping mr-2" />
+    <span>Loading...</span>
+  </div>
+);
 
 function MainContent() {
   const { currentPath, navigate } = useRoute();
@@ -39,7 +59,7 @@ function MainContent() {
   useEffect(() => {
     const accepted = localStorage.getItem("navya-terms-accepted");
     if (!accepted) {
-      const timer = setTimeout(() => setTermsOpen(true), 1200);
+      const timer = setTimeout(() => setTermsOpen(true), 1500);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -72,27 +92,47 @@ function MainContent() {
   // 1. Check if route matches an individual blog article
   const blogArticle = getBlogArticle(currentPath);
   if (blogArticle) {
-    return <BlogArticleTemplate article={blogArticle} />;
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <BlogArticleTemplate article={blogArticle} />
+      </Suspense>
+    );
   }
 
   // 2. Check if route matches a blog category hub
   const blogCategory = getBlogCategory(currentPath);
   if (blogCategory) {
-    return <BlogHubTemplate hubType="category" categoryHub={blogCategory} />;
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <BlogHubTemplate hubType="category" categoryHub={blogCategory} />
+      </Suspense>
+    );
   }
 
   // 3. Check if route matches /resources or /blog main hubs
   if (currentPath === "/resources") {
-    return <BlogHubTemplate hubType="resources" />;
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <BlogHubTemplate hubType="resources" />
+      </Suspense>
+    );
   }
   if (currentPath === "/blog") {
-    return <BlogHubTemplate hubType="blog" />;
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <BlogHubTemplate hubType="blog" />
+      </Suspense>
+    );
   }
 
-  // 4. Check if currentPath matches one of our 44 subpages
+  // 4. Check if currentPath matches one of our subpages
   const subpageConfig = getSubpageConfig(currentPath);
   if (subpageConfig) {
-    return <GenericSubpage config={subpageConfig} />;
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <GenericSubpage config={subpageConfig} />
+      </Suspense>
+    );
   }
 
   // Otherwise render primary "/" Homepage
@@ -139,13 +179,17 @@ function MainContent() {
         <ServicesSection />
 
         {/* 7. Web Features — Interactive WebGL Shader Cards */}
-        <FeaturesCards />
+        <Suspense fallback={<SectionFallback />}>
+          <FeaturesCards />
+        </Suspense>
 
         {/* 8. Packages & Pricing ($1,000 / $1,500) */}
         <PricingSection onSelectPlan={() => handleStartProject()} />
 
         {/* 9. AI & Automation — The Navya Intelligent Workflow Architecture */}
-        <AISection />
+        <Suspense fallback={<SectionFallback />}>
+          <AISection />
+        </Suspense>
 
         {/* 10. Navya Tech Industry Particle Hero ("Growth shouldn't be this stressful...") */}
         <ParticleHero
@@ -159,25 +203,35 @@ function MainContent() {
           interactiveHint="Hover to Interact"
         />
 
-        {/* 11. Testimonials — 3-Row Alternating Horizontal Marquee */}
-        <TestimonialsSection />
+        {/* 11. Testimonials — Alternating Horizontal Marquee */}
+        <Suspense fallback={<SectionFallback />}>
+          <TestimonialsSection />
+        </Suspense>
 
         {/* 12. Commitment Showcase — Parallax Floating Showcase */}
-        <ParallaxFloatingShowcase />
+        <Suspense fallback={<SectionFallback />}>
+          <ParallaxFloatingShowcase />
+        </Suspense>
 
         {/* 13. Final Project Inquiry — 3D Celestial Conversion & Confetti Form */}
-        <WaitlistHero />
+        <Suspense fallback={<SectionFallback />}>
+          <WaitlistHero />
+        </Suspense>
       </main>
 
       {/* 15. Global Footer */}
       <Footer onOpenTerms={() => setTermsOpen(true)} />
 
       {/* 16. Global Search Modal (⌘K) */}
-      <GlobalSearch
-        isOpen={searchOpen}
-        onClose={() => setSearchOpen(false)}
-        onOpenTerms={() => setTermsOpen(true)}
-      />
+      <Suspense fallback={null}>
+        {searchOpen && (
+          <GlobalSearch
+            isOpen={searchOpen}
+            onClose={() => setSearchOpen(false)}
+            onOpenTerms={() => setTermsOpen(true)}
+          />
+        )}
+      </Suspense>
 
       {/* 17. Bottom-Left Scroll-To-Top Button */}
       <ScrollToTop />
@@ -191,8 +245,12 @@ function MainContent() {
       {/* 20. Sticky Mobile CTA for Mobile Screens */}
       <StickyMobileCTA />
 
-      {/* 21. Floating Terms & Conditions Modal (Dismissed only via 'I Accept') */}
-      <TermsModal isOpen={termsOpen} onAccept={handleAcceptTerms} />
+      {/* 21. Floating Terms & Conditions Modal */}
+      <Suspense fallback={null}>
+        {termsOpen && (
+          <TermsModal isOpen={termsOpen} onAccept={handleAcceptTerms} />
+        )}
+      </Suspense>
     </div>
   );
 }

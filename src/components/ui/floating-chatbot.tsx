@@ -69,31 +69,24 @@ export const FloatingChatbot: React.FC = () => {
       return;
     }
 
+    const isMobile = window.innerWidth < 768;
+    // On mobile screens, do not pop up intrusive recurring bubbles
+    if (isMobile) {
+      return;
+    }
+
     let isMounted = true;
     let timerId: ReturnType<typeof setTimeout> | null = null;
 
-    const startMessageSequence = () => {
+    // Show initial greeting once on desktop
+    timerId = setTimeout(() => {
       if (!isMounted) return;
       setIsPopupVisible(true);
-      setShowSecondMessage(false);
       timerId = setTimeout(() => {
         if (!isMounted) return;
         setShowSecondMessage(true);
-        timerId = setTimeout(() => {
-          if (!isMounted) return;
-          setIsPopupVisible(false);
-          setShowSecondMessage(false);
-          timerId = setTimeout(() => {
-            if (!isMounted) return;
-            startMessageSequence();
-          }, 5000);
-        }, 3500);
-      }, 1800);
-    };
-
-    timerId = setTimeout(() => {
-      startMessageSequence();
-    }, 1200);
+      }, 2000);
+    }, 1500);
 
     return () => {
       isMounted = false;

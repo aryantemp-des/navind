@@ -7,6 +7,9 @@ export const useMousePositionRef = (
   const rectRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null);
 
   useEffect(() => {
+    const isTouch = "ontouchstart" in window || window.innerWidth < 768;
+    if (isTouch) return;
+
     const updateRect = () => {
       if (containerRef && containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();

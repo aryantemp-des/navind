@@ -110,6 +110,7 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
           "Next.js development",
         ]}
         structuredData={structuredData}
+        breadcrumbs={config.breadcrumbs}
       />
 
       {/* 2. Hero Section */}

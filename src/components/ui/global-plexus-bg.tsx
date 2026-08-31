@@ -20,6 +20,12 @@ const GlobalPlexusBg: React.FC = () => {
     if (!ctx) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.innerWidth < 768;
+
+    // On mobile devices or reduced motion, skip continuous canvas rendering to guarantee 120Hz native touch scroll
+    if (isMobile || prefersReducedMotion) {
+      return;
+    }
 
     /* ── Resize with Address Bar Protection ─────────────────────────────── */
     let lastWidth = window.innerWidth;
@@ -28,7 +34,6 @@ const GlobalPlexusBg: React.FC = () => {
     const resize = (force = false) => {
       const curW = window.innerWidth;
       const curH = window.innerHeight;
-      // On mobile, scrolling changes height slightly due to address bar without width change
       if (!force && curW === lastWidth && Math.abs(curH - lastHeight) < 120) {
         return;
       }
@@ -58,7 +63,6 @@ const GlobalPlexusBg: React.FC = () => {
     }
 
     /* ── Responsive Spawn Nodes ─────────────────────────────────────────── */
-    const isMobile = window.innerWidth < 768;
     const COUNT = isMobile ? 18 : 64;
 
     const nodes: Node[] = Array.from({ length: COUNT }, () => ({

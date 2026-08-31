@@ -246,6 +246,32 @@
       inset -1.5px -1.5px 4px rgba(0, 0, 0, 0.6);
   }
 
+  /* Mobile-Optimized Lightweight GPU Shadows (< 768px) */
+  @media (max-width: 767px) {
+    .clay-surface {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255, 255, 255, 0.12);
+    }
+    .clay-card,
+    .clay-card-interactive {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55), inset 1px 1px 2px rgba(255, 255, 255, 0.12);
+      border-radius: 1.25rem;
+    }
+    .clay-btn-primary, .clay-btn-red {
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+    }
+    .clay-btn-secondary, .clay-btn-dark {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+    }
+    .clay-badge {
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    }
+    .clay-header {
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+  }
+
   /* Clay Cards (Level 2 Elevation) */
   .clay-card {
     background: linear-gradient(145deg, #181826 0%, #0e0e16 100%);

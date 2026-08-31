@@ -22,15 +22,18 @@ export default defineConfig({
     chunkSizeWarningLimit: 2500,
     rollupOptions: {
       output: {
-        manualChunks: {
-          // React core — tiny, always needed
-          'vendor-react': ['react', 'react-dom'],
-          // Animation libraries
-          'vendor-motion': ['framer-motion', 'gsap'],
-          // Heavy 3-D / WebGL — lazy loaded by Spline
-          'vendor-three': ['three'],
-          // UI utilities
-          'vendor-ui': ['lucide-react', 'clsx', 'tailwind-merge'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/')) {
+              return 'vendor-react';
+            }
+            if (id.includes('/framer-motion/') || id.includes('/gsap/') || id.includes('/@studio-freight/lenis/')) {
+              return 'vendor-motion';
+            }
+            if (id.includes('/lucide-react/') || id.includes('/clsx/') || id.includes('/tailwind-merge/')) {
+              return 'vendor-ui';
+            }
+          }
         },
       },
     },
