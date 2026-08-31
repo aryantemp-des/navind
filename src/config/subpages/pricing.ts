@@ -33,7 +33,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
         points: ["Autonomous agent orchestrator", "CRM & WhatsApp integrations", "Zero-drift pipeline", "Human-in-the-loop controls"],
       },
       {
-        title: "Full Ecosystem Bundle — $1,500 / ₹1,19,000",
+        title: "Full Ecosystem Bundle — $1,500 / ₹₹17,000",
         description: "The complete Navya technological infrastructure. Combine our premier website package and AI agent automation suite together and save $500.",
         badge: "Best Value • $1,500",
         points: ["Everything in Website Package", "Everything in AI Agents Package", "Priority engineering queue", "Save $500 /₹3,000"],
@@ -105,7 +105,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
     title: "India Pricing | Fixed INR Packages by Navya Tech Industry",
     h1: "India Pricing (INR ₹)",
     primaryKeyword: "website development pricing india",
-    metaDescription: "Transparent website and AI agent pricing in India (INR). ₹10,000 Website Package, ₹10,000 AI Agents, and ₹1,19,000 Full Ecosystem Bundle by Navya.",
+    metaDescription: "Transparent website and AI agent pricing in India (INR). ₹10,000 Website Package, ₹10,000 AI Agents, and ₹₹17,000 Full Ecosystem Bundle by Navya.",
     breadcrumbs: [{ label: "Pricing", href: "/pricing" }, { label: "India" }],
     heroDescription: "Transparent Indian pricing in INR (₹). Built specifically for Indian founders, businesses, and enterprises looking for world-class web engineering.",
     heroImageAlt: "India Pricing Packages",
@@ -113,7 +113,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
     heroStats: [
       { label: "Website Package", value: "₹10,000" },
       { label: "AI Agents Package", value: "₹10,000" },
-      { label: "Full Ecosystem", value: "₹1,19,000" },
+      { label: "Full Ecosystem", value: "₹₹17,000" },
     ],
     overviewTitle: "World-Class Tech Engineering at Transparent Indian Rates",
     overviewDescription: "We provide Indian businesses with the exact same enterprise-grade Next.js, WebGL, and AI agent architectures we build for global tech firms—priced transparently in Indian Rupees (₹) with full GST invoicing and local payment support (UPI, Netbanking, Cards).",
@@ -131,7 +131,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
         points: ["WhatsApp & CRM integration", "Autonomous lead qualification", "24/7 automated assistant", "Human-in-the-loop controls"],
       },
       {
-        title: "Full Ecosystem Bundle — ₹1,19,000",
+        title: "Full Ecosystem Bundle — ₹₹17,000",
         description: "Complete technological package. Get both the premier website package and AI agent automation suite together and save₹3,000.",
         badge: "Save₹3,000",
         points: ["Complete Website Package", "Complete AI Agents Package", "Priority development queue", "Dedicated engineer access"],

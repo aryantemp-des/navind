@@ -149,7 +149,7 @@ export const conversionPages: Record<string, SubpageConfig> = {
         points: ["WhatsApp & CRM integration", "Autonomous lead qualification", "24/7 automation"],
       },
       {
-        title: "Full Ecosystem Bundle — $1,500 / ₹1,19,000",
+        title: "Full Ecosystem Bundle — $1,500 / ₹₹17,000",
         description: "Combine our premier website package and AI agent automation suite together and save $500.",
         badge: "Bundle",
         points: ["Website + AI Agents", "Priority development", "Save $500 / ₹39k"],

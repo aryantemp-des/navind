@@ -82,7 +82,7 @@ export const servicePages: Record<string, SubpageConfig> = {
     faqs: [
       {
         question: "Can Navya combine multiple services into a single unified package?",
-        answer: "Yes! Our Full Ecosystem Bundle ($1,500 / ₹1,19,000) combines full-stack website engineering with our AI agent workflow automation suite.",
+        answer: "Yes! Our Full Ecosystem Bundle ($1,500 / ₹₹17,000) combines full-stack website engineering with our AI agent workflow automation suite.",
       },
       {
         question: "How do we choose which service is right for our business?",

@@ -174,7 +174,7 @@ export const SEO_METADATA_REGISTRY: Record<string, PageSEORecord> = {
     searchIntent: "transactional",
     geographicTargets: ["India", "Mumbai", "Bangalore", "Delhi NCR"],
     title: "Website Development Cost in India | Fixed INR Packages | Navya",
-    metaDescription: "Fixed-price Indian Rupee packages: Website Package (₹10,000 + GST) and Complete Ecosystem (₹1,19,000 + GST). Local UPI, NEFT, and full GST billing.",
+    metaDescription: "Fixed-price Indian Rupee packages: Website Package (₹10,000 + GST) and Complete Ecosystem (₹₹17,000 + GST). Local UPI, NEFT, and full GST billing.",
     h1: "Fixed-Price Website Engineering for Indian Businesses",
     semanticEntities: ["₹10,000 INR", "GST Invoices", "UPI Payment", "Indian Tech Hubs"],
     canonicalUrl: "https://www.navyatech.co.in/pricing/india",
