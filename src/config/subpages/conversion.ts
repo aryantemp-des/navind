@@ -137,13 +137,13 @@ export const conversionPages: Record<string, SubpageConfig> = {
     capabilitiesSubtitle: "Transparent Investment",
     capabilities: [
       {
-        title: "Website Package — $1,000 / ₹79,000",
+        title: "Website Package — $1,000 / ₹10,000",
         description: "Complete modern Next.js digital presence with 3D WebGL interactions, SEO foundations, and source code ownership.",
         badge: "Web Package",
         points: ["Next.js & TypeScript", "3D WebGL accents", "Full GitHub transfer"],
       },
       {
-        title: "AI Agents Package — $1,000 / ₹79,000",
+        title: "AI Agents Package — $1,000 / ₹10,000",
         description: "Autonomous multi-agent pipeline for customer communications, lead intake qualification, and CRM sync.",
         badge: "AI Package",
         points: ["WhatsApp & CRM integration", "Autonomous lead qualification", "24/7 automation"],

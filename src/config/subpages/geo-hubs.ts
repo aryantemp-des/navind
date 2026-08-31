@@ -7,7 +7,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
   "/website-development/india": {
     slug: "website-development/india",
     category: "INDIA REGIONAL HUB",
-    title: "Website Development Company in India | Fixed ₹79,000 Packages | Navya",
+    title: "Website Development Company in India | Fixed ₹10,000 Packages | Navya",
     h1: "Website Development Company in India",
     metaDescription: "Leading website development company in India delivering high-performance Next.js and 3D WebGL platforms. Fixed ₹10k pricing, GST billing, and local support.",
     primaryKeyword: "website development company in india",
@@ -20,7 +20,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       "Navya Tech Industry delivers engineering-grade website development across India. We replace slow, bloated CMS sites with custom Next.js 15 architectures, interactive 3D WebGL experiences, and automated lead capture engines with 100% GST compliance.",
     heroImageAlt: "Website Development Company in India",
     heroStats: [
-      { label: "Fixed Investment", value: "₹79,000 + GST" },
+      { label: "Fixed Investment", value: "₹10,000 + GST" },
       { label: "Average Delivery", value: "7 to 10 Days" },
       { label: "Lighthouse Score", value: "98/100 Speed" },
       { label: "Source Ownership", value: "100% Commercial" },
@@ -114,7 +114,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       {
         question: "How much does website development cost in India with Navya?",
         answer:
-          "Our standard turnkey Website Package is a fixed ₹79,000 + GST. For clients needing autonomous AI workflow integration alongside their website, our Complete Ecosystem package is ₹1,19,000 + GST. All packages include full source code ownership and zero monthly platform fees.",
+          "Our standard turnkey Website Package is a fixed ₹10,000 + GST. For clients needing autonomous AI workflow integration alongside their website, our Complete Ecosystem package is ₹1,19,000 + GST. All packages include full source code ownership and zero monthly platform fees.",
       },
       {
         question: "Do you provide a formal GST tax invoice?",
@@ -135,7 +135,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
     relatedLinks: [
       {
         title: "India Pricing Matrix",
-        description: "View our fixed ₹79,000 and ₹1,19,000 package inclusions and payment methods.",
+        description: "View our fixed ₹10,000 and ₹1,19,000 package inclusions and payment methods.",
         href: "/pricing/india",
         category: "PRICING",
       },
@@ -176,7 +176,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       "Navya Tech Industry delivers high-trust corporate websites and high-performance digital platforms for Mumbai's leading financial practices, media enterprises, luxury brands, and commercial scaleups across BKC, Nariman Point, Andheri, and Lower Parel.",
     heroImageAlt: "Website Development in Mumbai",
     heroStats: [
-      { label: "Fixed Package", value: "₹79,000 + GST" },
+      { label: "Fixed Package", value: "₹10,000 + GST" },
       { label: "Local Timezone", value: "IST Dedicated" },
       { label: "Security Standard", value: "Enterprise TLS" },
       { label: "Delivery Speed", value: "7 to 10 Days" },
@@ -252,7 +252,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       {
         question: "What is your pricing for a corporate website in Mumbai?",
         answer:
-          "Our complete corporate website package is fixed at ₹79,000 + GST. There are zero hourly surprises, and you receive complete source code upon launch.",
+          "Our complete corporate website package is fixed at ₹10,000 + GST. There are zero hourly surprises, and you receive complete source code upon launch.",
       },
     ],
     relatedLinks: [
@@ -270,7 +270,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       },
       {
         title: "India Pricing Matrix",
-        description: "Review our transparent ₹79,000 fixed packages.",
+        description: "Review our transparent ₹10,000 fixed packages.",
         href: "/pricing/india",
         category: "PRICING",
       },
@@ -295,7 +295,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
     heroStats: [
       { label: "Standard Launch", value: "7-Day Sprint" },
       { label: "Tech Architecture", value: "Next.js + TypeScript" },
-      { label: "Fixed Package", value: "₹79,000 + GST" },
+      { label: "Fixed Package", value: "₹10,000 + GST" },
       { label: "Performance", value: "Sub-Second LCP" },
     ],
     overviewTitle: "Deep Tech Web Engineering for Silicon Valley of India",
@@ -410,7 +410,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       "Navya Tech Industry builds high-performing digital engines for Delhi NCR businesses, Gurgaon (Gurugram) Cyber City enterprises, and Noida tech corridors. We combine clean design, sub-second speed, and automated lead capture.",
     heroImageAlt: "Website Development in Delhi NCR",
     heroStats: [
-      { label: "Fixed Package", value: "₹79,000 + GST" },
+      { label: "Fixed Package", value: "₹10,000 + GST" },
       { label: "Local Support", value: "Delhi NCR Focus" },
       { label: "Speed Guarantee", value: "< 1s Load Time" },
       { label: "Ownership", value: "100% Complete" },
@@ -481,7 +481,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       {
         question: "What is the cost of website development in Delhi NCR?",
         answer:
-          "Our fixed commercial package is ₹79,000 + GST. We do not have hidden charges or ongoing monthly platform subscriptions.",
+          "Our fixed commercial package is ₹10,000 + GST. We do not have hidden charges or ongoing monthly platform subscriptions.",
       },
     ],
     relatedLinks: [
@@ -493,7 +493,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       },
       {
         title: "India Pricing Matrix",
-        description: "Review our transparent ₹79,000 fixed packages.",
+        description: "Review our transparent ₹10,000 fixed packages.",
         href: "/pricing/india",
         category: "PRICING",
       },

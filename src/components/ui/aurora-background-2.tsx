@@ -218,7 +218,7 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
               href="/pricing/india"
               className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
             >
-              <span>🇮🇳 India Pricing: ₹79,000 / ₹1,19,000 (GST Invoiced)</span>
+              <span>🇮🇳 India Pricing: ₹10,000 / ₹1,19,000 (GST Invoiced)</span>
               <ArrowRight className="w-3 h-3 text-red-400" />
             </a>
             <a

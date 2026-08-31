@@ -103,7 +103,7 @@ export const commercialPages: Record<string, SubpageConfig> = {
       },
       {
         title: "Transparent Fixed Pricing",
-        description: "Complete website packages starting at $1,000 / ₹79,000 with clear milestones and no hidden fees.",
+        description: "Complete website packages starting at $1,000 / ₹10,000 with clear milestones and no hidden fees.",
         badge: "Pricing",
       },
       {
@@ -368,7 +368,7 @@ export const commercialPages: Record<string, SubpageConfig> = {
     heroImageSrc: "/ai4.png",
     heroStats: [
       { label: "Fixed Investment", value: "$1,000" },
-      { label: "India Rate", value: "₹79,000" },
+      { label: "India Rate", value: "₹10,000" },
       { label: "Monthly Fees", value: "$0 Builder Fee" },
     ],
     overviewTitle: "Everything Included When You Buy a Website from Navya",
@@ -418,7 +418,7 @@ export const commercialPages: Record<string, SubpageConfig> = {
     faqs: [
       {
         question: "How much does it cost to buy a website from Navya?",
-        answer: "Our standard complete website package is a one-time fixed investment of $1,000 USD for global clients or ₹79,000 INR for India clients.",
+        answer: "Our standard complete website package is a one-time fixed investment of $1,000 USD for global clients or ₹10,000 INR for India clients.",
       },
       {
         question: "Are there any hidden monthly subscription charges?",

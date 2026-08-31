@@ -282,7 +282,7 @@ export const industryPages: Record<string, SubpageConfig> = {
       },
       {
         title: "India Pricing (INR)",
-        description: "Affordable ₹79,000 packages for Indian businesses.",
+        description: "Affordable ₹10,000 packages for Indian businesses.",
         href: "/pricing/india",
         category: "Pricing",
       },
@@ -470,7 +470,7 @@ export const industryPages: Record<string, SubpageConfig> = {
       },
       {
         title: "Pricing Packages",
-        description: "Transparent $1,000 / ₹79,000 packages.",
+        description: "Transparent $1,000 / ₹10,000 packages.",
         href: "/pricing",
         category: "Pricing",
       },

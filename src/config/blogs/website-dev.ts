@@ -153,8 +153,8 @@ export const websiteDevArticles: Record<string, BlogArticle> = {
         comparisonTable: {
           headers: ["Package", "Price (USA)", "Price (India)", "Key Deliverables"],
           rows: [
-            ["Website Package", "$1,000 one-time", "₹79,000 + GST", "Complete Next.js custom site, 3D interactions, SEO, Full source ownership"],
-            ["AI Agents & Automation", "$1,000 one-time", "₹79,000 + GST", "Multi-agent intake, CRM sync, autonomous communication pipelines"],
+            ["Website Package", "$1,000 one-time", "₹10,000 + GST", "Complete Next.js custom site, 3D interactions, SEO, Full source ownership"],
+            ["AI Agents & Automation", "$1,000 one-time", "₹10,000 + GST", "Multi-agent intake, CRM sync, autonomous communication pipelines"],
             ["Complete Ecosystem", "$1,500 one-time", "₹1,19,000 + GST", "Both Website + AI Automation combined (Save $500)"],
           ],
         },

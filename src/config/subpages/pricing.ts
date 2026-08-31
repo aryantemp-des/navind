@@ -21,13 +21,13 @@ export const pricingPages: Record<string, SubpageConfig> = {
     overviewDescription: "We believe in radical pricing transparency. Traditional agencies hide behind vague hourly rates that spiral out of control. At Navya, you make a fixed, milestone-backed investment and receive a complete, production-ready digital asset.",
     overviewCards: [
       {
-        title: "Website Package — $1,000 / ₹79,000",
+        title: "Website Package — $1,000 / ₹10,000",
         description: "Complete modern digital presence built with Next.js, 3D WebGL interactions, responsive design systems, and lifetime source ownership.",
         badge: "$1,000 One-Time",
         points: ["Next.js & TypeScript codebase", "3D WebGL / Spline shaders", "Technical SEO & Schema", "Full GitHub repository rights"],
       },
       {
-        title: "AI Agents Package — $1,000 / ₹79,000",
+        title: "AI Agents Package — $1,000 / ₹10,000",
         description: "Autonomous multi-agent pipeline designed to automate repetitive business tasks, qualify inbound leads, and sync CRM records 24/7.",
         badge: "$1,000 One-Time",
         points: ["Autonomous agent orchestrator", "CRM & WhatsApp integrations", "Zero-drift pipeline", "Human-in-the-loop controls"],
@@ -105,29 +105,29 @@ export const pricingPages: Record<string, SubpageConfig> = {
     title: "India Pricing | Fixed INR Packages by Navya Tech Industry",
     h1: "India Pricing (INR ₹)",
     primaryKeyword: "website development pricing india",
-    metaDescription: "Transparent website and AI agent pricing in India (INR). ₹79,000 Website Package, ₹79,000 AI Agents, and ₹1,19,000 Full Ecosystem Bundle by Navya.",
+    metaDescription: "Transparent website and AI agent pricing in India (INR). ₹10,000 Website Package, ₹10,000 AI Agents, and ₹1,19,000 Full Ecosystem Bundle by Navya.",
     breadcrumbs: [{ label: "Pricing", href: "/pricing" }, { label: "India" }],
     heroDescription: "Transparent Indian pricing in INR (₹). Built specifically for Indian founders, businesses, and enterprises looking for world-class web engineering.",
     heroImageAlt: "India Pricing Packages",
     heroImageSrc: "/ai3.png",
     heroStats: [
-      { label: "Website Package", value: "₹79,000" },
-      { label: "AI Agents Package", value: "₹79,000" },
+      { label: "Website Package", value: "₹10,000" },
+      { label: "AI Agents Package", value: "₹10,000" },
       { label: "Full Ecosystem", value: "₹1,19,000" },
     ],
     overviewTitle: "World-Class Tech Engineering at Transparent Indian Rates",
     overviewDescription: "We provide Indian businesses with the exact same enterprise-grade Next.js, WebGL, and AI agent architectures we build for global tech firms—priced transparently in Indian Rupees (₹) with full GST invoicing and local payment support (UPI, Netbanking, Cards).",
     overviewCards: [
       {
-        title: "Website Package — ₹79,000",
+        title: "Website Package — ₹10,000",
         description: "Complete modern digital web platform with Next.js, 3D WebGL shaders, mobile responsiveness, and lifetime source ownership.",
-        badge: "₹79,000 One-Time",
+        badge: "₹10,000 One-Time",
         points: ["Next.js & TypeScript build", "WhatsApp direct integration", "Local SEO & Schema", "Complete GitHub source handover"],
       },
       {
-        title: "AI Agents Package — ₹79,000",
+        title: "AI Agents Package — ₹10,000",
         description: "Autonomous multi-agent pipeline designed to automate WhatsApp customer inquiries, qualify inbound leads, and sync CRM records 24/7.",
-        badge: "₹79,000 One-Time",
+        badge: "₹10,000 One-Time",
         points: ["WhatsApp & CRM integration", "Autonomous lead qualification", "24/7 automated assistant", "Human-in-the-loop controls"],
       },
       {

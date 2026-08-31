@@ -38,7 +38,7 @@ const INDUSTRIES_MENU = [
 
 const PRICING_MENU = [
   { label: "Global Pricing Overview", href: "/pricing", desc: "Complete $1,000 / $1,500 packages" },
-  { label: "India Pricing (₹79,000)", href: "/pricing/india", desc: "GST invoices & local payments" },
+  { label: "India Pricing (₹10,000)", href: "/pricing/india", desc: "GST invoices & local payments" },
   { label: "USA Pricing ($1,000)", href: "/pricing/usa", desc: "USD Stripe & ACH/Wire support" },
   { label: "Business Website Pricing", href: "/pricing/business-website", desc: "Corporate package inclusions" },
   { label: "3D Website Pricing", href: "/pricing/3d-website", desc: "Immersive WebGL & Three.js" },
