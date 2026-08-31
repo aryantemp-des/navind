@@ -35,13 +35,13 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
   const animFrameRef = useRef<number | null>(null);
   const isVisibleRef = useRef<boolean>(true);
 
-  // Responsive particle density: 6 rows on mobile (36 particles), 12 on desktop (144 particles)
+  // Responsive particle density: 4 rows on mobile (16 particles), 12 on desktop (144 particles)
   const [activeRows, setActiveRows] = useState<number>(particleCount);
 
   useEffect(() => {
     const updateDensity = () => {
-      const isMobile = window.innerWidth < 640;
-      setActiveRows(isMobile ? Math.min(6, particleCount) : particleCount);
+      const isMobile = window.innerWidth < 640 || "ontouchstart" in window;
+      setActiveRows(isMobile ? 4 : particleCount);
     };
     updateDensity();
     window.addEventListener('resize', updateDensity, { passive: true });

@@ -50,12 +50,13 @@ const SolarArcCanvas: React.FC = () => {
       phase: number;
     }
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
-    const STREAK_COUNT = isMobile ? 38 : 95;
+    const STREAK_COUNT = isMobile ? 14 : 95;
 
     const streaks: Streak[] = Array.from({ length: STREAK_COUNT }, () => ({
       angle: Math.random() * Math.PI * 0.55 + Math.PI * 0.05,
-      len: 40 + Math.random() * (isMobile ? 140 : 220),
+      len: 30 + Math.random() * (isMobile ? 90 : 220),
       width: 0.5 + Math.random() * 1.5,
       alpha: 0.18 + Math.random() * 0.52,
       speed: 0.00012 + Math.random() * 0.0003,
@@ -70,7 +71,7 @@ const SolarArcCanvas: React.FC = () => {
         return;
       }
 
-      if (isMobile && t - lastDrawTime < 24) {
+      if (isMobile && t - lastDrawTime < 33) {
         animRef.current = requestAnimationFrame(draw);
         return;
       }

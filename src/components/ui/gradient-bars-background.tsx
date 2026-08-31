@@ -15,6 +15,17 @@ const GradientBars: React.FC<GradientBarsProps> = ({
   animationDuration = 2,
   className = "",
 }) => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768 || "ontouchstart" in window);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const activeBars = isMobile ? Math.min(7, numBars) : numBars;
+
   const calculateHeight = (index: number, total: number) => {
     const position = index / (total - 1);
     const maxHeight = 100;
@@ -32,9 +43,14 @@ const GradientBars: React.FC<GradientBarsProps> = ({
           0% { transform: scaleY(var(--initial-scale)); }
           100% { transform: scaleY(calc(var(--initial-scale) * 0.7)); }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .gradient-bar-item {
+            animation: none !important;
+          }
+        }
       `}</style>
 
-      <div className={`absolute inset-0 z-0 overflow-hidden ${className}`}>
+      <div className={`absolute inset-0 z-0 overflow-hidden ${className}`} style={{ contentVisibility: "auto" }}>
         <div
           className="flex h-full"
           style={{
@@ -44,21 +60,21 @@ const GradientBars: React.FC<GradientBarsProps> = ({
             WebkitFontSmoothing: "antialiased",
           }}
         >
-          {Array.from({ length: numBars }).map((_, index) => {
-            const height = calculateHeight(index, numBars);
+          {Array.from({ length: activeBars }).map((_, index) => {
+            const height = calculateHeight(index, activeBars);
             return (
               <div
                 key={index}
+                className="gradient-bar-item"
                 style={{
-                  flex: `1 0 calc(100% / ${numBars})`,
-                  maxWidth: `calc(100% / ${numBars})`,
+                  flex: `1 0 calc(100% / ${activeBars})`,
+                  maxWidth: `calc(100% / ${activeBars})`,
                   height: "100%",
                   background: `linear-gradient(to top, ${gradientFrom}, ${gradientTo})`,
                   transform: `scaleY(${height / 100})`,
                   transformOrigin: "bottom",
-                  animation: `pulseBar ${animationDuration}s ease-in-out infinite alternate`,
-                  animationDelay: `${index * 0.1}s`,
-                  willChange: "transform",
+                  animation: `pulseBar ${isMobile ? animationDuration * 1.5 : animationDuration}s ease-in-out ${(index * 0.1).toFixed(2)}s infinite alternate`,
+                  willChange: isMobile ? "auto" : "transform",
                   outline: "1px solid rgba(0, 0, 0, 0)",
                   boxSizing: "border-box",
                   // @ts-ignore

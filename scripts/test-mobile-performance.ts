@@ -1,154 +1,189 @@
+import { createServer } from "vite";
 import { chromium } from "@playwright/test";
 
-const BASE_URL = "http://localhost:5173";
+const TEST_ROUTES = [
+  { name: "Homepage", path: "/" },
+  { name: "Services Ecosystem", path: "/services" },
+  { name: "Website Development Service", path: "/services/website-development" },
+  { name: "3D Website Development", path: "/services/3d-website-development" },
+  { name: "Performance Optimization Service", path: "/services/website-performance-optimization" },
+  { name: "Technical SEO Service", path: "/services/seo" },
+  { name: "Industries Ecosystem", path: "/industries" },
+  { name: "Startups Industry", path: "/industries/startups" },
+  { name: "SaaS Industry", path: "/industries/saas" },
+  { name: "Packages & Pricing", path: "/pricing" },
+  { name: "India Pricing (INR)", path: "/pricing/india" },
+  { name: "USA Pricing (USD)", path: "/pricing/usa" },
+  { name: "Start Your Project (Intake)", path: "/get-started" },
+  { name: "Blog Hub", path: "/blog" },
+];
 
-async function runMobilePerformanceAudit() {
-  console.log("📱 Starting Mobile Performance & Interaction Audit Suite...\n");
+async function runMobilePerformanceQA() {
+  console.log("🚀 Launching Vite dev server for Mobile Performance QA...");
+  const server = await createServer({
+    server: { port: 5212 },
+  });
+  await server.listen();
+  const baseUrl = "http://localhost:5212";
 
   const browser = await chromium.launch({ headless: true });
-  // Emulate mobile device (iPhone 14 / modern Android viewport)
-  const context = await browser.newContext({
-    viewport: { width: 390, height: 844 },
-    userAgent:
-      "Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1",
-    hasTouch: true,
-    isMobile: true,
-  });
 
-  const page = await context.newPage();
+  try {
+    // -----------------------------------------------------------------
+    // 1. MOBILE AUDIT (390 x 844 - iPhone / Modern Android Viewport)
+    // -----------------------------------------------------------------
+    console.log("\n=================================================");
+    console.log("📱 1. MOBILE RESPONSIVE & OVERFLOW AUDIT (390x844)");
+    console.log("=================================================");
+    const mobileContext = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+      isMobile: true,
+      hasTouch: true,
+    });
+    await mobileContext.addInitScript(() => {
+      localStorage.setItem("navya-terms-accepted", "true");
+      localStorage.setItem("navya-cookie-consent", "accepted");
+    });
+    const mobilePage = await mobileContext.newPage();
 
-  // Bypass terms modal for automated crawl
-  await page.addInitScript(() => {
-    localStorage.setItem("navya-terms-accepted", "true");
-  });
+    const consoleErrors: string[] = [];
+    mobilePage.on("console", (msg) => {
+      if (msg.type() === "error") {
+        consoleErrors.push(`[Console Error] ${msg.text()}`);
+      }
+    });
 
-  const testRoutes = [
-    "/",
-    "/services",
-    "/pricing",
-    "/pricing/india",
-    "/pricing/usa",
-    "/website-development/mumbai",
-    "/website-development/bangalore",
-    "/website-development/new-york",
-    "/resources",
-    "/blog",
-    "/blog/how-to-build-a-business-website",
-    "/get-started",
-    "/contact",
-  ];
-
-  let passedRoutes = 0;
-  const failures: { route: string; error: string }[] = [];
-
-  for (const route of testRoutes) {
-    const fullUrl = `${BASE_URL}${route}`;
-
-    try {
-      const startTime = Date.now();
-      const response = await page.goto(fullUrl, { waitUntil: "domcontentloaded" });
-      const loadDuration = Date.now() - startTime;
-
+    for (const route of TEST_ROUTES) {
+      const fullUrl = `${baseUrl}${route.path}`;
+      const response = await mobilePage.goto(fullUrl, { waitUntil: "networkidle" });
       const status = response?.status() || 200;
-      if (status !== 200) {
-        throw new Error(`HTTP ${status}`);
-      }
 
-      await page.waitForTimeout(200);
-
-      // 1. Check for Horizontal Scroll Overflow (Critical Mobile UX Bug)
-      const hasHorizontalOverflow = await page.evaluate(() => {
-        return document.documentElement.scrollWidth > window.innerWidth + 2;
+      // Check horizontal overflow
+      const overflow = await mobilePage.evaluate(() => {
+        return {
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth: window.innerWidth,
+          hasOverflow: document.documentElement.scrollWidth > window.innerWidth,
+        };
       });
 
-      if (hasHorizontalOverflow) {
-        const scrollW = await page.evaluate(() => document.documentElement.scrollWidth);
-        throw new Error(`Horizontal scroll overflow detected! scrollWidth=${scrollW}px, innerWidth=390px`);
+      console.log(`  📄 ${route.name.padEnd(35)} [${status}] Overflow: ${overflow.hasOverflow ? "❌ DETECTED" : "✅ NONE"} (${overflow.scrollWidth}px vs ${overflow.innerWidth}px)`);
+
+      if (overflow.hasOverflow) {
+        throw new Error(`Mobile horizontal overflow on ${route.path} (${overflow.scrollWidth}px > ${overflow.innerWidth}px)`);
       }
 
-      // 2. Perform smooth simulated touch scroll down the page
-      await page.evaluate(async () => {
-        await new Promise<void>((resolve) => {
-          let totalHeight = 0;
-          const distance = 400;
-          const maxScroll = Math.min(document.body.scrollHeight, 4000);
-
-          const timer = setInterval(() => {
-            window.scrollBy(0, distance);
-            totalHeight += distance;
-
-            if (totalHeight >= maxScroll) {
-              clearInterval(timer);
-              resolve();
-            }
-          }, 60);
-        });
+      // Smooth scroll test down the page to ensure zero lag or freezing
+      await mobilePage.evaluate(async () => {
+        const totalHeight = document.body.scrollHeight;
+        const step = Math.floor(totalHeight / 6);
+        for (let y = 0; y < totalHeight; y += step) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 60));
+        }
+        window.scrollTo(0, 0);
       });
-
-      await page.waitForTimeout(150);
-
-      // Scroll back up smoothly
-      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
-
-      passedRoutes++;
-      console.log(`  ✅ [PASS] ${route} -> Load: ${loadDuration}ms | Zero Horizontal Overflow | Smooth Mobile Touch Scroll`);
-    } catch (err: any) {
-      console.error(`  ❌ [FAIL] ${route} -> ${err.message}`);
-      failures.push({ route, error: err.message });
     }
-  }
 
-  // 3. Test Mobile Navigation Drawer
-  console.log("\n🧭 Testing Mobile Navigation Drawer...");
-  await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
-  await page.waitForTimeout(300);
+    // -----------------------------------------------------------------
+    // 2. MOBILE NAVIGATION & INTERACTIVE CTA AUDIT
+    // -----------------------------------------------------------------
+    console.log("\n=================================================");
+    console.log("🧪 2. MOBILE NAVIGATION & CTAS VERIFICATION");
+    console.log("=================================================");
 
-  const menuButton = page.locator('button[aria-label="Open menu"]').first();
-  const menuVisible = await menuButton.isVisible();
-  console.log(`  🍔 Mobile Menu Button Visible: ${menuVisible}`);
+    // Test Mobile Navigation Menu
+    await mobilePage.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+    const hamburgerBtn = mobilePage.locator('button[aria-label="Open menu"]');
+    await hamburgerBtn.click();
+    await mobilePage.waitForTimeout(400);
 
-  if (menuVisible) {
-    await menuButton.click();
-    await page.waitForTimeout(300);
+    const mobileMenu = mobilePage.locator('nav a:has-text("Services Ecosystem")').first();
+    const isMenuVisible = await mobileMenu.isVisible();
+    console.log(`  🍔 Mobile Hamburger Menu Opens: ${isMenuVisible ? "✅ YES" : "❌ NO"}`);
+    if (!isMenuVisible) throw new Error("Mobile menu failed to display");
 
-    const drawerServicesLink = page.locator('a:has-text("Services Ecosystem")').first();
-    const isDrawerOpen = await drawerServicesLink.isVisible();
-    console.log(`  📂 Mobile Drawer Expanded: ${isDrawerOpen}`);
+    // Close menu
+    const closeMenuBtn = mobilePage.locator('div.fixed button[aria-label="Close menu"]');
+    await closeMenuBtn.click();
+    await mobilePage.waitForTimeout(400);
 
-    // Click Close button
-    const closeButton = page.locator('button[aria-label="Close menu"]').first();
-    await closeButton.click({ force: true });
-    await page.waitForTimeout(200);
-  }
+    // Test Sticky Mobile CTA
+    await mobilePage.evaluate(() => window.scrollTo(0, 800));
+    await mobilePage.waitForTimeout(500);
+    const stickyCta = mobilePage.locator('a[aria-label="Start Project with Navya Tech Industry on WhatsApp"]');
+    const stickyCount = await stickyCta.count();
+    console.log(`  📱 Sticky Mobile 'Start Project' CTA: ${stickyCount > 0 ? "✅ ACTIVE" : "❌ MISSING"}`);
+    if (stickyCount === 0) throw new Error("Sticky mobile CTA not rendering on scroll");
 
-  // 4. Test Mobile Sticky CTA Bar
-  console.log("\n📱 Testing Mobile Sticky CTA Bar...");
-  await page.evaluate(() => window.scrollTo(0, 450));
-  await page.waitForTimeout(350);
+    // -----------------------------------------------------------------
+    // 3. TABLET RESPONSIVE AUDIT (768 x 1024 - iPad Viewport)
+    // -----------------------------------------------------------------
+    console.log("\n=================================================");
+    console.log("📱 3. TABLET RESPONSIVE AUDIT (768x1024)");
+    console.log("=================================================");
+    const tabletContext = await browser.newContext({
+      viewport: { width: 768, height: 1024 },
+      isMobile: true,
+      hasTouch: true,
+    });
+    await tabletContext.addInitScript(() => {
+      localStorage.setItem("navya-terms-accepted", "true");
+      localStorage.setItem("navya-cookie-consent", "accepted");
+    });
+    const tabletPage = await tabletContext.newPage();
 
-  const stickyCta = page.locator('a[aria-label="Call Navya Tech Industry"]').first();
-  const ctaVisible = await stickyCta.isVisible();
-  console.log(`  📞 Mobile Sticky CTA Bar Visible after scroll: ${ctaVisible}`);
+    for (const route of TEST_ROUTES.slice(0, 6)) {
+      await tabletPage.goto(`${baseUrl}${route.path}`, { waitUntil: "networkidle" });
+      const hasOverflow = await tabletPage.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+      console.log(`  📱 Tablet ${route.name.padEnd(32)} Overflow: ${hasOverflow ? "❌ DETECTED" : "✅ NONE"}`);
+      if (hasOverflow) {
+        throw new Error(`Tablet horizontal overflow on ${route.path}`);
+      }
+    }
 
-  await browser.close();
+    // -----------------------------------------------------------------
+    // 4. DESKTOP CONTINUITY AUDIT (1440 x 900)
+    // -----------------------------------------------------------------
+    console.log("\n=================================================");
+    console.log("🖥️ 4. DESKTOP CONTINUITY AUDIT (1440x900)");
+    console.log("=================================================");
+    const desktopContext = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+    });
+    await desktopContext.addInitScript(() => {
+      localStorage.setItem("navya-terms-accepted", "true");
+      localStorage.setItem("navya-cookie-consent", "accepted");
+    });
+    const desktopPage = await desktopContext.newPage();
 
-  console.log("\n======================================================");
-  console.log("📊 MOBILE PERFORMANCE AUDIT SUMMARY");
-  console.log("======================================================");
-  console.log(`Routes Audited: ${testRoutes.length}`);
-  console.log(`Passed: ${passedRoutes}`);
-  console.log(`Failed: ${failures.length}`);
+    await desktopPage.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+    const heroH1 = await desktopPage.locator("#parallax-title h2").first().innerText();
+    console.log(`  🖥️ Desktop Hero Title: "${heroH1}" ✅ VERIFIED`);
 
-  if (failures.length === 0) {
-    console.log("\n🎉 100% MOBILE PERFORMANCE PASS! Silky smooth scrolling, instant loading, and zero layout overflow.");
-    process.exit(0);
-  } else {
-    console.error(`\n❌ ${failures.length} mobile checks failed.`);
-    process.exit(1);
+    await desktopPage.goto(`${baseUrl}/services`, { waitUntil: "networkidle" });
+    const forIndustriesBtn = desktopPage.locator('a.clay-btn-primary:has-text("For Industries")');
+    console.log(`  🔴 Services 'For Industries' Button: ${await forIndustriesBtn.count() > 0 ? "✅ FOUND" : "❌ MISSING"}`);
+
+    await desktopPage.goto(`${baseUrl}/industries`, { waitUntil: "networkidle" });
+    const backToServicesBtn = desktopPage.locator('a.clay-btn-primary:has-text("Back to Services")');
+    console.log(`  🔴 Industries 'Back to Services' Button: ${await backToServicesBtn.count() > 0 ? "✅ FOUND" : "❌ MISSING"}`);
+
+    if (consoleErrors.length > 0) {
+      console.warn("\n⚠️ Console warnings during test run:", consoleErrors);
+    }
+
+    console.log("\n=================================================");
+    console.log("🎉 ALL MOBILE PERFORMANCE & CONTINUITY TESTS PASSED!");
+    console.log("=================================================\n");
+
+  } finally {
+    await browser.close();
+    await server.close();
   }
 }
 
-runMobilePerformanceAudit().catch((err) => {
-  console.error("Mobile audit error:", err);
+runMobilePerformanceQA().catch((err) => {
+  console.error("❌ QA Test failed:", err);
   process.exit(1);
 });

@@ -172,7 +172,7 @@ export const ProductCard: React.FC<{
         y: -10,
       }}
       key={product.title}
-      className="clay-card-interactive group/product h-64 sm:h-80 md:h-96 w-[18rem] sm:w-[24rem] md:w-[30rem] relative flex-shrink-0 rounded-3xl overflow-hidden p-2.5"
+      className="clay-card-interactive group/product h-60 sm:h-80 md:h-96 w-[16rem] sm:w-[24rem] md:w-[30rem] relative flex-shrink-0 rounded-3xl overflow-hidden p-2"
     >
       <a
         href={product.link}
@@ -184,9 +184,10 @@ export const ProductCard: React.FC<{
           src={product.thumbnail}
           className="object-cover object-left-top absolute h-full w-full inset-0 transition-transform duration-500 group-hover/product:scale-105"
           alt={product.title}
+          width={480}
+          height={360}
           loading="lazy"
           decoding="async"
-          style={{ willChange: "transform" }}
         />
 
         <div className="absolute inset-0 h-full w-full opacity-40 group-hover/product:opacity-85 bg-gradient-to-t from-black via-black/40 to-transparent transition-opacity duration-300 pointer-events-none" />

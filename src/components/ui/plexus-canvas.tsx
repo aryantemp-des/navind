@@ -77,8 +77,9 @@ const PlexusCanvas: React.FC = () => {
       layer: number;               // 0=back, 1=mid, 2=front (parallax depth)
     }
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
-    const NODE_COUNT = isMobile ? 28 : 50;
+    const NODE_COUNT = isMobile ? 14 : 50;
 
     const nodes: Node[] = Array.from({ length: NODE_COUNT }, () => ({
       x: Math.random(),
@@ -93,15 +94,23 @@ const PlexusCanvas: React.FC = () => {
       layer: Math.floor(Math.random() * 3),
     }));
 
-    const CONNECT_DIST = isMobile ? 0.24 : 0.20;
+    const CONNECT_DIST = isMobile ? 0.20 : 0.20;
     const LAYER_PARALLAX = [0.06, 0.12, 0.20];
+
+    let lastDrawTime = 0;
 
     // ── Draw ─────────────────────────────────────────────────────────────────
     const draw = (t: number) => {
-      if (!isVisibleRef.current || document.hidden) {
+      if (!isVisibleRef.current || document.hidden || prefersReducedMotion) {
         animRef.current = 0;
         return;
       }
+
+      if (isMobile && t - lastDrawTime < 33) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastDrawTime = t;
 
       const W = width || canvas.width;
       const H = height || canvas.height;

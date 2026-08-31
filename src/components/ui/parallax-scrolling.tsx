@@ -8,6 +8,10 @@ export function ParallaxComponent() {
   const parallaxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.innerWidth < 768;
+    if (prefersReducedMotion || isMobile) return;
+
     const triggerElement = parallaxRef.current?.querySelector(
       "[data-parallax-layers]"
     ) as HTMLElement | null;

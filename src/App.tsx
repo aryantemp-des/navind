@@ -1,12 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import GlobalHeader from "@/components/ui/global-header";
-import ParticleHero from "@/components/ui/animated-hero";
 import { SaaSHero } from "@/components/ui/saa-s-template";
-import HeroSection from "@/components/ui/3d-hero-section-boxes";
-import HeroParallax from "@/components/ui/hero-parallax";
-import GlassmorphismTrustHero from "@/components/ui/glassmorphism-trust-hero";
-import ServicesSection from "@/components/ui/services-section";
-import { PricingSection } from "@/components/ui/aurora-background-2";
 import ParallaxComponent from "@/components/ui/parallax-scrolling";
 import Footer from "@/components/ui/footer";
 import FloatingChatbot from "@/components/ui/floating-chatbot";
@@ -27,7 +21,13 @@ const BlogHubTemplate = lazy(() => import("@/components/templates/BlogHubTemplat
 const GlobalSearch = lazy(() => import("@/components/ui/global-search"));
 const TermsModal = lazy(() => import("@/components/ui/terms-modal"));
 
-// Lazy-load below-the-fold heavy interactive homepage sections
+// Lazy-load below-the-fold homepage sections for hyper-lean initial mobile bundle
+const HeroSection = lazy(() => import("@/components/ui/3d-hero-section-boxes"));
+const HeroParallax = lazy(() => import("@/components/ui/hero-parallax"));
+const GlassmorphismTrustHero = lazy(() => import("@/components/ui/glassmorphism-trust-hero"));
+const ServicesSection = lazy(() => import("@/components/ui/services-section"));
+const PricingSectionLazy = lazy(() => import("@/components/ui/aurora-background-2").then(m => ({ default: m.PricingSection })));
+const ParticleHero = lazy(() => import("@/components/ui/animated-hero").then(m => ({ default: m.ParticleHero })));
 const FeaturesCards = lazy(() => import("@/components/ui/feature-shader-cards"));
 const AISection = lazy(() => import("@/components/ui/hero-carousel"));
 const TestimonialsSection = lazy(() => import("@/components/ui/community-testimonial"));
@@ -158,25 +158,33 @@ function MainContent() {
         <SaaSHero />
 
         {/* 3. Body Hero — 3D Spline Engine & Platform Showcase */}
-        <HeroSection />
+        <Suspense fallback={<SectionFallback />}>
+          <HeroSection />
+        </Suspense>
 
         {/* 4. Capability Ecosystem Parallax Scroller */}
-        <HeroParallax />
+        <Suspense fallback={<SectionFallback />}>
+          <HeroParallax />
+        </Suspense>
 
         {/* 5. Trust & Performance Hero */}
-        <GlassmorphismTrustHero
-          onViewWorkClick={() => {
-            const el = document.getElementById("services");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          }}
-          onShowreelClick={() => {
-            const el = document.getElementById("ai-section");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          }}
-        />
+        <Suspense fallback={<SectionFallback />}>
+          <GlassmorphismTrustHero
+            onViewWorkClick={() => {
+              const el = document.getElementById("services");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            onShowreelClick={() => {
+              const el = document.getElementById("ai-section");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+          />
+        </Suspense>
 
         {/* 6. Services — 3 Core Capability Blocks */}
-        <ServicesSection />
+        <Suspense fallback={<SectionFallback />}>
+          <ServicesSection />
+        </Suspense>
 
         {/* 7. Web Features — Interactive WebGL Shader Cards */}
         <Suspense fallback={<SectionFallback />}>
@@ -184,7 +192,9 @@ function MainContent() {
         </Suspense>
 
         {/* 8. Packages & Pricing ($1,000 / $1,500) */}
-        <PricingSection onSelectPlan={() => handleStartProject()} />
+        <Suspense fallback={<SectionFallback />}>
+          <PricingSectionLazy onSelectPlan={() => handleStartProject()} />
+        </Suspense>
 
         {/* 9. AI & Automation — The Navya Intelligent Workflow Architecture */}
         <Suspense fallback={<SectionFallback />}>
@@ -192,16 +202,18 @@ function MainContent() {
         </Suspense>
 
         {/* 10. Navya Tech Industry Particle Hero ("Growth shouldn't be this stressful...") */}
-        <ParticleHero
-          title="NAVYA"
-          subtitle="Tech Industry"
-          description="Growth shouldn’t be this stressful. We’ll take the headache. You handle the business. We’ll handle the chaos behind the growth."
-          primaryButton={{
-            text: "Let's Fix!",
-            onClick: handleGetStarted,
-          }}
-          interactiveHint="Hover to Interact"
-        />
+        <Suspense fallback={<SectionFallback />}>
+          <ParticleHero
+            title="NAVYA"
+            subtitle="Tech Industry"
+            description="Growth shouldn’t be this stressful. We’ll take the headache. You handle the business. We’ll handle the chaos behind the growth."
+            primaryButton={{
+              text: "Let's Fix!",
+              onClick: handleGetStarted,
+            }}
+            interactiveHint="Hover to Interact"
+          />
+        </Suspense>
 
         {/* 11. Testimonials — Alternating Horizontal Marquee */}
         <Suspense fallback={<SectionFallback />}>
