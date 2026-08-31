@@ -40,7 +40,7 @@ const BASE_SEARCH_ITEMS: SearchItem[] = [
   },
   {
     id: "pricing-web",
-    title: "Website Package ($1,000 / ₹79k)",
+    title: "Website Package ($1,000 / ₹10k)",
     category: "Package",
     description: "Complete modern digital presence with Next.js, 3D WebGL, and lifetime source ownership.",
     path: "/pricing",

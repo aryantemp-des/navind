@@ -108,7 +108,7 @@ export const conversionPages: Record<string, SubpageConfig> = {
     heroImageSrc: "/ai4.png",
     heroStats: [
       { label: "Execution Window", value: "7-14 Days" },
-      { label: "Fixed Package", value: "$1,000 / ₹79k" },
+      { label: "Fixed Package", value: "$1,000 / ₹10k" },
       { label: "Source Rights", value: "100% Owned" },
     ],
     overviewTitle: "A Streamlined Intake Process Designed for Velocity",

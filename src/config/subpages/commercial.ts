@@ -859,7 +859,7 @@ export const commercialPages: Record<string, SubpageConfig> = {
     heroStats: [
       { label: "Lead Conversion Focus", value: "High Intent" },
       { label: "Commercial Authority", value: "Enterprise Grade" },
-      { label: "Investment", value: "$1,000 / ₹79k" },
+      { label: "Investment", value: "$1,000 / ₹10k" },
     ],
     overviewTitle: "A Business Website Engineered to Drive Real Bottom-Line Revenue",
     overviewDescription: "Your business website is your most valuable commercial asset. We combine clear value propositions, trust-building social proof, rapid page speeds, and direct contact actions (+91 93554 12903, WhatsApp, inquiry forms) to consistently turn visitors into booked clients.",

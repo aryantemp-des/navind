@@ -501,7 +501,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onOpenSearch }) => {
                 { label: "• SaaS Platforms", href: "/industries/saas" },
                 { label: "• Small Business", href: "/industries/small-business" },
                 { label: "Packages & Pricing", href: "/pricing" },
-                { label: "• India Pricing (₹79k)", href: "/pricing/india" },
+                { label: "• India Pricing (₹10k)", href: "/pricing/india" },
                 { label: "• USA Pricing ($1,000)", href: "/pricing/usa" },
                 { label: "Resources & Blog", href: "/resources" },
                 { label: "• Blog Home", href: "/blog" },

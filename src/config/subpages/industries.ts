@@ -219,7 +219,7 @@ export const industryPages: Record<string, SubpageConfig> = {
     heroImageAlt: "Small Business Website Development",
     heroImageSrc: "/ai2.png",
     heroStats: [
-      { label: "Fixed Package", value: "$1,000 / ₹79k" },
+      { label: "Fixed Package", value: "$1,000 / ₹10k" },
       { label: "Monthly Builder Tax", value: "$0 Zero" },
       { label: "Local SEO Setup", value: "Included" },
     ],

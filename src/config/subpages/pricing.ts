@@ -299,7 +299,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
     heroImageAlt: "Business Website Pricing",
     heroImageSrc: "/ai5.png",
     heroStats: [
-      { label: "Corporate Package", value: "$1,000 / ₹79k" },
+      { label: "Corporate Package", value: "$1,000 / ₹10k" },
       { label: "Turnaround Time", value: "7-14 Days" },
       { label: "Builder Subscriptions", value: "$0 Never" },
     ],
@@ -393,7 +393,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
     heroImageAlt: "3D Website Pricing",
     heroImageSrc: "/ai1.png",
     heroStats: [
-      { label: "3D Web Package", value: "$1,000 / ₹79k" },
+      { label: "3D Web Package", value: "$1,000 / ₹10k" },
       { label: "Performance", value: "60 FPS Guarantee" },
       { label: "Lighthouse Score", value: "95+ Maintained" },
     ],
@@ -487,7 +487,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
     heroImageAlt: "Ecommerce Website Pricing",
     heroImageSrc: "/ai2.png",
     heroStats: [
-      { label: "Store Package", value: "$1,000 / ₹79k" },
+      { label: "Store Package", value: "$1,000 / ₹10k" },
       { label: "Monthly Platform Cut", value: "0% Zero" },
       { label: "Gateways", value: "Stripe & Razorpay" },
     ],

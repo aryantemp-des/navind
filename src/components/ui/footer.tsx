@@ -159,7 +159,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
               </li>
               <li>
                 <a href="/pricing/india" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
-                  India Pricing (₹79k)
+                  India Pricing (₹10k)
                 </a>
               </li>
               <li>

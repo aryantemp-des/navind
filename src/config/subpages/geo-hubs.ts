@@ -9,7 +9,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
     category: "INDIA REGIONAL HUB",
     title: "Website Development Company in India | Fixed ₹79,000 Packages | Navya",
     h1: "Website Development Company in India",
-    metaDescription: "Leading website development company in India delivering high-performance Next.js and 3D WebGL platforms. Fixed ₹79k pricing, GST billing, and local support.",
+    metaDescription: "Leading website development company in India delivering high-performance Next.js and 3D WebGL platforms. Fixed ₹10k pricing, GST billing, and local support.",
     primaryKeyword: "website development company in india",
     breadcrumbs: [
       { label: "Home", href: "/" },
