@@ -5,6 +5,7 @@ import { Sparkles, Zap, Puzzle, Sliders, Smartphone, Code2 } from "lucide-react"
 interface Feature {
   title: string;
   description: string;
+  href: string;
   icon: React.ReactNode;
 }
 
@@ -13,36 +14,42 @@ const features: Feature[] = [
     title: "Elegant Design",
     description:
       "Beautiful shader effects and purposeful aesthetics that elevate your brand without overwhelming it. Crafted for enterprise digital presence.",
+    href: "/website-design",
     icon: <Sparkles className="w-8 h-8 text-red-300" />,
   },
   {
     title: "High Performance",
     description:
       "Optimized WebGL pipelines and minimal DOM footprint that run smoothly across desktop, tablet, and mobile devices while maintaining 60fps.",
+    href: "/services/website-performance-optimization",
     icon: <Zap className="w-8 h-8 text-amber-300" />,
   },
   {
     title: "Easy Integration",
     description:
       "Composable, modular architecture and unified design tokens that connect seamlessly with your existing infrastructure and business systems.",
+    href: "/services/custom-web-development",
     icon: <Puzzle className="w-8 h-8 text-red-400" />,
   },
   {
     title: "Customizable",
     description:
       "Custom systems engineered around exact client requirements, workflows, brand guidelines, and operational parameters rather than generic templates.",
+    href: "/custom-website",
     icon: <Sliders className="w-8 h-8 text-amber-400" />,
   },
   {
     title: "Responsive & Scalable",
     description:
       "Fluid typography, adaptive layouts, and resilient components built to scale from high-res desktop monitors down to mobile viewports.",
+    href: "/services/business-website-development",
     icon: <Smartphone className="w-8 h-8 text-rose-300" />,
   },
   {
     title: "Modern Tech Ecosystem",
     description:
       "Engineered with Next.js, React, TypeScript, Three.js, and autonomous AI agents for long-term maintainability and competitive advantage.",
+    href: "/3d-website",
     icon: <Code2 className="w-8 h-8 text-red-200" />,
   },
 ];
@@ -139,67 +146,69 @@ const ShaderCard: React.FC<{
   }, []);
 
   return (
-    <div
-      ref={cardRef}
-      className="clay-card-interactive relative h-80 rounded-3xl overflow-hidden p-2 group cursor-pointer"
+    <a
+      href={feature.href}
+      className="clay-card-interactive relative h-80 rounded-3xl overflow-hidden p-2 group cursor-pointer block"
       style={{ willChange: "transform" }}
     >
-      {/* Background: WebGL Warp Shader on Desktop, GPU CSS Gradient Mesh on Mobile */}
-      <div
-        className="absolute inset-2 rounded-2xl overflow-hidden pointer-events-none transition-opacity duration-300"
-        style={{
-          visibility: isVisible ? "visible" : "hidden",
-          opacity: isVisible ? 0.85 : 0,
-        }}
-      >
-        {isDesktop ? (
-          <Warp
-            style={{ height: "100%", width: "100%" }}
-            proportion={shaderConfig.proportion}
-            softness={shaderConfig.softness}
-            distortion={shaderConfig.distortion}
-            swirl={shaderConfig.swirl}
-            swirlIterations={shaderConfig.swirlIterations}
-            shape={shaderConfig.shape}
-            shapeScale={shaderConfig.shapeScale}
-            scale={1}
-            rotation={0}
-            speed={isVisible ? 0.35 : 0}
-            colors={shaderConfig.colors}
-          />
-        ) : (
-          <div
-            className="w-full h-full"
-            style={{
-              background: `radial-gradient(circle at ${30 + (index % 3) * 20}% ${40 + (index % 2) * 20}%, ${shaderConfig.colors[1]} 0%, ${shaderConfig.colors[0]} 50%, rgba(10, 5, 5, 0.95) 100%)`,
-              opacity: 0.65,
-            }}
-          />
-        )}
-      </div>
+      <div ref={cardRef} className="w-full h-full relative">
+        {/* Background: WebGL Warp Shader on Desktop, GPU CSS Gradient Mesh on Mobile */}
+        <div
+          className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none transition-opacity duration-300"
+          style={{
+            visibility: isVisible ? "visible" : "hidden",
+            opacity: isVisible ? 0.85 : 0,
+          }}
+        >
+          {isDesktop ? (
+            <Warp
+              style={{ height: "100%", width: "100%" }}
+              proportion={shaderConfig.proportion}
+              softness={shaderConfig.softness}
+              distortion={shaderConfig.distortion}
+              swirl={shaderConfig.swirl}
+              swirlIterations={shaderConfig.swirlIterations}
+              shape={shaderConfig.shape}
+              shapeScale={shaderConfig.shapeScale}
+              scale={1}
+              rotation={0}
+              speed={isVisible ? 0.35 : 0}
+              colors={shaderConfig.colors}
+            />
+          ) : (
+            <div
+              className="w-full h-full"
+              style={{
+                background: `radial-gradient(circle at ${30 + (index % 3) * 20}% ${40 + (index % 2) * 20}%, ${shaderConfig.colors[1]} 0%, ${shaderConfig.colors[0]} 50%, rgba(10, 5, 5, 0.95) 100%)`,
+                opacity: 0.65,
+              }}
+            />
+          )}
+        </div>
 
-      {/* Dark Masked Card Content */}
-      <div className="relative z-10 p-6 sm:p-7 rounded-2xl h-full flex flex-col justify-between bg-black/80 backdrop-blur-[6px] border border-white/10">
-        <div>
-          <div className="clay-icon-well w-12 h-12 flex items-center justify-center mb-4">
-            {feature.icon}
+        {/* Dark Masked Card Content */}
+        <div className="relative z-10 p-6 sm:p-7 rounded-2xl h-full flex flex-col justify-between bg-black/80 backdrop-blur-[6px] border border-white/10">
+          <div>
+            <div className="clay-icon-well w-12 h-12 flex items-center justify-center mb-4">
+              {feature.icon}
+            </div>
+
+            <h3 className="text-xl font-bold mb-2 text-white font-heading">
+              {feature.title}
+            </h3>
+
+            <p className="leading-relaxed text-zinc-300 text-sm font-light">
+              {feature.description}
+            </p>
           </div>
 
-          <h3 className="text-xl font-bold mb-2 text-white font-heading">
-            {feature.title}
-          </h3>
-
-          <p className="leading-relaxed text-zinc-300 text-sm font-light">
-            {feature.description}
-          </p>
-        </div>
-
-        <div className="flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-red-300 group-hover:text-white transition-colors">
-          <span className="mr-2">Navya Architecture</span>
-          <span className="group-hover:translate-x-1 transition-transform">→</span>
+          <div className="flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-red-300 group-hover:text-white transition-colors">
+            <span className="mr-2">Explore Capability</span>
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

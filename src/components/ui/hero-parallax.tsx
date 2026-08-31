@@ -207,77 +207,77 @@ export const ProductCard: React.FC<{
 export const defaultProducts: ProductItem[] = [
   {
     title: "Autonomous Workflow Orchestration",
-    link: "#",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/autonomous-work-orchestration.png",
   },
   {
     title: "High-Yield Cloud Infrastructure",
-    link: "#",
+    link: "/services/website-performance-optimization",
     thumbnail: "/dot2/high-yield-cloud-infrastructure.png",
   },
   {
     title: "Intelligent Neural Agents",
-    link: "#",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/intelligent-neural-agent.png",
   },
   {
     title: "Real-time Business Telemetry",
-    link: "#",
+    link: "/services/custom-web-development",
     thumbnail: "/dot2/human-in-the-loop-review.png",
   },
   {
     title: "Secure Distributed Architecture",
-    link: "#",
+    link: "/services/custom-web-development",
     thumbnail: "/dot2/high-yield-cloud-infrastructure.png",
   },
   {
     title: "Customer Intelligence Engine",
-    link: "#",
+    link: "/services/business-website-development",
     thumbnail: "/dot2/multi-agent-decision-support.png",
   },
   {
     title: "Interactive 3D Web Framework",
-    link: "#",
+    link: "/3d-website",
     thumbnail: "/dot2/interactive-3d-framework.png",
   },
   {
     title: "Multi-Agent Decision Support",
-    link: "#",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/multi-agent-decision-support.png",
   },
   {
     title: "Automated Communication Hub",
-    link: "#",
+    link: "/services/business-website-development",
     thumbnail: "/dot2/automated-communication-hub.png",
   },
   {
     title: "Next-gen Digital Product Engine",
-    link: "#",
+    link: "/services/website-development",
     thumbnail: "/dot2/interactive-3d-framework.png",
   },
   {
     title: "Enterprise Data Pipeline",
-    link: "#",
+    link: "/services/custom-web-development",
     thumbnail: "/dot2/autonomous-work-orchestration.png",
   },
   {
     title: "Scalable API Mesh & Microservices",
-    link: "#",
+    link: "/services/website-development",
     thumbnail: "/dot2/high-yield-cloud-infrastructure.png",
   },
   {
     title: "Predictive Analytics Architecture",
-    link: "#",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/intelligent-neural-agent.png",
   },
   {
     title: "Conversion Optimization Engine",
-    link: "#",
+    link: "/services/landing-page-development",
     thumbnail: "/dot2/automated-communication-hub.png",
   },
   {
     title: "Autonomous Lead Automation",
-    link: "#",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/human-in-the-loop-review.png",
   },
 ];

@@ -186,12 +186,12 @@ export const ParallaxFloatingShowcase: React.FC = () => {
           Your goals become our responsibility, from the first idea to the final result.
         </p>
 
-        <button
-          onClick={scrollToContact}
-          className="clay-btn-primary text-xs font-mono uppercase tracking-wider text-white rounded-full py-4 px-9 font-bold cursor-pointer"
+        <a
+          href="/get-started"
+          className="clay-btn-primary text-xs font-mono uppercase tracking-wider text-white rounded-full py-4 px-9 font-bold cursor-pointer inline-block text-center"
         >
           Partner With Navya →
-        </button>
+        </a>
       </motion.div>
 
       {/* Floating Interactive Canvas Elements */}

@@ -75,63 +75,73 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
             </h4>
             <ul className="space-y-3 text-sm font-light text-zinc-400">
               <li>
-                <button onClick={() => scrollTo("services")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Digital Experiences
-                </button>
+                <a href="/services/website-development" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Website Development
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("services")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  AI Agents &amp; Automation
-                </button>
+                <a href="/services/website-design" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Website Design Systems
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("services")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Security Architecture
-                </button>
+                <a href="/services/3d-website-development" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  3D &amp; WebGL Engineering
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("body-hero")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  3D &amp; WebGL Systems
-                </button>
+                <a href="/services/custom-web-development" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Custom Web Engineering
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("features-cards")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Performance &amp; SEO Growth
-                </button>
+                <a href="/services/website-performance-optimization" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Performance &amp; SEO
+                </a>
+              </li>
+              <li>
+                <a href="/services/website-maintenance" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Ongoing Maintenance ($50)
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Solutions */}
+          {/* Column 3: Industries */}
           <div>
             <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-200 mb-5">
-              Solutions
+              Industries
             </h4>
             <ul className="space-y-3 text-sm font-light text-zinc-400">
               <li>
-                <button onClick={() => scrollTo("ai-section")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Autonomous Lead Intake
-                </button>
+                <a href="/industries/startups" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Startups &amp; Scaleups
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("ai-section")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Workflow Orchestration
-                </button>
+                <a href="/industries/saas" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  SaaS Platforms
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("ai-section")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Automated Communications
-                </button>
+                <a href="/industries/small-business" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Small &amp; Local Business
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("pricing")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Enterprise Web Packages
-                </button>
+                <a href="/industries/restaurants" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Restaurants &amp; Menus
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("pricing")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Custom AI Agent Bundles
-                </button>
+                <a href="/industries/real-estate" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Real Estate &amp; Virtual Tours
+                </a>
+              </li>
+              <li>
+                <a href="/industries/technology" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Technology Companies
+                </a>
               </li>
             </ul>
           </div>
@@ -143,29 +153,78 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
             </h4>
             <ul className="space-y-3 text-sm font-light text-zinc-400">
               <li>
-                <button onClick={() => scrollTo("pricing")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Website Package — $1,000
-                </button>
+                <a href="/pricing" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Global Pricing ($1,000)
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("pricing")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  AI Agents Package — $1,000
-                </button>
+                <a href="/pricing/india" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  India Pricing (₹79k)
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("pricing")} className="hover:text-red-400 font-medium hover:translate-x-1 transition-all cursor-pointer">
-                  Full Ecosystem — $1,500
-                </button>
+                <a href="/pricing/usa" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  USA Pricing ($1,000)
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("pricing")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Maintenance — $50 / req
-                </button>
+                <a href="/pricing/3d-website" className="hover:text-red-400 font-medium hover:translate-x-1 transition-all cursor-pointer block">
+                  3D Website Pricing
+                </a>
               </li>
               <li>
-                <button onClick={() => scrollTo("final-project")} className="hover:text-white hover:translate-x-1 transition-all cursor-pointer">
-                  Custom Enterprise Quote
-                </button>
+                <a href="/pricing/business-website" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Business Website Plans
+                </a>
+              </li>
+              <li>
+                <a href="/pricing/ecommerce" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Ecommerce Pricing
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5: Ecosystem & Routes */}
+          <div>
+            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-200 mb-5">
+              Explore &amp; Action
+            </h4>
+            <ul className="space-y-3 text-sm font-light text-zinc-400">
+              <li>
+                <a href="/resources" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block text-red-300 font-medium">
+                  Resource Center
+                </a>
+              </li>
+              <li>
+                <a href="/blog" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Blog &amp; Insights
+                </a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Services Directory
+                </a>
+              </li>
+              <li>
+                <a href="/industries" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Industries Directory
+                </a>
+              </li>
+              <li>
+                <a href="/request-a-quote" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Request a Quote
+                </a>
+              </li>
+              <li>
+                <a href="/book-a-call" className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block">
+                  Book Strategy Call
+                </a>
+              </li>
+              <li>
+                <a href="/get-started" className="hover:text-red-400 font-medium hover:translate-x-1 transition-all cursor-pointer block">
+                  Start a Project &rarr;
+                </a>
               </li>
             </ul>
           </div>
@@ -177,14 +236,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
           <div className="flex flex-wrap items-center gap-3">
             <span>© 2026 Navya Tech Industry. All rights reserved.</span>
             <span className="text-zinc-600">•</span>
+            <span>Crafted with ❤️ in Navya Tech Industry</span>
+            <span className="text-zinc-600">•</span>
             <button
               onClick={onOpenTerms}
               className="text-red-400 hover:text-red-300 underline underline-offset-4 cursor-pointer font-medium"
             >
               Terms &amp; Conditions
             </button>
-            <span className="text-zinc-600">•</span>
-            <span className="text-zinc-400">Last updated: August 2026</span>
           </div>
 
           <div className="flex items-center">

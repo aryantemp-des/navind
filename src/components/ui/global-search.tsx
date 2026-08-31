@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Search, X, ArrowRight, Sparkles, Layers, ShieldCheck, DollarSign, Bot, Globe, Phone, FileText } from "lucide-react";
+import { Search, X, ArrowRight, Sparkles, Layers, ShieldCheck, DollarSign, Bot, Globe, Phone, FileText, Briefcase, Building2, ShoppingBag, Code, Wrench, Zap, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { allSubpages } from "@/config/subpages";
 
 interface SearchItem {
   id: string;
   title: string;
-  category: "Capability" | "Package" | "Architecture" | "Solution" | "Contact";
+  category: "Capability" | "Package" | "Architecture" | "Solution" | "Contact" | "Service" | "Industry" | "Commercial";
   description: string;
   targetId?: string;
-  externalLink?: string;
+  path?: string;
   icon: React.ComponentType<{ className?: string }>;
 }
 
-const SEARCH_DATABASE: SearchItem[] = [
+const BASE_SEARCH_ITEMS: SearchItem[] = [
   {
     id: "services-web",
     title: "Digital Experiences & Web Engineering",
@@ -38,37 +39,54 @@ const SEARCH_DATABASE: SearchItem[] = [
     icon: ShieldCheck,
   },
   {
-    id: "features-standards",
-    title: "Technology Standards & Precision",
-    category: "Capability",
-    description: "WebGL shader engines, sub-second latency, and cloud infrastructure.",
-    targetId: "features-cards",
-    icon: Layers,
-  },
-  {
     id: "pricing-web",
-    title: "Website Package ($1,000)",
+    title: "Website Package ($1,000 / ₹79k)",
     category: "Package",
     description: "Complete modern digital presence with Next.js, 3D WebGL, and lifetime source ownership.",
-    targetId: "pricing",
+    path: "/pricing",
     icon: DollarSign,
   },
   {
-    id: "pricing-ai",
-    title: "AI Agents Package ($1,000)",
+    id: "pricing-bundle",
+    title: "Full Ecosystem Bundle ($1,500 / ₹1,19k)",
     category: "Package",
-    description: "Autonomous multi-agent orchestrator, CRM & WhatsApp tool integrations, and lead automation.",
-    targetId: "pricing",
-    icon: DollarSign,
+    description: "Complete package: Website + AI Agents pipeline together with priority engineering.",
+    path: "/pricing",
+    icon: Zap,
   },
-  {
-    id: "pricing-eco",
-    title: "Both Packages Together ($1,500)",
-    category: "Package",
-    description: "Complete unified technology powerhouse: Enterprise web presence + Autonomous AI workflows.",
-    targetId: "pricing",
-    icon: Sparkles,
-  },
+];
+
+// Generate searchable index from all 44 subpages
+const SUBPAGE_SEARCH_ITEMS: SearchItem[] = Object.entries(allSubpages).map(([path, config]) => {
+  let cat: SearchItem["category"] = "Commercial";
+  let icon = Globe;
+
+  if (path.startsWith("/services")) {
+    cat = "Service";
+    icon = Wrench;
+  } else if (path.startsWith("/industries")) {
+    cat = "Industry";
+    icon = Building2;
+  } else if (path.startsWith("/pricing")) {
+    cat = "Package";
+    icon = DollarSign;
+  } else if (["/contact", "/get-started", "/request-a-quote", "/book-a-call"].includes(path)) {
+    cat = "Contact";
+    icon = Phone;
+  }
+
+  return {
+    id: `subpage-${path}`,
+    title: config.h1,
+    category: cat,
+    description: config.heroDescription,
+    path: path,
+    icon: icon,
+  };
+});
+
+const SEARCH_DATABASE: SearchItem[] = [
+  ...BASE_SEARCH_ITEMS,
   {
     id: "ai-workflow",
     title: "The Navya Intelligent Workflow Architecture",
@@ -82,17 +100,19 @@ const SEARCH_DATABASE: SearchItem[] = [
     title: "Direct Engineering Call (+91 93554 12903)",
     category: "Contact",
     description: "Call Navya Tech Industry directly for consultation and project kickoff.",
-    externalLink: "tel:+919355412903",
+    targetId: "tel",
+    path: "tel:+919355412903",
     icon: Phone,
   },
   {
     id: "terms-conditions",
     title: "Terms & Conditions (Official Agreement)",
     category: "Solution",
-    description: "Review Navya Tech Industry's 31-section legal, project scope, AI usage, and delivery terms.",
+    description: "Review Navya Tech Industry's legal, project scope, AI usage, and delivery terms.",
     targetId: "terms",
     icon: FileText,
   },
+  ...SUBPAGE_SEARCH_ITEMS,
 ];
 
 export const GlobalSearch: React.FC<{
@@ -142,8 +162,12 @@ export const GlobalSearch: React.FC<{
       onOpenTerms?.();
       return;
     }
-    if (item.externalLink) {
-      window.location.href = item.externalLink;
+    if (item.path) {
+      if (item.path.startsWith("tel:") || item.path.startsWith("http")) {
+        window.location.href = item.path;
+      } else {
+        window.location.href = item.path;
+      }
       return;
     }
     if (item.targetId) {

@@ -268,21 +268,13 @@ export const SaaSHero = React.memo(() => {
       </p>
 
       <div className="flex items-center gap-4 relative mb-8" style={{ zIndex: 2 }}>
-        <Button
-          type="button"
-          variant="red"
-          size="lg"
-          className="rounded-lg flex items-center justify-center cursor-pointer"
-          aria-label="View packages and pricing"
-          onClick={() => {
-            const el = document.getElementById("pricing");
-            if (el) {
-              el.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
+        <a
+          href="/get-started"
+          className="clay-btn-primary rounded-lg flex items-center justify-center cursor-pointer h-12 px-8 text-base text-white font-bold shadow-[0_10px_25px_rgba(239,68,68,0.45)]"
+          aria-label="Start project with Navya Tech Industry"
         >
           Get started
-        </Button>
+        </a>
       </div>
     </section>
   );

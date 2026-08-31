@@ -118,12 +118,12 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
                 </ul>
               </div>
 
-              <button
-                onClick={() => handleSelect('Website Package')}
-                className="clay-btn-secondary w-full py-4 px-6 rounded-full text-white font-semibold text-sm tracking-wider uppercase cursor-pointer text-center"
+              <a
+                href="/pricing/business-website"
+                className="clay-btn-secondary w-full py-4 px-6 rounded-full text-white font-semibold text-sm tracking-wider uppercase cursor-pointer text-center block"
               >
-                Choose Website Package
-              </button>
+                Choose Website Package ($1,000)
+              </a>
             </div>
 
             {/* Package 3: Both Packages Together (Featured in Center) */}
@@ -162,13 +162,13 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
                 </ul>
               </div>
 
-              <button
-                onClick={() => handleSelect('Both Packages Together')}
+              <a
+                href="/get-started"
                 className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2"
               >
                 <span>Get Complete Ecosystem ($1,500)</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
 
             {/* Package 2: AI Agents & Automation */}
@@ -202,24 +202,60 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
                 </ul>
               </div>
 
-              <button
-                onClick={() => handleSelect('AI Agents & Automation')}
-                className="clay-btn-secondary w-full py-4 px-6 rounded-full text-white font-semibold text-sm tracking-wider uppercase cursor-pointer text-center"
+              <a
+                href="/get-started"
+                className="clay-btn-secondary w-full py-4 px-6 rounded-full text-white font-semibold text-sm tracking-wider uppercase cursor-pointer text-center block"
               >
-                Choose AI Automation
-              </button>
+                Choose AI Automation ($1,000)
+              </a>
             </div>
 
           </div>
 
+          {/* Regional Pricing Links Matrix */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="/pricing/india"
+              className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
+            >
+              <span>🇮🇳 India Pricing: ₹79,000 / ₹1,19,000 (GST Invoiced)</span>
+              <ArrowRight className="w-3 h-3 text-red-400" />
+            </a>
+            <a
+              href="/pricing/usa"
+              className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
+            >
+              <span>🇺🇸 USA Pricing: $1,000 / $1,500 (USD Stripe/Wire)</span>
+              <ArrowRight className="w-3 h-3 text-red-400" />
+            </a>
+            <a
+              href="/pricing/3d-website"
+              className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
+            >
+              <span>3D Web Package</span>
+              <ArrowRight className="w-3 h-3 text-red-400" />
+            </a>
+            <a
+              href="/pricing/ecommerce"
+              className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
+            >
+              <span>Ecommerce Store Package</span>
+              <ArrowRight className="w-3 h-3 text-red-400" />
+            </a>
+          </div>
+
           {/* Ongoing Support & Maintenance Note */}
-          <div className="clay-card mt-12 text-center max-w-2xl mx-auto p-6 rounded-2xl">
+          <div className="clay-card mt-8 text-center max-w-2xl mx-auto p-6 rounded-2xl">
             <div className="flex items-center justify-center gap-2 text-zinc-200 text-sm mb-1 font-medium">
               <Shield className="w-4 h-4 text-red-400" />
               <span>Ongoing Maintenance &amp; Customization</span>
             </div>
             <p className="text-xs text-zinc-400 font-light">
-              All packages include one-time lifetime access. Ongoing maintenance, customizations, or feature expansions after launch are billed simply at <span className="text-white font-semibold">$50 per request or service</span>.
+              All packages include one-time lifetime access. Ongoing maintenance, customizations, or feature expansions after launch are billed simply at{" "}
+              <a href="/services/website-maintenance" className="text-red-400 font-semibold underline underline-offset-2 hover:text-red-300">
+                $50 per request or service
+              </a>
+              .
             </p>
           </div>
 

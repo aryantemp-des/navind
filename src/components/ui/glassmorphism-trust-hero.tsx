@@ -86,29 +86,21 @@ export default function GlassmorphismTrustHero({
 
             {/* CTA Buttons with Claymorphic Tactile Physics */}
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <button
-                onClick={() => {
-                  const el = document.getElementById('services');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  else if (onViewWorkClick) onViewWorkClick();
-                }}
+              <a
+                href="/services"
                 className="clay-btn-primary group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-bold text-white transition-all cursor-pointer"
               >
                 <span>View Services &amp; Capabilities</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              </a>
               
-              <button
-                onClick={() => {
-                  const el = document.getElementById('ai-section');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  else if (onShowreelClick) onShowreelClick();
-                }}
+              <a
+                href="/services/web-app-development"
                 className="clay-btn-secondary group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-white transition-all cursor-pointer"
               >
                 <Play className="w-4 h-4 fill-current text-red-400" />
                 <span>Explore AI Workflows</span>
-              </button>
+              </a>
             </div>
           </div>
 

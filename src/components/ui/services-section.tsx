@@ -5,6 +5,7 @@ export interface ServiceCardItem {
   id: string;
   title: string;
   description: string;
+  href: string;
   icon: React.ComponentType<{ className?: string }>;
   tags: string[];
   gradient: string;
@@ -16,6 +17,7 @@ const servicesData: ServiceCardItem[] = [
     id: "digital-experiences",
     title: "Digital Experiences",
     description: "High-performance websites and digital platforms designed to turn attention into engagement and business growth.",
+    href: "/services/website-development",
     icon: Globe,
     tags: ["Next.js", "WebGL / 3D", "UI/UX Systems", "Core Web Vitals"],
     gradient: "from-red-950/40 via-zinc-900 to-black",
@@ -25,6 +27,7 @@ const servicesData: ServiceCardItem[] = [
     id: "ai-agents-automation",
     title: "AI Agents & Automation",
     description: "Intelligent AI agents that handle repetitive work, respond to customers, automate workflows, and help teams move faster.",
+    href: "/services/web-app-development",
     icon: Bot,
     tags: ["Agentic Workflows", "CRM & ERP Sync", "Lead Automation", "Human-in-the-Loop"],
     gradient: "from-amber-950/40 via-zinc-900 to-black",
@@ -34,6 +37,7 @@ const servicesData: ServiceCardItem[] = [
     id: "security-architecture",
     title: "Security Architecture",
     description: "Secure-by-design systems, infrastructure, and architecture built to protect your data, applications, and business operations.",
+    href: "/services/custom-web-development",
     icon: ShieldCheck,
     tags: ["Threat Modeling", "Zero-Trust", "Data Governance", "Audit Readiness"],
     gradient: "from-rose-950/40 via-zinc-900 to-black",
@@ -66,9 +70,10 @@ export const ServicesSection: React.FC = () => {
           {servicesData.map((service, index) => {
             const Icon = service.icon;
             return (
-              <div
+              <a
                 key={service.id}
-                className="clay-card-interactive p-8 sm:p-10 flex flex-col justify-between group cursor-pointer"
+                href={service.href}
+                className="clay-card-interactive p-8 sm:p-10 flex flex-col justify-between group cursor-pointer block"
               >
                 <div>
                   {/* Top Row: Icon + Number */}
@@ -106,9 +111,20 @@ export const ServicesSection: React.FC = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </a>
             );
           })}
+        </div>
+
+        {/* Bottom Hub Link */}
+        <div className="mt-12 text-center">
+          <a
+            href="/services"
+            className="clay-btn-secondary inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-mono uppercase tracking-wider text-white hover:text-red-300"
+          >
+            <span>Explore All 12 Services in Ecosystem</span>
+            <ArrowUpRight className="w-4 h-4 text-red-400" />
+          </a>
         </div>
       </div>
     </section>

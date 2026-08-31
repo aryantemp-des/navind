@@ -23,8 +23,15 @@ import SmoothScrollProvider from "@/components/ui/smooth-scroll";
 import TermsModal from "@/components/ui/terms-modal";
 import GlobalPlexusBg from "@/components/ui/global-plexus-bg";
 import StickyMobileCTA from "@/components/ui/sticky-mobile-cta";
+import GenericSubpage from "@/components/templates/GenericSubpage";
+import BlogArticleTemplate from "@/components/templates/BlogArticleTemplate";
+import BlogHubTemplate from "@/components/templates/BlogHubTemplate";
+import { getSubpageConfig } from "@/config/subpages";
+import { getBlogArticle, getBlogCategory } from "@/config/blogs";
+import { RouteProvider, useRoute } from "@/context/RouteContext";
 
-export function App() {
+function MainContent() {
+  const { currentPath, navigate } = useRoute();
   const [searchOpen, setSearchOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
 
@@ -55,19 +62,40 @@ export function App() {
   }, []);
 
   const handleGetStarted = () => {
-    const el = document.getElementById("pricing");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate("/get-started");
   };
 
   const handleStartProject = () => {
-    const el = document.getElementById("final-project");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate("/get-started");
   };
 
+  // 1. Check if route matches an individual blog article
+  const blogArticle = getBlogArticle(currentPath);
+  if (blogArticle) {
+    return <BlogArticleTemplate article={blogArticle} />;
+  }
+
+  // 2. Check if route matches a blog category hub
+  const blogCategory = getBlogCategory(currentPath);
+  if (blogCategory) {
+    return <BlogHubTemplate hubType="category" categoryHub={blogCategory} />;
+  }
+
+  // 3. Check if route matches /resources or /blog main hubs
+  if (currentPath === "/resources") {
+    return <BlogHubTemplate hubType="resources" />;
+  }
+  if (currentPath === "/blog") {
+    return <BlogHubTemplate hubType="blog" />;
+  }
+
+  // 4. Check if currentPath matches one of our 44 subpages
+  const subpageConfig = getSubpageConfig(currentPath);
+  if (subpageConfig) {
+    return <GenericSubpage config={subpageConfig} />;
+  }
+
+  // Otherwise render primary "/" Homepage
   return (
     <div className="relative min-h-screen text-foreground selection:bg-red-600/30 selection:text-red-200 overflow-x-hidden" style={{ background: "transparent" }}>
       {/* Global orange/black plexus background — fixed, behind everything */}
@@ -166,6 +194,14 @@ export function App() {
       {/* 21. Floating Terms & Conditions Modal (Dismissed only via 'I Accept') */}
       <TermsModal isOpen={termsOpen} onAccept={handleAcceptTerms} />
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <RouteProvider>
+      <MainContent />
+    </RouteProvider>
   );
 }
 

@@ -96,21 +96,21 @@ function HeroContent({ onStartClick }: { onStartClick?: () => void }) {
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-              <button
-                onClick={scrollToContact}
+              <a
+                href="/contact"
                 className="clay-btn-secondary text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 cursor-pointer text-center text-sm uppercase tracking-wider font-heading"
               >
                 Contact Us
-              </button>
+              </a>
 
-              <button
-                onClick={scrollToContact}
+              <a
+                href="/get-started"
                 className="clay-btn-primary text-white font-bold py-4 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-sm uppercase tracking-wider font-heading"
               >
                 <Sparkles className="w-4 h-4 text-white" />
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
