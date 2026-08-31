@@ -6,9 +6,10 @@ import { ALL_BLOG_ROUTES } from "../src/config/blogs";
 
 const BASE_URL = "http://localhost:5173";
 const DOMAIN = "https://www.navyatech.co.in";
+const MAX_ALLOWED_DATE = "2026-08-30"; // Current reference date
 
 async function runSitemapValidationSuite() {
-  console.log("🗺️  Starting Comprehensive Production XML Sitemap & Robots.txt Audit...\n");
+  console.log("🗺️  Starting Strict ISO 8601 Sitemap & Lastmod Validation Suite...\n");
 
   const rootPath = process.cwd();
   const publicSitemapPath = path.join(rootPath, "public", "sitemap.xml");
@@ -21,14 +22,6 @@ async function runSitemapValidationSuite() {
   console.log("📁 1. Verified authoritative files in public/:");
   console.log(`   📄 Sitemap: ${publicSitemapPath}`);
   console.log(`   📄 Robots: ${publicRobotsPath}`);
-
-  // Check no competing redundant files in root
-  const rootSitemapPath = path.join(rootPath, "sitemap.xml");
-  const rootRobotsPath = path.join(rootPath, "robots.txt");
-  const hasRootSitemap = fs.existsSync(rootSitemapPath);
-  const hasRootRobots = fs.existsSync(rootRobotsPath);
-  console.log(`   ℹ️ Redundant root sitemap.xml present: ${hasRootSitemap}`);
-  console.log(`   ℹ️ Redundant root robots.txt present: ${hasRootRobots}`);
 
   // 2. Verify robots.txt configuration
   const robotsTxt = fs.readFileSync(publicRobotsPath, "utf-8");
@@ -49,36 +42,74 @@ async function runSitemapValidationSuite() {
     throw new Error("Sitemap XML missing valid sitemap xmlns schema namespace");
   }
 
-  // Extract all <loc> URLs using regex
-  const locMatches = [...sitemapXml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
-  console.log(`📄 3. Parsed XML sitemap: Found ${locMatches.length} total URLs.`);
+  // Extract all <url> blocks
+  const urlBlocks = [...sitemapXml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+  console.log(`📄 3. Parsed XML sitemap: Found ${urlBlocks.length} total <url> blocks.`);
 
-  // Check for duplicates
+  // Validate every URL block and every <lastmod>
+  const locMatches: string[] = [];
   const seen = new Set<string>();
   const duplicates: string[] = [];
-  for (const url of locMatches) {
+
+  let validLastModCount = 0;
+  let omittedLastModCount = 0;
+
+  for (const block of urlBlocks) {
+    const locMatch = block.match(/<loc>(.*?)<\/loc>/);
+    if (!locMatch) throw new Error(`Missing <loc> in url block: ${block}`);
+    const url = locMatch[1].trim();
+
     if (seen.has(url)) duplicates.push(url);
     seen.add(url);
+    locMatches.push(url);
+
+    // Validate URL syntax & domain
+    if (!url.startsWith(DOMAIN)) {
+      throw new Error(`Non-canonical or invalid domain in sitemap: "${url}"`);
+    }
+    if (url.includes("?") || url.includes("#")) {
+      throw new Error(`URL contains query parameters or hash fragment: "${url}"`);
+    }
+    if (url.includes("localhost") || url.includes("127.0.0.1") || url.includes("preview")) {
+      throw new Error(`Development/preview URL detected: "${url}"`);
+    }
+
+    // Validate <lastmod> if present
+    const lastmodMatch = block.match(/<lastmod>(.*?)<\/lastmod>/);
+    if (lastmodMatch) {
+      const lastmodVal = lastmodMatch[1].trim();
+
+      // Strict regex check: must be YYYY-MM-DD
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(lastmodVal)) {
+        throw new Error(`INVALID <lastmod> FORMAT detected on ${url}: "${lastmodVal}". Must be YYYY-MM-DD!`);
+      }
+
+      // Check not a future date
+      if (lastmodVal > MAX_ALLOWED_DATE) {
+        throw new Error(`FUTURE <lastmod> DATE detected on ${url}: "${lastmodVal}" > ${MAX_ALLOWED_DATE}`);
+      }
+
+      // Parse date validity
+      const [y, m, d] = lastmodVal.split("-").map(Number);
+      if (y < 2020 || y > 2026 || m < 1 || m > 12 || d < 1 || d > 31) {
+        throw new Error(`Malformed calendar date in <lastmod> on ${url}: "${lastmodVal}"`);
+      }
+
+      validLastModCount++;
+    } else {
+      omittedLastModCount++;
+    }
   }
 
   if (duplicates.length > 0) {
     throw new Error(`Duplicate URLs found in sitemap: ${duplicates.join(", ")}`);
   }
-  console.log("✨ 4. Verified 0 duplicate URLs across the entire sitemap.");
 
-  // Check URL format and security
-  for (const url of locMatches) {
-    if (!url.startsWith(DOMAIN)) {
-      throw new Error(`Non-canonical or invalid domain URL in sitemap: "${url}"`);
-    }
-    if (url.includes("?") || url.includes("#")) {
-      throw new Error(`URL contains query parameters or hash fragment: "${url}"`);
-    }
-    if (url.includes("//") && !url.startsWith("https://")) {
-      throw new Error(`Malformed URL detected: "${url}"`);
-    }
-  }
-  console.log("🔒 5. Verified all URLs use HTTPS and canonical production domain.");
+  console.log(`✨ 4. Verified 0 duplicate URLs.`);
+  console.log(`📅 5. Validated all <lastmod> values:`);
+  console.log(`   - Strict ISO 8601 YYYY-MM-DD verified: ${validLastModCount}`);
+  console.log(`   - Cleanly omitted (no date fabrication): ${omittedLastModCount}`);
+  console.log(`   - Invalid date formats or future dates: 0`);
 
   // 4. Verify all application registry routes exist in the sitemap
   const expectedRoutes = Array.from(new Set(["/", ...Object.keys(allSubpages), ...ALL_BLOG_ROUTES]));
@@ -98,7 +129,7 @@ async function runSitemapValidationSuite() {
   console.log(`✅ All ${expectedRoutes.length} application routes are indexed in the XML sitemap.`);
 
   // 5. Playwright HTTP & Canonical Tag Verification
-  console.log("\n🌐 7. Running Playwright live HTTP 200 & Canonical Link validation...");
+  console.log("\n🌐 7. Running Playwright live HTTP 200, Canonical Link & Noindex validation...");
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -140,9 +171,16 @@ async function runSitemapValidationSuite() {
 
     await page.waitForTimeout(60);
 
+    // Verify canonical matches
     const canonicalHref = await page.locator('link[rel="canonical"]').getAttribute("href");
     if (!canonicalHref || canonicalHref !== fullUrl) {
       throw new Error(`Canonical tag mismatch on ${route}: expected "${fullUrl}", got "${canonicalHref}"`);
+    }
+
+    // Verify no accidental noindex tag
+    const robotsMeta = await page.locator('meta[name="robots"]').getAttribute("content");
+    if (robotsMeta && robotsMeta.includes("noindex")) {
+      throw new Error(`Accidental noindex tag detected on ${route}: "${robotsMeta}"`);
     }
 
     verifiedCount++;
@@ -151,18 +189,21 @@ async function runSitemapValidationSuite() {
   await browser.close();
 
   console.log("\n======================================================");
-  console.log("📊 XML SITEMAP & ROBOTS.TXT AUDIT SUMMARY");
+  console.log("📊 XML SITEMAP & LASTMOD AUDIT SUMMARY");
   console.log("======================================================");
   console.log(`Authoritative Sitemap: public/sitemap.xml`);
   console.log(`Authoritative Robots: public/robots.txt`);
-  console.log(`Production Sitemap URL: https://www.navyatech.co.in/sitemap.xml`);
-  console.log(`Production Robots URL: https://www.navyatech.co.in/robots.txt`);
+  console.log(`Canonical Production Domain: ${DOMAIN}`);
   console.log(`Total URLs in XML Sitemap: ${locMatches.length}`);
+  console.log(`Valid ISO 8601 <lastmod> Count: ${validLastModCount}`);
+  console.log(`Omitted <lastmod> (No fake dates): ${omittedLastModCount}`);
+  console.log(`Invalid Date Errors: 0`);
+  console.log(`Future Dates: 0`);
   console.log(`Expected App Routes: ${expectedRoutes.length}`);
-  console.log(`Live HTTP 200 & Canonical Verified: ${verifiedCount}`);
+  console.log(`Live HTTP 200, Canonical & Noindex Verified: ${verifiedCount}`);
   console.log(`Duplicates / Broken URLs: 0`);
 
-  console.log("\n🎉 100% AUDIT PASS! One authoritative source, perfectly synchronized with production builds.");
+  console.log("\n🎉 100% AUDIT PASS! Flawless ISO 8601 dates, zero invalid-date errors.");
 }
 
 runSitemapValidationSuite().catch((err) => {

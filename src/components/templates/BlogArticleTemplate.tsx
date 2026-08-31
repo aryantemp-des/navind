@@ -44,6 +44,16 @@ export const BlogArticleTemplate: React.FC<{ article: BlogArticle }> = ({ articl
     .map((slug) => getBlogArticle(slug))
     .filter(Boolean) as BlogArticle[];
 
+  const formatDisplayDate = (dateStr: string) => {
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    } catch {
+      return dateStr;
+    }
+  };
+
   return (
     <SubpageLayout breadcrumbs={breadcrumbs}>
       {/* 1. Technical SEO & Social Graph */}
@@ -75,7 +85,7 @@ export const BlogArticleTemplate: React.FC<{ article: BlogArticle }> = ({ articl
               <span className="text-zinc-600">•</span>
               <div className="flex items-center gap-1.5 text-xs text-zinc-400 font-mono">
                 <Calendar className="w-3.5 h-3.5 text-red-400" />
-                <span>{article.publishedDate}</span>
+                <span>{formatDisplayDate(article.publishedDate)}</span>
               </div>
             </div>
 
