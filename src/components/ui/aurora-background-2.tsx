@@ -119,10 +119,11 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
               </div>
 
               <a
-                href="/pricing/business-website"
-                className="clay-btn-secondary w-full py-4 px-6 rounded-full text-white font-semibold text-sm tracking-wider uppercase cursor-pointer text-center block"
+                href="/get-started"
+                className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.45)] hover:shadow-[0_0_30px_rgba(239,68,68,0.7)] hover:scale-[1.02] transition-all group"
               >
-                Choose Website Package ($1,000)
+                <span>Start Project</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
 
@@ -164,10 +165,10 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
 
               <a
                 href="/get-started"
-                className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2"
+                className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.5)] hover:shadow-[0_0_35px_rgba(239,68,68,0.75)] hover:scale-[1.02] transition-all group"
               >
-                <span>Get Complete Ecosystem ($1,500)</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Start Project</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
 
@@ -204,9 +205,10 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
 
               <a
                 href="/get-started"
-                className="clay-btn-secondary w-full py-4 px-6 rounded-full text-white font-semibold text-sm tracking-wider uppercase cursor-pointer text-center block"
+                className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.45)] hover:shadow-[0_0_30px_rgba(239,68,68,0.7)] hover:scale-[1.02] transition-all group"
               >
-                Choose AI Automation ($1,000)
+                <span>Start Project</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
 
@@ -218,7 +220,7 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
               href="/pricing/india"
               className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
             >
-              <span>🇮🇳 India Pricing: ₹10,000 / ₹₹17,000 (GST Invoiced)</span>
+              <span>🇮🇳 India Pricing: ₹10,000 / ₹17,000 (GST Invoiced)</span>
               <ArrowRight className="w-3 h-3 text-red-400" />
             </a>
             <a

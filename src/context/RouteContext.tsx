@@ -18,21 +18,47 @@ export const RouteProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return "/";
   });
 
+  const scrollToAnchor = (hash: string) => {
+    const el = document.querySelector(hash);
+    if (el) {
+      if ((window as any).__lenis) {
+        (window as any).__lenis.scrollTo(el as HTMLElement, { offset: -90, duration: 1.1 });
+      } else {
+        const headerOffset = 90;
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname || "/");
+      if (window.location.hash) {
+        setTimeout(() => {
+          scrollToAnchor(window.location.hash);
+        }, 150);
+      }
     };
 
     window.addEventListener("popstate", handlePopState);
+
+    if (typeof window !== "undefined" && window.location.hash) {
+      setTimeout(() => {
+        scrollToAnchor(window.location.hash);
+      }, 250);
+    }
+
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   const navigate = (path: string) => {
     if (path.startsWith("#")) {
-      const el = document.querySelector(path);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
+      scrollToAnchor(path);
       return;
     }
 
@@ -41,11 +67,26 @@ export const RouteProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return;
     }
 
-    if (path !== currentPath) {
-      window.history.pushState({}, "", path);
-      setCurrentPath(path);
-      
-      // Scroll to top immediately on route change
+    const [targetPath, hash] = path.split("#");
+    const cleanTargetPath = targetPath || "/";
+
+    if (cleanTargetPath === currentPath) {
+      if (hash) {
+        window.history.pushState({}, "", path);
+        scrollToAnchor(`#${hash}`);
+      }
+      return;
+    }
+
+    window.history.pushState({}, "", path);
+    setCurrentPath(cleanTargetPath);
+
+    if (hash) {
+      setTimeout(() => {
+        scrollToAnchor(`#${hash}`);
+      }, 150);
+    } else {
+      // Scroll to top immediately on route change without hash
       window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
       if ((window as any).__lenis) {
         (window as any).__lenis.scrollTo(0, { immediate: true });

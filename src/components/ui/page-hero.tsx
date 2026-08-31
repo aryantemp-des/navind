@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, Sparkles, Phone } from "lucide-react";
+import { ArrowRight, Sparkles, Phone, MessageSquare } from "lucide-react";
 import { Link } from "@/context/RouteContext";
 
 export interface PageHeroProps {
@@ -11,6 +11,7 @@ export interface PageHeroProps {
   secondaryCtaText?: string;
   secondaryCtaLink?: string;
   showCallNow?: boolean;
+  whatsappMessage?: string;
   imageSrc?: string;
   imageAlt: string;
   stats?: { label: string; value: string }[];
@@ -21,11 +22,12 @@ export const PageHero: React.FC<PageHeroProps> = ({
   category,
   title,
   description,
-  primaryCtaText = "Start Project",
-  primaryCtaLink = "/get-started",
+  primaryCtaText,
+  primaryCtaLink,
   secondaryCtaText = "Commercial Packages",
   secondaryCtaLink = "/pricing",
   showCallNow = true,
+  whatsappMessage,
   imageSrc = "/ai1.png",
   imageAlt,
   stats = [
@@ -59,25 +61,39 @@ export const PageHero: React.FC<PageHeroProps> = ({
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              {/* Primary Start Project CTA */}
-              <Link
-                href={primaryCtaLink}
-                className="clay-btn-primary group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-white font-bold text-sm uppercase tracking-wider cursor-pointer shadow-[0_0_25px_rgba(239,68,68,0.45)] hover:shadow-[0_0_35px_rgba(239,68,68,0.7)]"
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              {/* Primary CTA (Rendered only when configured) */}
+              {primaryCtaLink && primaryCtaText && (
+                <Link
+                  href={primaryCtaLink}
+                  className="clay-btn-primary group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white font-bold text-sm uppercase tracking-wider cursor-pointer shadow-[0_0_25px_rgba(239,68,68,0.45)] hover:shadow-[0_0_35px_rgba(239,68,68,0.7)]"
+                >
+                  <span>{primaryCtaText}</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              )}
+
+              {/* Contextual WhatsApp CTA */}
+              <a
+                href={`https://wa.me/919355412903?text=${encodeURIComponent(whatsappMessage || "Hi, I'm interested in learning more about your services.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="clay-btn-secondary inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-emerald-300 hover:text-emerald-200 uppercase tracking-wider border border-emerald-500/40 hover:border-emerald-500/80 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all"
+                aria-label="Contact on WhatsApp"
               >
-                <span>{primaryCtaText}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+                <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>WhatsApp Us</span>
+              </a>
 
               {/* Call Now Button */}
               {showCallNow && (
                 <a
                   href="tel:+919355412903"
-                  className="clay-btn-secondary inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-mono text-zinc-200 hover:text-white uppercase tracking-wider border border-red-500/30 hover:border-red-500/70 cursor-pointer"
+                  className="clay-btn-secondary inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-zinc-200 hover:text-white uppercase tracking-wider border border-red-500/30 hover:border-red-500/70 cursor-pointer"
                   title="Call Navya Tech Industry directly"
                 >
                   <Phone className="w-4 h-4 text-red-400" />
-                  <span>Call Now (+91 93554 12903)</span>
+                  <span>Call (+91 93554 12903)</span>
                 </a>
               )}
 
@@ -85,7 +101,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
               {secondaryCtaLink && (
                 <Link
                   href={secondaryCtaLink}
-                  className="clay-btn-secondary inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-mono text-zinc-300 hover:text-white uppercase tracking-wider cursor-pointer"
+                  className="clay-btn-secondary inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-zinc-300 hover:text-white uppercase tracking-wider cursor-pointer"
                 >
                   <span>{secondaryCtaText}</span>
                 </Link>

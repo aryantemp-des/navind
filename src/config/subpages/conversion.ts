@@ -111,6 +111,10 @@ export const conversionPages: Record<string, SubpageConfig> = {
       { label: "Fixed Package", value: "$1,000 / ₹10k" },
       { label: "Source Rights", value: "100% Owned" },
     ],
+    primaryCtaText: "Start Project",
+    primaryCtaLink: "/services",
+    secondaryCtaText: "Pricing Plans",
+    secondaryCtaLink: "/pricing",
     overviewTitle: "A Streamlined Intake Process Designed for Velocity",
     overviewDescription: "We have removed all unnecessary bureaucracy. Tell us about your business, select your desired package, and our senior engineers will assemble a comprehensive technical roadmap and begin development immediately upon signoff.",
     overviewCards: [
@@ -149,7 +153,7 @@ export const conversionPages: Record<string, SubpageConfig> = {
         points: ["WhatsApp & CRM integration", "Autonomous lead qualification", "24/7 automation"],
       },
       {
-        title: "Full Ecosystem Bundle — $1,500 / ₹₹17,000",
+        title: "Full Ecosystem Bundle — $1,500 / ₹17,000",
         description: "Combine our premier website package and AI agent automation suite together and save $500.",
         badge: "Bundle",
         points: ["Website + AI Agents", "Priority development", "Save $500 / ₹39k"],
@@ -162,6 +166,12 @@ export const conversionPages: Record<string, SubpageConfig> = {
       },
     ],
     relatedLinks: [
+      {
+        title: "Services Ecosystem",
+        description: "Explore all 12 digital engineering and AI capabilities.",
+        href: "/services",
+        category: "Services",
+      },
       {
         title: "Request a Quote",
         description: "Need a custom enterprise quote?",
@@ -179,12 +189,6 @@ export const conversionPages: Record<string, SubpageConfig> = {
         description: "Explore all package tiers.",
         href: "/pricing",
         category: "Pricing",
-      },
-      {
-        title: "Contact Us",
-        description: "Speak directly with an engineer.",
-        href: "/contact",
-        category: "Contact",
       },
     ],
   },

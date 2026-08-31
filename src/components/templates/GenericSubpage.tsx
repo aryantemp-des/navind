@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@/context/RouteContext";
-import { ShieldCheck, Zap, Code, Sparkles, Check, ArrowRight, Phone } from "lucide-react";
+import { ShieldCheck, Zap, Code, Sparkles, Check, ArrowRight, Phone, MessageSquare } from "lucide-react";
 import PageHero from "@/components/ui/page-hero";
 import FeatureGrid from "@/components/ui/feature-grid";
 import ProcessSection from "@/components/ui/process-section";
@@ -21,6 +21,11 @@ export interface SubpageConfig {
   heroImageAlt: string;
   heroImageSrc?: string;
   heroStats?: { label: string; value: string }[];
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  whatsappMessage?: string;
   overviewTitle: string;
   overviewDescription: string;
   overviewCards: {
@@ -28,14 +33,25 @@ export interface SubpageConfig {
     description: string;
     badge?: string;
     points?: string[];
+    href?: string;
+    ctaText?: string;
+    ctaLink?: string;
   }[];
   capabilitiesTitle?: string;
   capabilitiesSubtitle?: string;
+  capabilitiesId?: string;
+  capabilitiesVariant?: "default" | "yellow-glow";
+  capabilitiesBottomAction?: {
+    text: string;
+    href: string;
+    variant?: "red" | "default";
+  };
   capabilities: {
     title: string;
     description: string;
     badge?: string;
     points?: string[];
+    href?: string;
   }[];
   processTitle?: string;
   processSubtitle?: string;
@@ -121,10 +137,11 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
         imageAlt={config.heroImageAlt}
         imageSrc={config.heroImageSrc || "/ai1.png"}
         stats={config.heroStats}
-        primaryCtaText="Start Project"
-        primaryCtaLink="/get-started"
-        secondaryCtaText="Pricing Plans"
-        secondaryCtaLink="/pricing"
+        whatsappMessage={config.whatsappMessage}
+        primaryCtaText={config.primaryCtaText}
+        primaryCtaLink={config.primaryCtaLink}
+        secondaryCtaText={config.secondaryCtaText || "Pricing Plans"}
+        secondaryCtaLink={config.secondaryCtaLink || "/pricing"}
       />
 
       {/* 3. Deep Overview Section */}
@@ -183,6 +200,18 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
                     ))}
                   </div>
                 )}
+
+                {(config.slug.startsWith("/pricing") || card.ctaText) && (
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    <Link
+                      href={card.ctaLink || "/get-started"}
+                      className="clay-btn-primary group w-full py-3.5 px-4 rounded-full text-white font-bold text-xs uppercase tracking-wider cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:shadow-[0_0_30px_rgba(239,68,68,0.65)] hover:scale-[1.02] transition-all"
+                    >
+                      <span>{card.ctaText || "Start Project"}</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -192,17 +221,61 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
       {/* 4. Capabilities Grid */}
       {config.capabilities && config.capabilities.length > 0 && (
         <FeatureGrid
+          id={config.capabilitiesId || (config.slug === "/services" ? "explore-services" : undefined)}
           category={config.capabilitiesSubtitle || "Core Architecture"}
           title={config.capabilitiesTitle || "Engineering Capabilities & Deliverables"}
           features={config.capabilities}
           columns={config.capabilities.length > 3 ? 3 : 3}
+          variant={config.capabilitiesVariant || (config.slug === "/services" ? "yellow-glow" : "default")}
+          bottomAction={config.capabilitiesBottomAction}
         />
       )}
 
       {/* Optional Custom Sections (e.g. interactive 3D demos or pricing tiers) */}
       {config.customSections}
 
-      {/* 5. Execution Roadmap Process */}
+      {/* 5. Contextual WhatsApp & Direct Engineering Intake Banner */}
+      <section className="relative w-full py-12 px-4 sm:px-6 lg:px-8 border-t border-zinc-900/80">
+        <div className="max-w-7xl mx-auto">
+          <div className="clay-card-interactive p-8 sm:p-12 relative overflow-hidden bg-gradient-to-r from-red-950/20 via-black to-emerald-950/20 border border-white/10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8 space-y-3">
+                <div className="clay-badge inline-flex items-center gap-2 px-3 py-1 text-emerald-300 text-xs font-mono uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                  Direct Technical Inquiry
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black text-white font-heading">
+                  Ready to Discuss {config.h1}?
+                </h3>
+                <p className="text-sm sm:text-base text-zinc-300 font-light max-w-2xl">
+                  Connect directly with our engineering team on WhatsApp to review requirements, custom features, delivery timeline, and fixed commercial pricing.
+                </p>
+              </div>
+              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end">
+                <a
+                  href={`https://wa.me/919355412903?text=${encodeURIComponent(config.whatsappMessage || `Hi, I’m interested in ${config.h1}. I’d like to discuss building our project with Navya.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="clay-btn-primary inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-white font-bold text-xs uppercase tracking-wider cursor-pointer shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] border border-emerald-500/50"
+                  aria-label={`Chat on WhatsApp about ${config.h1}`}
+                >
+                  <MessageSquare className="w-4 h-4 text-emerald-300 shrink-0" />
+                  <span>WhatsApp Engineering</span>
+                </a>
+                <a
+                  href="tel:+919355412903"
+                  className="clay-btn-secondary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-mono text-zinc-200 hover:text-white uppercase tracking-wider border border-white/10"
+                >
+                  <Phone className="w-3.5 h-3.5 text-red-400 shrink-0" />
+                  <span>Call +91 93554 12903</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Execution Roadmap Process */}
       {config.processSteps && (
         <ProcessSection
           title={config.processTitle}
@@ -211,7 +284,7 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
         />
       )}
 
-      {/* 6. Why Navya Differentiators Section */}
+      {/* 7. Why Navya Differentiators Section */}
       {config.differentiators && config.differentiators.length > 0 && (
         <section className="relative w-full py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-t border-zinc-900/80 bg-black/40">
           <div className="max-w-7xl mx-auto">
@@ -251,12 +324,12 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
         </section>
       )}
 
-      {/* 7. FAQ Accordion */}
+      {/* 8. FAQ Accordion */}
       {config.faqs && config.faqs.length > 0 && (
         <FAQAccordion items={config.faqs} />
       )}
 
-      {/* 8. Connected Ecosystem Links */}
+      {/* 9. Connected Ecosystem Links */}
       {config.relatedLinks && config.relatedLinks.length > 0 && (
         <RelatedLinks links={config.relatedLinks} />
       )}

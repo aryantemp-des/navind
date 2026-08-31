@@ -17,6 +17,8 @@ export const pricingPages: Record<string, SubpageConfig> = {
       { label: "AI Agents Package", value: "$1,000" },
       { label: "Full Ecosystem", value: "$1,500" },
     ],
+    primaryCtaText: "Start Project",
+    primaryCtaLink: "/get-started",
     overviewTitle: "No Surprises. No Hourly Runaways. 100% Fixed Deliverables.",
     overviewDescription: "We believe in radical pricing transparency. Traditional agencies hide behind vague hourly rates that spiral out of control. At Navya, you make a fixed, milestone-backed investment and receive a complete, production-ready digital asset.",
     overviewCards: [
@@ -33,7 +35,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
         points: ["Autonomous agent orchestrator", "CRM & WhatsApp integrations", "Zero-drift pipeline", "Human-in-the-loop controls"],
       },
       {
-        title: "Full Ecosystem Bundle — $1,500 / ₹₹17,000",
+        title: "Full Ecosystem Bundle — $1,500 / ₹17,000",
         description: "The complete Navya technological infrastructure. Combine our premier website package and AI agent automation suite together and save $500.",
         badge: "Best Value • $1,500",
         points: ["Everything in Website Package", "Everything in AI Agents Package", "Priority engineering queue", "Save $500 /₹3,000"],
@@ -105,7 +107,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
     title: "India Pricing | Fixed INR Packages by Navya Tech Industry",
     h1: "India Pricing (INR ₹)",
     primaryKeyword: "website development pricing india",
-    metaDescription: "Transparent website and AI agent pricing in India (INR). ₹10,000 Website Package, ₹10,000 AI Agents, and ₹₹17,000 Full Ecosystem Bundle by Navya.",
+    metaDescription: "Transparent website and AI agent pricing in India (INR). ₹10,000 Website Package, ₹10,000 AI Agents, and ₹17,000 Full Ecosystem Bundle by Navya.",
     breadcrumbs: [{ label: "Pricing", href: "/pricing" }, { label: "India" }],
     heroDescription: "Transparent Indian pricing in INR (₹). Built specifically for Indian founders, businesses, and enterprises looking for world-class web engineering.",
     heroImageAlt: "India Pricing Packages",
@@ -113,8 +115,10 @@ export const pricingPages: Record<string, SubpageConfig> = {
     heroStats: [
       { label: "Website Package", value: "₹10,000" },
       { label: "AI Agents Package", value: "₹10,000" },
-      { label: "Full Ecosystem", value: "₹₹17,000" },
+      { label: "Full Ecosystem", value: "₹17,000" },
     ],
+    primaryCtaText: "Start Project",
+    primaryCtaLink: "/get-started",
     overviewTitle: "World-Class Tech Engineering at Transparent Indian Rates",
     overviewDescription: "We provide Indian businesses with the exact same enterprise-grade Next.js, WebGL, and AI agent architectures we build for global tech firms—priced transparently in Indian Rupees (₹) with full GST invoicing and local payment support (UPI, Netbanking, Cards).",
     overviewCards: [
@@ -131,7 +135,7 @@ export const pricingPages: Record<string, SubpageConfig> = {
         points: ["WhatsApp & CRM integration", "Autonomous lead qualification", "24/7 automated assistant", "Human-in-the-loop controls"],
       },
       {
-        title: "Full Ecosystem Bundle — ₹₹17,000",
+        title: "Full Ecosystem Bundle — ₹17,000",
         description: "Complete technological package. Get both the premier website package and AI agent automation suite together and save₹3,000.",
         badge: "Save₹3,000",
         points: ["Complete Website Package", "Complete AI Agents Package", "Priority development queue", "Dedicated engineer access"],
@@ -209,6 +213,8 @@ export const pricingPages: Record<string, SubpageConfig> = {
       { label: "AI Agents Package", value: "$1,000" },
       { label: "Full Ecosystem", value: "$1,500" },
     ],
+    primaryCtaText: "Start Project",
+    primaryCtaLink: "/get-started",
     overviewTitle: "Fixed-Fee Web & AI Engineering for US Companies",
     overviewDescription: "US agencies routinely bill $10,000 to $30,000 for standard websites with endless hourly scope creep. Navya provides senior-level engineering, bespoke design, and 3D WebGL visual accents for a transparent, fixed investment of $1,000.",
     overviewCards: [
@@ -303,6 +309,8 @@ export const pricingPages: Record<string, SubpageConfig> = {
       { label: "Turnaround Time", value: "7-14 Days" },
       { label: "Builder Subscriptions", value: "$0 Never" },
     ],
+    primaryCtaText: "Start Project",
+    primaryCtaLink: "/get-started",
     overviewTitle: "Everything Your Business Needs to Win Online",
     overviewDescription: "We designed our business website package to give growing companies and established firms an enterprise-grade digital asset without the bloated price tag of legacy agencies. One flat fee covers architecture, design, development, SEO, and global deployment.",
     overviewCards: [
@@ -397,6 +405,8 @@ export const pricingPages: Record<string, SubpageConfig> = {
       { label: "Performance", value: "60 FPS Guarantee" },
       { label: "Lighthouse Score", value: "95+ Maintained" },
     ],
+    primaryCtaText: "Start Project",
+    primaryCtaLink: "/get-started",
     overviewTitle: "Immersive 3D Experiences at Fixed Commercial Rates",
     overviewDescription: "3D websites used to require $50,000+ budgets and specialized creative studios. Navya democratizes immersive 3D web engineering by providing production Three.js scenes, procedural GLSL shaders, and interactive models at accessible, fixed commercial pricing.",
     overviewCards: [
@@ -491,6 +501,8 @@ export const pricingPages: Record<string, SubpageConfig> = {
       { label: "Monthly Platform Cut", value: "0% Zero" },
       { label: "Gateways", value: "Stripe & Razorpay" },
     ],
+    primaryCtaText: "Start Project",
+    primaryCtaLink: "/get-started",
     overviewTitle: "A High-Converting Online Store You Truly Own",
     overviewDescription: "Tired of paying monthly subscription fees and transaction percentages to closed ecommerce platforms? Navya builds bespoke, high-speed Next.js digital storefronts that you own 100% outright with zero platform commission fees.",
     overviewCards: [

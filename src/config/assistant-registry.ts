@@ -421,7 +421,7 @@ export const ASSISTANT_PAGE_REGISTRY: AssistantPageItem[] = [
     id: "pricing-india",
     title: "India Pricing (INR)",
     route: "/pricing/india",
-    description: "Fixed Indian Rupee packages (₹10,000 / ₹₹17,000) with GST invoices and local UPI/NEFT support.",
+    description: "Fixed Indian Rupee packages (₹10,000 / ₹17,000) with GST invoices and local UPI/NEFT support.",
     category: "pricing",
     categoryLabel: "INDIA PRICING",
     keywords: ["india", "inr", "rupee", "rupees", "₹", "gst", "delhi", "mumbai", "bangalore", "79000", "119000"],

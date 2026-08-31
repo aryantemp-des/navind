@@ -114,7 +114,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
       {
         question: "How much does website development cost in India with Navya?",
         answer:
-          "Our standard turnkey Website Package is a fixed ₹10,000 + GST. For clients needing autonomous AI workflow integration alongside their website, our Complete Ecosystem package is ₹₹17,000 + GST. All packages include full source code ownership and zero monthly platform fees.",
+          "Our standard turnkey Website Package is a fixed ₹10,000 + GST. For clients needing autonomous AI workflow integration alongside their website, our Complete Ecosystem package is ₹17,000 + GST. All packages include full source code ownership and zero monthly platform fees.",
       },
       {
         question: "Do you provide a formal GST tax invoice?",
@@ -135,7 +135,7 @@ export const geoHubPages: Record<string, SubpageConfig> = {
     relatedLinks: [
       {
         title: "India Pricing Matrix",
-        description: "View our fixed ₹10,000 and ₹₹17,000 package inclusions and payment methods.",
+        description: "View our fixed ₹10,000 and ₹17,000 package inclusions and payment methods.",
         href: "/pricing/india",
         category: "PRICING",
       },
