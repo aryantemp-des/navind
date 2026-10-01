@@ -81,9 +81,10 @@ export function generateSitemapXML(): string {
   // 1. Homepage (Explicit stable baseline date)
   addEntry("/", "2026-08-30", "weekly", "1.0");
 
-  // 2. Main Resource & Blog Hubs
+  // 2. Main Resource & Blog Hubs & Legal
   addEntry("/resources", "2026-08-30", "weekly", "0.85");
   addEntry("/blog", "2026-08-30", "weekly", "0.85");
+  addEntry("/privacy-policy", "2026-10-01", "monthly", "0.75");
 
   // 3. Blog Category Hubs
   const categories = getAllBlogCategories();
@@ -155,6 +156,8 @@ export function writeSitemaps() {
 
   const publicSitemapPath = path.join(publicDir, "sitemap.xml");
   fs.writeFileSync(publicSitemapPath, xmlContent, "utf-8");
+  const rootSitemapPath = path.join(rootPath, "sitemap.xml");
+  fs.writeFileSync(rootSitemapPath, xmlContent, "utf-8");
 
   // Write authoritative public/robots.txt
   const robotsContent = `# ==============================================================================
@@ -176,6 +179,8 @@ Sitemap: https://www.navyatech.co.in/sitemap.xml
 
   const publicRobotsPath = path.join(publicDir, "robots.txt");
   fs.writeFileSync(publicRobotsPath, robotsContent, "utf-8");
+  const rootRobotsPath = path.join(rootPath, "robots.txt");
+  fs.writeFileSync(rootRobotsPath, robotsContent, "utf-8");
 
   console.log(`✅ Successfully generated authoritative XML sitemap & robots.txt:`);
   console.log(`   📄 Sitemap: ${publicSitemapPath}`);

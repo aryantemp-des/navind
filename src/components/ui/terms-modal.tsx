@@ -98,6 +98,17 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onAccept }) => {
                 <p className="text-red-300 font-medium">
                   If you do not agree with these Terms, you should not use our services.
                 </p>
+                <p className="text-zinc-400 text-xs pt-1">
+                  Our practices regarding personal data collection, cookies, and project confidentiality are governed by our{" "}
+                  <a
+                    href="/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-red-400 hover:text-red-300 underline font-medium inline-flex items-center gap-1"
+                  >
+                    Privacy Policy
+                  </a>.
+                </p>
               </section>
 
               {/* 2. Our Services */}
@@ -325,7 +336,17 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onAccept }) => {
             <div className="clay-surface px-6 py-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
               <div className="flex items-center gap-2 text-xs text-zinc-400">
                 <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>By clicking accept, you agree to the Navya Tech Industry Terms &amp; Conditions.</span>
+                <span>
+                  By clicking accept, you agree to the Navya Tech Industry Terms &amp; Conditions and{" "}
+                  <a
+                    href="/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-red-400 hover:text-red-300 underline font-medium"
+                  >
+                    Privacy Policy
+                  </a>.
+                </span>
               </div>
 
               <button

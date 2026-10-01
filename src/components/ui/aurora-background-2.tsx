@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Check, Zap, Sparkles, Shield, ArrowRight } from "lucide-react";
+import { scrollToTarget } from "@/lib/scroll";
 
 interface AuroraBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -43,10 +44,8 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
 
 export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }> = ({ onSelectPlan }) => {
   const handleSelect = (plan: string) => {
-    const el = document.getElementById('final-project');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else if (onSelectPlan) {
+    scrollToTarget('final-project', { offset: -85, duration: 1.1 });
+    if (onSelectPlan) {
       onSelectPlan(plan);
     }
   };

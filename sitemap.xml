@@ -19,6 +19,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://www.navyatech.co.in/privacy-policy</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://www.navyatech.co.in/blog/website-development</loc>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
@@ -124,12 +130,17 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/services/business-website-development</loc>
+    <loc>https://www.navyatech.co.in/services/landing-page-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/services/landing-page-development</loc>
+    <loc>https://www.navyatech.co.in/services/website-performance-optimization</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.navyatech.co.in/services/business-website-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -154,7 +165,7 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/services/website-performance-optimization</loc>
+    <loc>https://www.navyatech.co.in/services/technical-seo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>

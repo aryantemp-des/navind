@@ -990,6 +990,17 @@ export const ASSISTANT_PAGE_REGISTRY: AssistantPageItem[] = [
     intentPhrases: ["website development in austin", "website development in austin tx", "web design in austin", "austin web development company"],
     relatedRoutes: ["/website-development/usa", "/pricing/usa", "/business-website", "/get-started"],
   },
+  {
+    id: "privacy-policy",
+    title: "Privacy Policy",
+    route: "/privacy-policy",
+    description: "Official Privacy Policy of Navya Tech Industry detailing data protection, confidentiality, cookies, and privacy rights.",
+    category: "conversion",
+    categoryLabel: "LEGAL & PRIVACY",
+    keywords: ["privacy", "privacy policy", "data protection", "confidentiality", "terms and conditions", "terms", "gdpr", "dpdp", "cookies", "data security"],
+    intentPhrases: ["privacy policy", "what is your privacy policy", "how do you use my data", "is my data safe", "do you sell data", "terms and privacy", "confidentiality agreement"],
+    relatedRoutes: ["/contact", "/get-started", "/pricing"],
+  },
 ];
 
 export interface AssistantDiscoveryResult {

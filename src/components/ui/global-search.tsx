@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Search, X, ArrowRight, Sparkles, Layers, ShieldCheck, DollarSign, Bot, Globe, Phone, FileText, Briefcase, Building2, ShoppingBag, Code, Wrench, Zap, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { allSubpages } from "@/config/subpages";
+import { scrollToTarget } from "@/lib/scroll";
 
 interface SearchItem {
   id: string;
@@ -112,6 +113,14 @@ const SEARCH_DATABASE: SearchItem[] = [
     targetId: "terms",
     icon: FileText,
   },
+  {
+    id: "privacy-policy",
+    title: "Privacy Policy (Data Protection & Confidentiality)",
+    category: "Solution",
+    description: "Review Navya Tech Industry's official privacy policy, personal data protection, cookies, and user rights.",
+    path: "/privacy-policy",
+    icon: ShieldCheck,
+  },
   ...SUBPAGE_SEARCH_ITEMS,
 ];
 
@@ -171,10 +180,7 @@ export const GlobalSearch: React.FC<{
       return;
     }
     if (item.targetId) {
-      const el = document.getElementById(item.targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
+      scrollToTarget(item.targetId, { offset: -85, duration: 1.1 });
     }
   };
 

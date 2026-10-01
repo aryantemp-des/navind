@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { scrollToTarget } from "@/lib/scroll";
 
 interface RouteContextType {
   currentPath: string;
@@ -19,20 +20,7 @@ export const RouteProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   });
 
   const scrollToAnchor = (hash: string) => {
-    const el = document.querySelector(hash);
-    if (el) {
-      if ((window as any).__lenis) {
-        (window as any).__lenis.scrollTo(el as HTMLElement, { offset: -90, duration: 1.1 });
-      } else {
-        const headerOffset = 90;
-        const elementPosition = el.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
-    }
+    scrollToTarget(hash, { offset: -85, duration: 1.1 });
   };
 
   useEffect(() => {
@@ -87,10 +75,7 @@ export const RouteProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }, 150);
     } else {
       // Scroll to top immediately on route change without hash
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
-      if ((window as any).__lenis) {
-        (window as any).__lenis.scrollTo(0, { immediate: true });
-      }
+      scrollToTarget(0, { immediate: true });
     }
   };
 

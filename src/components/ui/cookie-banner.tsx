@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Cookie, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRoute } from "@/context/RouteContext";
 
 export const CookieBanner: React.FC = () => {
+  const { navigate } = useRoute();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -34,7 +36,17 @@ export const CookieBanner: React.FC = () => {
                 <Cookie className="w-4 h-4 text-amber-400" />
               </div>
               <p className="text-xs text-zinc-300 font-light leading-relaxed">
-                We use essential cookies to ensure optimal performance and enhance your digital experience.
+                We use essential cookies to ensure optimal performance and enhance your digital experience. Read our{" "}
+                <a
+                  href="/privacy-policy"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("/privacy-policy");
+                  }}
+                  className="text-red-400 hover:text-red-300 underline font-medium"
+                >
+                  Privacy Policy
+                </a>.
               </p>
             </div>
 

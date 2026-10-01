@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { scrollToTarget } from "@/lib/scroll";
 
 export const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,7 +13,8 @@ export const ScrollToTop: React.FC = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const shouldShow = window.scrollY > 400;
+          // Hysteresis threshold to prevent flickering around 400px
+          const shouldShow = isVisibleRef.current ? window.scrollY > 350 : window.scrollY > 450;
           if (isVisibleRef.current !== shouldShow) {
             isVisibleRef.current = shouldShow;
             setIsVisible(shouldShow);
@@ -28,14 +30,7 @@ export const ScrollToTop: React.FC = () => {
   }, []);
 
   const scrollToTop = () => {
-    if (window.__lenis) {
-      window.__lenis.scrollTo(0, { duration: 1.4 });
-    } else {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
+    scrollToTarget(0, { duration: 1.2 });
   };
 
   return (

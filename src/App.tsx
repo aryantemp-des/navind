@@ -13,6 +13,7 @@ import StickyMobileCTA from "@/components/ui/sticky-mobile-cta";
 import { getSubpageConfig } from "@/config/subpages";
 import { getBlogArticle, getBlogCategory } from "@/config/blogs";
 import { RouteProvider, useRoute } from "@/context/RouteContext";
+import { scrollToTarget } from "@/lib/scroll";
 
 // Lazy-load subpage templates & heavy modals for instant mobile initial bundle
 const GenericSubpage = lazy(() => import("@/components/templates/GenericSubpage"));
@@ -20,6 +21,7 @@ const BlogArticleTemplate = lazy(() => import("@/components/templates/BlogArticl
 const BlogHubTemplate = lazy(() => import("@/components/templates/BlogHubTemplate"));
 const GlobalSearch = lazy(() => import("@/components/ui/global-search"));
 const TermsModal = lazy(() => import("@/components/ui/terms-modal"));
+const PrivacyPolicyPage = lazy(() => import("@/components/pages/PrivacyPolicyPage"));
 
 // Lazy-load below-the-fold homepage sections for hyper-lean initial mobile bundle
 const HeroSection = lazy(() => import("@/components/ui/3d-hero-section-boxes"));
@@ -125,6 +127,15 @@ function MainContent() {
     );
   }
 
+  // 3.5. Check if route matches /privacy-policy or /privacy
+  if (currentPath === "/privacy-policy" || currentPath === "/privacy") {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <PrivacyPolicyPage />
+      </Suspense>
+    );
+  }
+
   // 4. Check if currentPath matches one of our subpages
   const subpageConfig = getSubpageConfig(currentPath);
   if (subpageConfig) {
@@ -140,9 +151,6 @@ function MainContent() {
     <div className="relative min-h-screen text-foreground selection:bg-red-600/30 selection:text-red-200 overflow-x-hidden" style={{ background: "transparent" }}>
       {/* Global orange/black plexus background — fixed, behind everything */}
       <GlobalPlexusBg />
-
-      {/* Smooth inertia scrolling provider */}
-      <SmoothScrollProvider />
 
       {/* 0. Top Scroll Progress Indicator */}
       <ScrollProgress />
@@ -170,14 +178,8 @@ function MainContent() {
         {/* 5. Trust & Performance Hero */}
         <Suspense fallback={<SectionFallback />}>
           <GlassmorphismTrustHero
-            onViewWorkClick={() => {
-              const el = document.getElementById("services");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}
-            onShowreelClick={() => {
-              const el = document.getElementById("ai-section");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}
+            onViewWorkClick={() => scrollToTarget("services")}
+            onShowreelClick={() => scrollToTarget("ai-section")}
           />
         </Suspense>
 
@@ -270,6 +272,7 @@ function MainContent() {
 export function App() {
   return (
     <RouteProvider>
+      <SmoothScrollProvider />
       <MainContent />
     </RouteProvider>
   );

@@ -6,7 +6,6 @@ import ScrollProgress from "@/components/ui/scroll-progress";
 import ScrollToTop from "@/components/ui/scroll-to-top";
 import CookieBanner from "@/components/ui/cookie-banner";
 import GlobalSearch from "@/components/ui/global-search";
-import SmoothScrollProvider from "@/components/ui/smooth-scroll";
 import TermsModal from "@/components/ui/terms-modal";
 import GlobalPlexusBg from "@/components/ui/global-plexus-bg";
 import StickyMobileCTA from "@/components/ui/sticky-mobile-cta";
@@ -35,8 +34,14 @@ export const SubpageLayout: React.FC<SubpageLayoutProps> = ({
         setSearchOpen((prev) => !prev);
       }
     };
+    const handleOpenTerms = () => setTermsOpen(true);
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("navya-open-terms", handleOpenTerms);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("navya-open-terms", handleOpenTerms);
+    };
   }, []);
 
   const handleAcceptTerms = () => {
@@ -52,10 +57,7 @@ export const SubpageLayout: React.FC<SubpageLayoutProps> = ({
       {/* 1. Global Plexus Background */}
       <GlobalPlexusBg />
 
-      {/* 2. Lenis Smooth Scroll Provider */}
-      <SmoothScrollProvider />
-
-      {/* 3. Top Scroll Progress Indicator */}
+      {/* 2. Top Scroll Progress Indicator */}
       <ScrollProgress />
 
       {/* 4. Global Header Navigation */}

@@ -3,6 +3,7 @@ import { MessageCircle, X, Send, Sparkles, Bot, ArrowRight, Minimize2, CheckCirc
 import { motion, AnimatePresence } from "framer-motion";
 import { useRoute } from "@/context/RouteContext";
 import { queryAssistantNavigation, AssistantPageItem } from "@/config/assistant-registry";
+import { scrollToTarget } from "@/lib/scroll";
 
 interface Message {
   id: string;
@@ -121,11 +122,8 @@ export const FloatingChatbot: React.FC = () => {
       };
       const target = map[targetId];
       if (window.location.pathname === "/" && target) {
-        const el = document.getElementById(target.id);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
-          return;
-        }
+        scrollToTarget(target.id, { offset: -85, duration: 1.1 });
+        return;
       }
       if (target) {
         navigate(target.path);

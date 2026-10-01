@@ -1,21 +1,17 @@
 import React from "react";
 import CopyButton from "@/components/ui/copy-button";
-import { Phone, MessageSquare, Mail } from "lucide-react";
+import { Phone, MessageSquare, Mail, Shield } from "lucide-react";
+import { useRoute } from "@/context/RouteContext";
+import { scrollToTarget } from "@/lib/scroll";
 
 export interface FooterProps {
   onOpenTerms?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
+  const { navigate } = useRoute();
   const scrollTo = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      if (window.__lenis) {
-        window.__lenis.scrollTo(element, { offset: -70, duration: 1.2 });
-      } else {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
+    scrollToTarget(id, { offset: -85, duration: 1.1 });
   };
 
   return (
@@ -226,6 +222,26 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
                   Start a Project &rarr;
                 </a>
               </li>
+              <li className="pt-2 border-t border-white/5">
+                <a
+                  href="/privacy-policy"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("/privacy-policy");
+                  }}
+                  className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block text-xs text-zinc-300 font-medium"
+                >
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <button
+                  onClick={onOpenTerms}
+                  className="hover:text-white hover:translate-x-1 transition-all cursor-pointer block text-xs text-zinc-400 text-left w-full"
+                >
+                  Terms &amp; Conditions
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -244,6 +260,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
             >
               Terms &amp; Conditions
             </button>
+            <span className="text-zinc-600">•</span>
+            <a
+              href="/privacy-policy"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/privacy-policy");
+              }}
+              className="text-red-400 hover:text-red-300 underline underline-offset-4 cursor-pointer font-medium"
+            >
+              Privacy Policy
+            </a>
           </div>
 
           <div className="flex items-center">

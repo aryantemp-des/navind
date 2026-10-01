@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, ArrowRight, Search, Phone, ChevronDown, Sparkles, Globe, Layers, Building2, DollarSign } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ui/theme-toggle";
+import { scrollToTarget, stopScroll, startScroll, getLenis } from "@/lib/scroll";
 
 export interface GlobalHeaderProps {
   onOpenSearch?: () => void;
@@ -76,32 +77,57 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onOpenSearch }) => {
 
   useEffect(() => {
     let ticking = false;
+    const updateNavbarState = (currentY: number) => {
+      // Threshold with hysteresis (activates at 35px, deactivates at 15px)
+      const shouldBeScrolled = isScrolledRef.current ? currentY > 15 : currentY > 35;
+      if (isScrolledRef.current !== shouldBeScrolled) {
+        isScrolledRef.current = shouldBeScrolled;
+        setIsScrolled(shouldBeScrolled);
+      }
+    };
+
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const shouldBeScrolled = window.scrollY > 30;
-          if (isScrolledRef.current !== shouldBeScrolled) {
-            isScrolledRef.current = shouldBeScrolled;
-            setIsScrolled(shouldBeScrolled);
-          }
+          updateNavbarState(window.scrollY);
           ticking = false;
         });
         ticking = true;
       }
     };
+
+    // Synchronize directly with Lenis scroll if present, plus window scroll listener
+    const lenis = getLenis();
+    const handleLenisScroll = (e: any) => {
+      const scrollY = typeof e?.scroll === "number" ? e.scroll : window.scrollY;
+      updateNavbarState(scrollY);
+    };
+
+    if (lenis) {
+      lenis.on("scroll", handleLenisScroll);
+    }
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      if (lenis) {
+        lenis.off("scroll", handleLenisScroll);
+      }
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  // Prevent background scrolling while mobile menu is open
+  // Prevent background scrolling while mobile menu is open, pausing Lenis
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
+      stopScroll();
     } else {
       document.body.style.overflow = "";
+      startScroll();
     }
     return () => {
       document.body.style.overflow = "";
+      startScroll();
     };
   }, [mobileMenuOpen]);
 
@@ -124,14 +150,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onOpenSearch }) => {
       window.location.href = `/#${id}`;
       return;
     }
-    const element = document.getElementById(id);
-    if (element) {
-      if (window.__lenis) {
-        window.__lenis.scrollTo(element, { offset: -70, duration: 1.2 });
-      } else {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
+    scrollToTarget(id, { offset: -85, duration: 1.1 });
   };
 
   return (
@@ -513,6 +532,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onOpenSearch }) => {
                 { label: "Request a Quote", href: "/request-a-quote" },
                 { label: "Book a Strategy Call", href: "/book-a-call" },
                 { label: "Contact & Consultation", href: "/contact" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
               ].map((link) => (
                 <a
                   key={link.href}
