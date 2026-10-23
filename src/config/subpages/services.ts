@@ -1471,4 +1471,6 @@ export const servicePages: Record<string, SubpageConfig> = {
 servicePages["/services/seo"] = {
   ...servicePages["/services/technical-seo"],
   slug: "/services/seo",
+  title: "Search Engine Optimization Services | Organic Growth by Navya",
+  metaDescription: "Comprehensive search engine optimization services by Navya Tech Industry. Organic search visibility, technical audits, crawl readiness, and schema architecture.",
 };

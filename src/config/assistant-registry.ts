@@ -1001,6 +1001,95 @@ export const ASSISTANT_PAGE_REGISTRY: AssistantPageItem[] = [
     intentPhrases: ["privacy policy", "what is your privacy policy", "how do you use my data", "is my data safe", "do you sell data", "terms and privacy", "confidentiality agreement"],
     relatedRoutes: ["/contact", "/get-started", "/pricing"],
   },
+  // --- INTERNET MARKETING LOCATION HUBS ---
+  {
+    id: "marketing-india",
+    title: "Internet Marketing Company in India",
+    route: "/internet-marketing-company-india",
+    description: "National digital growth, enterprise technical SEO, Core Web Vitals optimization, and high-conversion web architectures across all Indian states.",
+    category: "geo",
+    categoryLabel: "NATIONAL MARKETING",
+    keywords: ["internet marketing india", "digital marketing company in india", "best internet marketing company in india", "seo company india", "online marketing services india"],
+    intentPhrases: ["best internet marketing company in india", "internet marketing company in india", "digital marketing company in india", "online business promotion services india", "digital marketing agency india"],
+    relatedRoutes: ["/internet-marketing-company-maharashtra", "/internet-marketing-company-delhi", "/services/seo", "/pricing/india"],
+  },
+  {
+    id: "marketing-maharashtra",
+    title: "Internet Marketing Company in Maharashtra",
+    route: "/internet-marketing-company-maharashtra",
+    description: "High-performance digital growth, B2B lead generation, and organic search authority across Maharashtra's commercial and industrial corridors.",
+    category: "geo",
+    categoryLabel: "MAHARASHTRA MARKETING",
+    keywords: ["internet marketing maharashtra", "seo company in maharashtra", "best internet marketing company in maharashtra", "digital marketing maharashtra"],
+    intentPhrases: ["best internet marketing company in maharashtra", "internet marketing company in maharashtra", "seo company in maharashtra", "digital marketing agency in maharashtra"],
+    relatedRoutes: ["/internet-marketing-company-mumbai", "/internet-marketing-company-pune", "/internet-marketing-company-india", "/pricing/india"],
+  },
+  {
+    id: "marketing-mumbai",
+    title: "Internet Marketing Company in Mumbai",
+    route: "/internet-marketing-company-mumbai",
+    description: "Elite technical SEO, sub-second web platforms, and B2B customer acquisition funnels for Mumbai financial, media, and corporate leaders.",
+    category: "geo",
+    categoryLabel: "MUMBAI MARKETING",
+    keywords: ["internet marketing mumbai", "internet marketing services in mumbai", "best internet marketing company in mumbai", "digital marketing agency mumbai"],
+    intentPhrases: ["best internet marketing company in mumbai", "internet marketing services in mumbai", "digital marketing company in mumbai", "seo company in mumbai"],
+    relatedRoutes: ["/internet-marketing-company-maharashtra", "/internet-marketing-company-pune", "/website-development/mumbai", "/get-started"],
+  },
+  {
+    id: "marketing-pune",
+    title: "Internet Marketing Company in Pune",
+    route: "/internet-marketing-company-pune",
+    description: "Specialized B2B tech SEO, manufacturing RFQ lead capture, and performance web platforms for Pune tech parks and industrial belts.",
+    category: "geo",
+    categoryLabel: "PUNE MARKETING",
+    keywords: ["internet marketing pune", "digital marketing agency in pune", "best internet marketing company in pune", "seo company pune"],
+    intentPhrases: ["best internet marketing company in pune", "digital marketing agency in pune", "internet marketing company in pune", "seo agency in pune"],
+    relatedRoutes: ["/internet-marketing-company-maharashtra", "/internet-marketing-company-mumbai", "/services/custom-web-development", "/get-started"],
+  },
+  {
+    id: "marketing-bareilly",
+    title: "Internet Marketing Company in Bareilly",
+    route: "/internet-marketing-company-bareilly",
+    description: "Local SEO, Google Business Profile ranking, WhatsApp-first lead funnels, and mobile web platforms for Bareilly and Rohilkhand businesses.",
+    category: "geo",
+    categoryLabel: "BAREILLY MARKETING",
+    keywords: ["internet marketing bareilly", "digital marketing services in bareilly", "best internet marketing company in bareilly", "local seo bareilly"],
+    intentPhrases: ["best internet marketing company in bareilly", "digital marketing services in bareilly", "internet marketing company in bareilly", "seo in bareilly"],
+    relatedRoutes: ["/internet-marketing-company-uttar-pradesh", "/internet-marketing-company-india", "/pricing/india", "/get-started"],
+  },
+  {
+    id: "marketing-delhi",
+    title: "Internet Marketing Company in Delhi",
+    route: "/internet-marketing-company-delhi",
+    description: "Enterprise technical SEO, conversion rate optimization, and high-performance digital marketing for Delhi NCR corporate and trade leaders.",
+    category: "geo",
+    categoryLabel: "DELHI MARKETING",
+    keywords: ["internet marketing delhi", "online marketing services in delhi", "best internet marketing company in delhi", "digital marketing agency delhi"],
+    intentPhrases: ["best internet marketing company in delhi", "online marketing services in delhi", "internet marketing company in delhi", "digital marketing company delhi"],
+    relatedRoutes: ["/internet-marketing-company-india", "/internet-marketing-company-uttar-pradesh", "/website-development/delhi-ncr", "/get-started"],
+  },
+  {
+    id: "marketing-himachal-pradesh",
+    title: "Internet Marketing Company in Himachal Pradesh",
+    route: "/internet-marketing-company-himachal-pradesh",
+    description: "Direct-booking hospitality funnels, B2B pharmaceutical manufacturing SEO, and digital growth for Himachal Pradesh enterprises.",
+    category: "geo",
+    categoryLabel: "HIMACHAL MARKETING",
+    keywords: ["internet marketing himachal pradesh", "best internet marketing company in himachal pradesh", "digital marketing himachal", "resort seo himachal"],
+    intentPhrases: ["best internet marketing company in himachal pradesh", "internet marketing company in himachal pradesh", "digital marketing in himachal pradesh"],
+    relatedRoutes: ["/internet-marketing-company-india", "/services/seo", "/pricing/india", "/get-started"],
+  },
+  {
+    id: "marketing-uttar-pradesh",
+    title: "Internet Marketing Company in Uttar Pradesh",
+    route: "/internet-marketing-company-uttar-pradesh",
+    description: "MSME digital modernization, statewide local SEO, and B2B lead generation across Uttar Pradesh's major commercial and industrial corridors.",
+    category: "geo",
+    categoryLabel: "UP MARKETING",
+    keywords: ["internet marketing uttar pradesh", "seo and internet marketing services in uttar pradesh", "best internet marketing company in uttar pradesh", "digital marketing up"],
+    intentPhrases: ["best internet marketing company in uttar pradesh", "seo and internet marketing services in uttar pradesh", "internet marketing company in uttar pradesh"],
+    relatedRoutes: ["/internet-marketing-company-bareilly", "/internet-marketing-company-delhi", "/internet-marketing-company-india", "/pricing/india"],
+  },
 ];
 
 export interface AssistantDiscoveryResult {
@@ -1145,6 +1234,18 @@ export function queryAssistantNavigation(rawQuery: string): AssistantDiscoveryRe
     }
     if (query.includes("austin") && page.route === "/website-development/austin") {
       score += 60;
+    }
+
+    // Internet Marketing Location Boosters
+    if (query.includes("marketing") || query.includes("promotion")) {
+      if (query.includes("mumbai") && page.route === "/internet-marketing-company-mumbai") score += 80;
+      if (query.includes("pune") && page.route === "/internet-marketing-company-pune") score += 80;
+      if (query.includes("maharashtra") && page.route === "/internet-marketing-company-maharashtra") score += 80;
+      if (query.includes("bareilly") && page.route === "/internet-marketing-company-bareilly") score += 80;
+      if (query.includes("delhi") && page.route === "/internet-marketing-company-delhi") score += 80;
+      if (query.includes("himachal") && page.route === "/internet-marketing-company-himachal-pradesh") score += 80;
+      if ((query.includes("uttar pradesh") || query.includes("up")) && page.route === "/internet-marketing-company-uttar-pradesh") score += 80;
+      if (query.includes("india") && page.route === "/internet-marketing-company-india") score += 80;
     }
 
     if (score > 0) {

@@ -169,7 +169,19 @@ async function runSitemapValidationSuite() {
       throw new Error(`HTTP ${status} for sitemap URL: ${fullUrl}`);
     }
 
-    await page.waitForTimeout(60);
+    if (route !== "/") {
+      try {
+        await page.waitForFunction(
+          (expected) => document.querySelector('link[rel="canonical"]')?.getAttribute("href") === expected,
+          fullUrl,
+          { timeout: 4000 }
+        );
+      } catch (e) {
+        // Fall through to error below
+      }
+    } else {
+      await page.waitForTimeout(60);
+    }
 
     // Verify canonical matches
     const canonicalHref = await page.locator('link[rel="canonical"]').getAttribute("href");

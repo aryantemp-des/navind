@@ -5,6 +5,7 @@ import { industryPages } from "./industries";
 import { pricingPages } from "./pricing";
 import { conversionPages } from "./conversion";
 import { geoHubPages } from "./geo-hubs";
+import { internetMarketingPages } from "./internet-marketing";
 
 export const allSubpages: Record<string, SubpageConfig> = {
   ...commercialPages,
@@ -13,6 +14,7 @@ export const allSubpages: Record<string, SubpageConfig> = {
   ...pricingPages,
   ...conversionPages,
   ...geoHubPages,
+  ...internetMarketingPages,
 };
 
 export const getSubpageConfig = (pathname: string): SubpageConfig | undefined => {

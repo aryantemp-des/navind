@@ -84,7 +84,7 @@ export function generateSitemapXML(): string {
   // 2. Main Resource & Blog Hubs & Legal
   addEntry("/resources", "2026-08-30", "weekly", "0.85");
   addEntry("/blog", "2026-08-30", "weekly", "0.85");
-  addEntry("/privacy-policy", "2026-10-01", "monthly", "0.75");
+  addEntry("/privacy-policy", "2026-08-30", "monthly", "0.75");
 
   // 3. Blog Category Hubs
   const categories = getAllBlogCategories();
@@ -103,7 +103,7 @@ export function generateSitemapXML(): string {
     } else if (subpage.category === "services") {
       priority = "0.90";
       changefreq = "monthly";
-    } else if (subpage.category === "geo") {
+    } else if (subpage.category === "geo" || route.startsWith("/internet-marketing-company-")) {
       priority = "0.85";
       changefreq = "monthly";
     } else if (subpage.category === "conversion") {

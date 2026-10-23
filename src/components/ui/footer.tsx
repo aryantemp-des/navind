@@ -247,6 +247,51 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms }) => {
 
         </div>
 
+        {/* Regional Internet Marketing Hubs & SEO Corridors */}
+        <div className="py-8 border-b border-white/10 text-xs font-light text-zinc-400">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
+            <span className="font-mono text-xs font-bold text-zinc-200 uppercase tracking-wider">
+              Internet Marketing Hubs:
+            </span>
+            <span className="text-zinc-300 text-[11px]">
+              Pan-India digital growth, technical SEO, and conversion web architectures.
+            </span>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a href="/internet-marketing-company-india" className="hover:text-red-400 transition-colors">
+              Internet Marketing India
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a href="/internet-marketing-company-maharashtra" className="hover:text-red-400 transition-colors">
+              Maharashtra
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a href="/internet-marketing-company-mumbai" className="hover:text-red-400 transition-colors">
+              Mumbai
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a href="/internet-marketing-company-pune" className="hover:text-red-400 transition-colors">
+              Pune
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a href="/internet-marketing-company-uttar-pradesh" className="hover:text-red-400 transition-colors">
+              Uttar Pradesh
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a href="/internet-marketing-company-bareilly" className="hover:text-red-400 transition-colors">
+              Bareilly
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a href="/internet-marketing-company-delhi" className="hover:text-red-400 transition-colors">
+              Delhi NCR
+            </a>
+            <span className="text-zinc-700">•</span>
+            <a href="/internet-marketing-company-himachal-pradesh" className="hover:text-red-400 transition-colors">
+              Himachal Pradesh
+            </a>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
           <div className="flex flex-wrap items-center gap-3">

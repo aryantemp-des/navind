@@ -21,6 +21,7 @@ const SERVICES_MENU = [
   { label: "Website Maintenance", href: "/services/website-maintenance", desc: "On-demand $50/request SLA" },
   { label: "Performance Optimization", href: "/services/website-performance-optimization", desc: "Sub-second Core Web Vitals" },
   { label: "Technical SEO", href: "/services/seo", desc: "JSON-LD schema & crawl readiness" },
+  { label: "Internet Marketing India", href: "/internet-marketing-company-india", desc: "Pan-India SEO & digital growth" },
 ];
 
 const INDUSTRIES_MENU = [
