@@ -1004,13 +1004,13 @@ export const ASSISTANT_PAGE_REGISTRY: AssistantPageItem[] = [
   // --- INTERNET MARKETING LOCATION HUBS ---
   {
     id: "marketing-india",
-    title: "Internet Marketing Company in India",
+    title: "Internet Marketing Agency in India",
     route: "/internet-marketing-company-india",
-    description: "National digital growth, enterprise technical SEO, Core Web Vitals optimization, and high-conversion web architectures across all Indian states.",
+    description: "National digital growth, enterprise technical SEO, Generative Engine Optimization (GEO), Answer Engine Optimization (AEO), and high-conversion web architectures across all Indian states.",
     category: "geo",
     categoryLabel: "NATIONAL MARKETING",
-    keywords: ["internet marketing india", "digital marketing company in india", "best internet marketing company in india", "seo company india", "online marketing services india"],
-    intentPhrases: ["best internet marketing company in india", "internet marketing company in india", "digital marketing company in india", "online business promotion services india", "digital marketing agency india"],
+    keywords: ["internet marketing agency in india", "best internet marketing agency in india", "internet marketing services in india", "seo services in india", "generative engine optimization", "geo", "answer engine optimization", "aeo", "digital marketing services in india", "internet marketing india"],
+    intentPhrases: ["best internet marketing agency in india", "best internet marketing company in india", "internet marketing services in india", "seo services in india", "generative engine optimization", "answer engine optimization", "digital marketing agency in india", "digital marketing services in india"],
     relatedRoutes: ["/internet-marketing-company-maharashtra", "/internet-marketing-company-delhi", "/services/seo", "/pricing/india"],
   },
   {

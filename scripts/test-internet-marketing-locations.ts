@@ -186,7 +186,9 @@ async function runInternetMarketingValidationSuite() {
   // 3. Test Assistant Navigation for Target Queries
   console.log("\n🧭 3. Testing Assistant Geo-SEO Navigation Engine for Target Keywords...");
   const testIntents = [
+    { query: "best internet marketing agency in india", expectedRoute: "/internet-marketing-company-india" },
     { query: "best internet marketing company in india", expectedRoute: "/internet-marketing-company-india" },
+    { query: "internet marketing services in india", expectedRoute: "/internet-marketing-company-india" },
     { query: "best internet marketing company in maharashtra", expectedRoute: "/internet-marketing-company-maharashtra" },
     { query: "best internet marketing company in mumbai", expectedRoute: "/internet-marketing-company-mumbai" },
     { query: "best internet marketing company in pune", expectedRoute: "/internet-marketing-company-pune" },

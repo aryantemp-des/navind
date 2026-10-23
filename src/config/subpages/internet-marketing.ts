@@ -7,24 +7,24 @@ export const internetMarketingPages: Record<string, SubpageConfig> = {
   "/internet-marketing-company-india": {
     slug: "internet-marketing-company-india",
     category: "NATIONAL DIGITAL GROWTH",
-    title: "Best Internet Marketing Company in India | Navya Tech Industry",
-    h1: "Best Internet Marketing Company in India",
+    title: "Best Internet Marketing Agency in India | Navya Tech",
+    h1: "Best Internet Marketing Agency in India",
     metaDescription:
-      "Partner with the best internet marketing company in India. We engineer data-driven SEO, high-converting web platforms, and national digital growth campaigns.",
-    primaryKeyword: "best internet marketing company in india",
+      "Choose Navya Tech Industry for internet marketing services in India. Boost online visibility, attract customers, and grow with SEO, GEO, and AEO strategies.",
+    primaryKeyword: "best internet marketing agency in India",
     breadcrumbs: [
       { label: "Home", href: "/" },
       { label: "Services", href: "/services" },
-      { label: "Internet Marketing India" },
+      { label: "Internet Marketing Agency India" },
     ],
     heroDescription:
-      "Navya Tech Industry is an engineering-driven digital growth partner for ambitious Indian enterprises, high-growth startups, and established regional brands. We combine sub-second Next.js web architectures, enterprise technical SEO, and conversion rate optimization to turn organic search visibility into sustainable customer revenue across all 28 states and union territories.",
-    heroImageAlt: "Best Internet Marketing Company in India - Navya Tech Industry",
+      "Navya Tech Industry is an engineering-driven digital growth partner and internet marketing agency in India. We combine sub-second Next.js web architectures, enterprise SEO services, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO) to expand online visibility, attract qualified customers, and drive sustainable business growth across all 28 states and union territories.",
+    heroImageAlt: "Best Internet Marketing Agency in India - Navya Tech Industry",
     heroImageSrc: "/ai1.png",
     heroStats: [
       { label: "Delivery Standard", value: "Sub-Second Speed" },
       { label: "Billing Compliance", value: "100% GST Invoicing" },
-      { label: "Search Strategy", value: "White-Hat Organic" },
+      { label: "Search & AI Strategy", value: "SEO + GEO + AEO" },
       { label: "Asset Ownership", value: "100% Client Owned" },
     ],
     primaryCtaText: "Start Pan-India Campaign",
@@ -32,64 +32,64 @@ export const internetMarketingPages: Record<string, SubpageConfig> = {
     secondaryCtaText: "Explore State Hubs",
     secondaryCtaLink: "#state-hubs",
     whatsappMessage:
-      "Hi Navya Tech, I am looking for the best internet marketing company in India to scale our business online. Let's discuss our marketing strategy.",
-    overviewTitle: "Full-Funnel Internet Marketing Engineered for Measurable Indian Business Yield",
+      "Hi Navya Tech, I am looking for the best internet marketing agency in India for SEO, GEO, and AEO strategies to grow our business online. Let's discuss.",
+    overviewTitle: "Full-Funnel Internet Marketing Services in India Engineered for Online Visibility and Business Growth",
     overviewDescription:
-      "Modern internet marketing in India has outgrown vanity impressions and superficial social media posts. With rising customer acquisition costs (CAC) on Google Ads and Meta platforms, winning brands invest in sustainable digital assets: sub-second web experiences, authoritative organic search rankings, and systematic conversion funnels that work 24/7 across pan-India markets.",
+      "Modern internet marketing has evolved beyond basic keyword ranking and generic social media posts. In an era where potential customers search through Google, voice queries, and AI assistants like ChatGPT, Perplexity, and Google Gemini, businesses require a multi-layered digital strategy. Navya Tech Industry engineers comprehensive SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO) strategies that help Indian enterprises build enduring online visibility, attract high-intent customers, and scale revenue.",
     overviewCards: [
       {
-        title: "Technical SEO & Search Architecture",
+        title: "Search Engine Optimization (SEO Services in India)",
         description:
-          "We build clean JSON-LD structured data graphs, lightning-fast Core Web Vitals, and crawlable site taxonomies that help search engines index your commercial pages first.",
-        badge: "ORGANIC DOMINANCE",
+          "We build clean JSON-LD structured data graphs, lightning-fast Core Web Vitals, and crawlable site taxonomies that help search engines index and rank your commercial pages naturally.",
+        badge: "ORGANIC SEARCH",
         points: [
           "Complete schema.org entity integration",
           "Sub-second Largest Contentful Paint (LCP)",
-          "Zero client-side JavaScript render bottlenecks",
+          "High-intent commercial keyword mapping across India",
+        ],
+      },
+      {
+        title: "Generative Engine Optimization (GEO)",
+        description:
+          "We structure authoritative, context-rich content and entity relationships designed to improve brand discoverability and factual representation across generative AI experiences.",
+        badge: "AI DISCOVERABILITY",
+        points: [
+          "Entity-first content architecture for LLM context windows",
+          "Fact-dense, citable data points and structured summaries",
+          "Brand citation authority across relevant digital ecosystems",
+        ],
+      },
+      {
+        title: "Answer Engine Optimization (AEO)",
+        description:
+          "We organize knowledge into direct, question-answering formats, semantic markup, and FAQ schemas, making your content easier for answer-oriented search engines to parse and surface.",
+        badge: "ANSWER ENGINES",
+        points: [
+          "Direct-answer formatting for conversational queries",
+          "Structured FAQ and HowTo schema implementations",
+          "Voice search and featured snippet query alignment",
         ],
       },
       {
         title: "Conversion-Centric Web Engineering",
         description:
           "Traffic without conversions is wasted capital. We build custom Next.js platforms with friction-free lead capture, one-tap WhatsApp Business routing, and Razorpay/UPI checkouts.",
-        badge: "CONVERSION ARCHITECTURE",
+        badge: "CONVERSIONS",
         points: [
           "High-intent landing page UX workflows",
           "Instant WhatsApp lead routing with zero drop-off",
           "Mobile-first responsive design for 4G/5G networks",
         ],
       },
-      {
-        title: "High-Intent Content Marketing",
-        description:
-          "We research real buyer queries across India and develop comprehensive technical guides, commercial landing pages, and industry comparisons that capture purchase intent.",
-        badge: "AUTHORITY CONTENT",
-        points: [
-          "Bottom-of-funnel commercial keyword mapping",
-          "Topical authority clusters and internal linking",
-          "Bilingual & regional search intent coverage",
-        ],
-      },
-      {
-        title: "National Reach with Local Precision",
-        description:
-          "Whether targeting B2B enterprises in Mumbai and Delhi or local service consumers in Bareilly and Pune, our location-specific strategies capture hyper-targeted regional demand.",
-        badge: "GEO TARGETING",
-        points: [
-          "State and city-specific landing architectures",
-          "Google Business Profile optimization protocols",
-          "Localized structured data and regional search signals",
-        ],
-      },
     ],
-    capabilitiesTitle: "Comprehensive Internet Marketing Capabilities",
-    capabilitiesSubtitle: "From enterprise technical SEO to custom performance web systems.",
+    capabilitiesTitle: "Comprehensive Digital Marketing Services in India",
+    capabilitiesSubtitle: "From technical SEO and AI discoverability to custom performance web systems.",
     capabilities: [
       {
         title: "Search Engine Optimization (SEO)",
         description:
-          "Holistic organic search optimization addressing technical infrastructure, on-page optimization, content depth, and natural authority building to drive recurring, unpaid business inquiries.",
-        badge: "CORE CAPABILITY",
+          "Holistic organic search optimization addressing technical infrastructure, on-page content depth, crawl efficiency, and natural authority building to drive recurring, unpaid business inquiries.",
+        badge: "CORE SEO",
         points: [
           "Comprehensive site architecture audits",
           "Strategic keyword mapping by commercial intent",
@@ -98,38 +98,38 @@ export const internetMarketingPages: Record<string, SubpageConfig> = {
         href: "/services/seo",
       },
       {
-        title: "Website Performance & Core Web Vitals",
+        title: "Generative Engine Optimization (GEO)",
         description:
-          "Speed directly impacts Google rankings and conversion rates. We optimize mobile load speeds, compress image assets into modern WebP/AVIF formats, and eliminate render-blocking scripts.",
-        badge: "PERFORMANCE",
+          "Strategic content structuring that improves how generative AI models understand your company, products, and services, enhancing representation without making unrealistic inclusion promises.",
+        badge: "GEO STRATEGY",
+        points: [
+          "Dense factual hierarchy and topical clustering",
+          "Structured brand entity disambiguation",
+          "Authoritative reference point development",
+        ],
+        href: "/services/seo",
+      },
+      {
+        title: "Answer Engine Optimization (AEO)",
+        description:
+          "Formatting content into clear, concise answers to high-intent buyer questions, optimizing for Google AI Overviews, featured snippets, and conversational search platforms.",
+        badge: "AEO ARCHITECTURE",
+        points: [
+          "Question-and-answer semantic mapping",
+          "JSON-LD QAPage and FAQPage schema",
+          "Natural language entity clarity for quick answers",
+        ],
+        href: "/services/seo",
+      },
+      {
+        title: "Website Performance & Conversion Engineering",
+        description:
+          "Custom Next.js platforms engineered for sub-second mobile speeds, frictionless inquiry capture, and 100% codebase ownership with zero recurring software taxes.",
+        badge: "WEB SYSTEMS",
         points: [
           "95+ Google Lighthouse speed targets",
-          "Optimized edge caching across Indian CDN nodes",
-          "Zero Cumulative Layout Shift (CLS) stability",
-        ],
-        href: "/services/website-performance-optimization",
-      },
-      {
-        title: "High-Conversion Landing Page Development",
-        description:
-          "Bespoke standalone landing pages engineered specifically for high-intent paid search, social advertising, and direct commercial campaigns with clear, persuasive value propositions.",
-        badge: "CONVERSIONS",
-        points: [
-          "Tactile claymorphic visual presentation",
-          "Frictionless forms with instant SMS/Email notifications",
-          "Multi-step lead qualification workflows",
-        ],
-        href: "/services/landing-page-development",
-      },
-      {
-        title: "B2B & Enterprise Digital Growth",
-        description:
-          "Account-based internet marketing, corporate governance websites, and consultative lead generation pipelines designed for manufacturing, tech, healthcare, and financial enterprises.",
-        badge: "ENTERPRISE",
-        points: [
-          "Institutional credibility design systems",
-          "Corporate case studies and downloadable resources",
-          "B2B CRM integration and webhook automation",
+          "Instant WhatsApp and telephone routing",
+          "Full source code ownership with GST billing",
         ],
         href: "/services/website-development",
       },
@@ -139,24 +139,24 @@ export const internetMarketingPages: Record<string, SubpageConfig> = {
     processSteps: [
       {
         number: "01",
-        title: "Technical Audit & Search Landscape Mapping",
+        title: "Technical SEO, GEO & AEO Discovery",
         description:
-          "We analyze your current domain health, competitor visibility, crawl efficiency, Core Web Vitals performance, and high-intent buyer keywords across national and regional markets.",
+          "We analyze your current search footprint, entity visibility, AI search representation, crawl efficiency, Core Web Vitals, and high-intent buyer queries across India.",
         deliverables: [
           "Comprehensive Technical SEO Audit",
-          "Competitor Organic Gap Analysis",
+          "GEO & AEO Discoverability Evaluation",
           "Commercial Keyword Opportunity Matrix",
         ],
       },
       {
         number: "02",
-        title: "Digital Architecture & Content Strategy",
+        title: "Information Architecture & Semantic Strategy",
         description:
-          "We design the site structure, URL hierarchy, structured data schemas, and content outlines required to capture transactional search intent without thin doorway duplication.",
+          "We design the site structure, URL hierarchy, structured data schemas, and content models required to capture transactional search intent and conversational queries.",
         deliverables: [
           "Information Architecture Sitemap",
           "JSON-LD Schema Implementation Plan",
-          "Content Production & Internal Linking Model",
+          "AEO Direct-Answer Content Framework",
         ],
       },
       {
@@ -187,7 +187,7 @@ export const internetMarketingPages: Record<string, SubpageConfig> = {
       {
         title: "No False Ranking Guarantees",
         description:
-          "Search algorithms evolve continuously. We never make deceptive claims like 'guaranteed #1 Google ranking.' Instead, we execute proven technical fundamentals that earn durable visibility.",
+          "Search engines and AI algorithms evolve continuously. We never make deceptive claims like 'guaranteed #1 Google ranking' or guaranteed AI citations. We execute proven technical fundamentals that earn durable visibility.",
         badge: "ETHICAL SEO",
       },
       {
@@ -211,29 +211,29 @@ export const internetMarketingPages: Record<string, SubpageConfig> = {
     ],
     faqs: [
       {
-        question: "What makes Navya Tech Industry the best internet marketing company in India?",
+        question: "What makes Navya Tech Industry the best internet marketing agency in India?",
         answer:
-          "We differentiate ourselves by combining full-stack software engineering with rigorous technical SEO and conversion rate optimization. Rather than relying on generic blog fluff or temporary ad spend tricks, we build fast, accessible web platforms engineered to rank organically, load in under 1 second, and convert traffic into qualified business inquiries.",
+          "We differentiate ourselves by combining full-stack software engineering with advanced SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). Rather than relying on generic blog filler or temporary ad tricks, we build fast, accessible web platforms engineered to rank organically, present clear facts to AI engines, and convert visitors into qualified business inquiries.",
       },
       {
-        question: "Do you serve clients across all states and cities in India?",
+        question: "What is Generative Engine Optimization (GEO) and how does it help?",
         answer:
-          "Yes. Our delivery model is remote-first and engineered for seamless pan-India collaboration. We work closely with commercial clients across Maharashtra, Uttar Pradesh, Delhi NCR, Himachal Pradesh, Karnataka, Tamil Nadu, Gujarat, and beyond using structured video strategy sessions, async milestone reviews, and dedicated WhatsApp communication channels.",
+          "Generative Engine Optimization (GEO) is the practice of structuring content, data, and brand information so that large language models and generative AI search tools (like Google Gemini, ChatGPT, and Perplexity) can accurately understand, parse, and represent your business when users ask complex, conversational questions. While no agency can guarantee inclusion in AI answers, GEO ensures your content is context-rich, citable, and technically clear.",
       },
       {
-        question: "How long does it take to see tangible organic search results in India?",
+        question: "How does Answer Engine Optimization (AEO) differ from traditional SEO?",
         answer:
-          "Technical SEO improvements such as crawlability, site speed, and structured data indexing typically reflect within 2 to 6 weeks. Competitive organic rankings and compounding search traffic generally mature over 3 to 6 months depending on existing domain authority, keyword competition, and publishing consistency.",
+          "While traditional SEO focuses on driving clicks from search engine results pages through keyword targeting and metadata, Answer Engine Optimization (AEO) specifically optimizes content to be surfaced as direct, authoritative answers. This involves formatting key insights into concise paragraphs, bullet points, structured tables, and FAQ schemas that answer-oriented search engines and voice assistants can easily extract.",
+      },
+      {
+        question: "Do you guarantee #1 rankings or inclusion in AI-generated answers?",
+        answer:
+          "No reputable agency can guarantee #1 rankings or mandatory inclusion in AI-generated answers because search and AI algorithms use hundreds of proprietary, dynamic signals. What Navya Tech Industry guarantees is strict adherence to search engine guidelines, ethical white-hat optimization, clean structured data, sub-second performance, and transparent reporting.",
       },
       {
         question: "Do you provide official GST invoices for Indian businesses?",
         answer:
           "Yes, absolutely. We are a registered enterprise in India. Every transaction includes a compliant B2B tax invoice with our GSTIN, allowing Indian companies to claim 18% Input Tax Credit (ITC) against corporate tax liabilities.",
-      },
-      {
-        question: "Do you guarantee first position rankings on Google?",
-        answer:
-          "No reputable agency can guarantee #1 rankings because Google's search algorithms use hundreds of dynamic signals and independently evaluate user intent. What we do guarantee is strict adherence to Google Search Essentials, white-hat technical optimization, pristine structured data, sub-second performance, and transparent reporting.",
       },
     ],
     relatedLinks: [

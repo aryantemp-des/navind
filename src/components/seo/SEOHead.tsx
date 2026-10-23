@@ -21,7 +21,7 @@ export const SEOHead: React.FC<SEOProps> = ({
 }) => {
   useEffect(() => {
     // 1. Update Title
-    const fullTitle = title.includes("Navya Tech Industry")
+    const fullTitle = title.includes("Navya Tech")
       ? title
       : `${title} | Navya Tech Industry`;
     document.title = fullTitle;
