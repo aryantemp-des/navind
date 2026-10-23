@@ -14,6 +14,7 @@ import { getSubpageConfig } from "@/config/subpages";
 import { getBlogArticle, getBlogCategory } from "@/config/blogs";
 import { RouteProvider, useRoute } from "@/context/RouteContext";
 import { scrollToTarget } from "@/lib/scroll";
+import SEOHead from "@/components/seo/SEOHead";
 
 // Lazy-load subpage templates & heavy modals for instant mobile initial bundle
 const GenericSubpage = lazy(() => import("@/components/templates/GenericSubpage"));
@@ -149,6 +150,21 @@ function MainContent() {
   // Otherwise render primary "/" Homepage
   return (
     <div className="relative min-h-screen text-foreground selection:bg-red-600/30 selection:text-red-200 overflow-x-hidden" style={{ background: "transparent" }}>
+      {/* Homepage SEO Head */}
+      <SEOHead
+        title="Navya Tech Industry | Best Internet Marketing Company in India"
+        description="Navya Tech Industry delivers AI automation, website development, SEO, and digital marketing solutions to help businesses grow online."
+        canonicalPath="/"
+        keywords={[
+          "Navya Tech Industry",
+          "Best Internet Marketing Company in India",
+          "AI automation",
+          "website development",
+          "SEO",
+          "digital marketing"
+        ]}
+      />
+
       {/* Global orange/black plexus background — fixed, behind everything */}
       <GlobalPlexusBg />
 

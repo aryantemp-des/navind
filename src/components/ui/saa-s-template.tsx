@@ -181,7 +181,7 @@ const Navigation = React.memo(() => {
 Navigation.displayName = "Navigation";
 
 // Hero Component — also exported so App.tsx can render just this section
-export const SaaSHero = React.memo(() => {
+export const SaaSHero = React.memo<{ heading?: string }>(({ heading = "Best Internet marketing Company in india" }) => {
   return (
     <section
       className="relative flex flex-col items-center justify-center px-6 py-14 md:py-18 overflow-hidden"
@@ -257,7 +257,7 @@ export const SaaSHero = React.memo(() => {
           zIndex: 2,
         }}
       >
-        Give your business the solution it Deserves
+        {heading}
       </h1>
 
       <p

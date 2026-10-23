@@ -263,19 +263,19 @@ export const ParticleHero: React.FC<ParticleHeroProps> = ({
           <div className="text-center max-w-6xl mx-auto">
             {/* 1. Main Title: NAVYA */}
             <div className="mb-10 sm:mb-16">
-              <h1 className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[12.5rem] font-black tracking-[0.06em] sm:tracking-[0.09em] md:tracking-[0.12em] leading-[0.9] mb-6 sm:mb-8 select-none font-heading uppercase pl-[0.06em] sm:pl-[0.09em] md:pl-[0.12em]">
+              <h2 className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[12.5rem] font-black tracking-[0.06em] sm:tracking-[0.09em] md:tracking-[0.12em] leading-[0.9] mb-6 sm:mb-8 select-none font-heading uppercase pl-[0.06em] sm:pl-[0.09em] md:pl-[0.12em]">
                 <span className="navya-text-shine inline-block">
                   {title}
                 </span>
-              </h1>
+              </h2>
 
               {/* 2. Subtitle: BOLD "Tech Industry" with continuous shine sweep */}
               <div className="space-y-4">
-                <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-[0.22em] uppercase font-heading drop-shadow-lg">
+                <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-[0.22em] uppercase font-heading drop-shadow-lg">
                   <span className="navya-subtext-shine inline-block">
                     {subtitle}
                   </span>
-                </h2>
+                </h3>
                 <div className="w-28 sm:w-36 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto rounded-full"></div>
               </div>
             </div>
