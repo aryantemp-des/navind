@@ -1,4 +1,6 @@
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Sparkles, ArrowRight } from "lucide-react";
 import SolarArcCanvas from "./solar-arc-canvas";
 import { GradientBars } from "./gradient-bars-background";
 
@@ -42,24 +44,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button";
 
 // Icons
-const ArrowRight = ({ className = "", size = 16 }: { className?: string; size?: number }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
-);
-
 const Menu = ({ className = "", size = 24 }: { className?: string; size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -182,6 +166,8 @@ Navigation.displayName = "Navigation";
 
 // Hero Component — also exported so App.tsx can render just this section
 export const SaaSHero = React.memo<{ heading?: string }>(({ heading = "Best Internet marketing Company in india" }) => {
+  const reduced = useReducedMotion();
+
   return (
     <section
       className="relative flex flex-col items-center justify-center px-6 py-14 md:py-18 overflow-hidden"
@@ -246,8 +232,24 @@ export const SaaSHero = React.memo<{ heading?: string }>(({ heading = "Best Inte
         }}
       />
 
-      <h1
-        className="relative text-4xl md:text-5xl lg:text-6xl font-medium text-center max-w-4xl px-6 leading-tight mb-6"
+      {/* Floating Eyebrow Badge */}
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: -16, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 mb-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full clay-badge text-xs font-mono text-zinc-300 uppercase tracking-widest border border-red-500/30 bg-black/60 shadow-[0_0_20px_rgba(239,68,68,0.2)]"
+      >
+        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+        <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+        <span>Next-Gen Web &amp; AI Engineering</span>
+      </motion.div>
+
+      {/* Staggered Heading */}
+      <motion.h1
+        initial={reduced ? false : { opacity: 0, y: 28 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-center max-w-4xl px-4 sm:px-6 leading-tight mb-6 break-words"
         style={{
           background: "linear-gradient(to bottom, #ffffff, #ffffff, rgba(255, 255, 255, 0.6))",
           WebkitBackgroundClip: "text",
@@ -258,24 +260,49 @@ export const SaaSHero = React.memo<{ heading?: string }>(({ heading = "Best Inte
         }}
       >
         {heading}
-      </h1>
+      </motion.h1>
 
-      <p
-        className="relative text-sm md:text-base text-center max-w-3xl px-6 mb-10 leading-relaxed"
-        style={{ color: '#c4a9a9', zIndex: 2 }}
+      {/* Staggered Subtitle */}
+      <motion.p
+        initial={reduced ? false : { opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+        className="relative text-sm md:text-base text-center max-w-3xl px-4 sm:px-6 mb-8 md:mb-10 leading-relaxed font-bold text-zinc-100"
+        style={{ zIndex: 2 }}
       >
-        Intelligent technology systems that combine automation, efficiency, security, and innovation to solve real business problems and create measurable growth.
-      </p>
+        <strong>
+          Building automation-supported business plans, high-converting websites, intelligent AI agents, and AI-powered receptionists that help businesses operate smarter, attract customers, and grow efficiently.
+        </strong>
+      </motion.p>
 
-      <div className="flex items-center gap-4 relative mb-8" style={{ zIndex: 2 }}>
-        <a
+      {/* Staggered CTA Actions */}
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 relative mb-8 w-full sm:w-auto px-4"
+        style={{ zIndex: 2 }}
+      >
+        <motion.a
           href="/get-started"
-          className="clay-btn-primary rounded-lg flex items-center justify-center cursor-pointer h-12 px-8 text-base text-white font-bold shadow-[0_10px_25px_rgba(239,68,68,0.45)]"
+          whileHover={{ scale: 1.04, boxShadow: "0 0 35px rgba(239,68,68,0.65)" }}
+          whileTap={{ scale: 0.98 }}
+          className="clay-btn-primary rounded-full flex items-center justify-center gap-2 cursor-pointer h-12 w-full sm:w-auto px-8 text-sm md:text-base text-white font-bold tracking-wider uppercase shadow-[0_10px_25px_rgba(239,68,68,0.45)] group transition-all min-h-[48px]"
           aria-label="Start project with Navya Tech Industry"
         >
-          Get started
-        </a>
-      </div>
+          <span>Get Started</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </motion.a>
+        <motion.a
+          href="/pricing"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
+          className="clay-btn-secondary rounded-full flex items-center justify-center gap-2 cursor-pointer h-12 w-full sm:w-auto px-7 text-sm text-zinc-200 hover:text-white font-mono uppercase tracking-wider transition-all border border-white/10 hover:border-white/25 min-h-[48px]"
+          aria-label="Explore Custom Quotation"
+        >
+          <span>Explore Quotes</span>
+        </motion.a>
+      </motion.div>
     </section>
   );
 });

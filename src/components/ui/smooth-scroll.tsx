@@ -24,16 +24,18 @@ export const SmoothScrollProvider: React.FC = () => {
     if (!activeLenisInstance) {
       /**
        * Lenis Configuration:
-       * - lerp: 0.1 (Target 0.08–0.12 for liquid acceleration and natural deceleration)
+       * - lerp: 0.085 (Ultra-fluid, buttery acceleration and natural decay)
+       * - easing: exponential easeOut for organic, responsive inertia
        * - smoothWheel: true (Inertia-based buttery wheel response)
-       * - syncTouch: true (Controlled touch synchronization as specified)
-       * - wheelMultiplier: 1.0 (Natural 1:1 input responsiveness)
+       * - syncTouch: false (Preserves native high-refresh-rate mobile swipe without latency)
+       * - wheelMultiplier: 1.0 (Precise 1:1 input responsiveness)
        * - touchMultiplier: 1.0 (Preserves natural finger responsiveness on touchscreens)
        */
       const lenis = new Lenis({
-        lerp: 0.1,
+        lerp: 0.085,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        syncTouch: true,
+        syncTouch: false,
         wheelMultiplier: 1.0,
         touchMultiplier: 1.0,
         infinite: false,
@@ -66,6 +68,21 @@ export const SmoothScrollProvider: React.FC = () => {
 
       gsap.ticker.add(tickerCallback);
       gsap.ticker.lagSmoothing(500, 33);
+
+      // Automatic resize sync: Keep Lenis scroll bounds accurately calibrated to dynamic DOM changes
+      let resizeRaf: number | null = null;
+      const resizeObserver = new ResizeObserver(() => {
+        if (resizeRaf) cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(() => {
+          if (activeLenisInstance) {
+            activeLenisInstance.resize();
+            ScrollTrigger.refresh();
+          }
+        });
+      });
+      if (document.body) {
+        resizeObserver.observe(document.body);
+      }
 
       // Handle OS reduced motion preference change dynamically
       const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -103,6 +120,8 @@ export const SmoothScrollProvider: React.FC = () => {
       // Store cleanup on instance for global tear-down
       (lenis as any).__cleanup = () => {
         clearTimeout(refreshTimeout);
+        if (resizeRaf) cancelAnimationFrame(resizeRaf);
+        resizeObserver.disconnect();
         if (tickerCallback) {
           gsap.ticker.remove(tickerCallback);
           tickerCallback = null;

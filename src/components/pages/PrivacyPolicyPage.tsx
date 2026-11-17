@@ -11,8 +11,6 @@ import {
   Server,
   Cookie,
   EyeOff,
-  Globe,
-  HelpCircle,
   Mail,
   MapPin,
   ExternalLink,
@@ -20,8 +18,6 @@ import {
   Share2,
   Check,
   ChevronRight,
-  Sparkles,
-  ArrowRight,
   Database,
   Building,
   AlertCircle

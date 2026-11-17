@@ -4,69 +4,63 @@ import { chromium } from "@playwright/test";
 const EXPECTED_INDUSTRIES = [
   {
     num: "01",
-    title: "Startups & Scaleups",
-    route: "/industries/startups",
-    points: ["Rapid 7-day launch", "Waitlist conversion", "Product previews"],
+    title: "SaaS & Voice Automation",
+    route: "/industries/saas",
+    points: ["AI voice agents", "Interactive demos", "Automated onboarding"],
   },
   {
     num: "02",
-    title: "Small Business & Local",
-    route: "/industries/small-business",
-    points: ["One-tap calling", "Local Google ranking", "Affordable packages"],
+    title: "Real Estate & Luxury",
+    route: "/industries/real-estate",
+    points: ["Retina galleries", "WhatsApp tour booking", "Broker routing"],
   },
   {
     num: "03",
-    title: "SaaS & Digital Products",
-    route: "/industries/saas",
-    points: ["Feature showcases", "Pricing calculators", "Docs & onboarding"],
+    title: "Healthcare & Clinics",
+    route: "/industries/healthcare",
+    points: ["WCAG AA compliance", "AI booking triage", "Physician credentials"],
   },
   {
     num: "04",
-    title: "Restaurants & Hospitality",
-    route: "/industries/restaurants",
-    points: ["Fast mobile menus", "Direct WhatsApp ordering", "Table booking"],
+    title: "E-commerce & Retail",
+    route: "/industries/ecommerce",
+    points: ["0% commission", "WhatsApp alerts", "Sub-second search"],
   },
   {
     num: "05",
-    title: "Real Estate & Architecture",
-    route: "/industries/real-estate",
-    points: ["Property galleries", "Virtual tour support", "Agent inquiry forms"],
+    title: "Professional Services",
+    route: "/industries/professional-services",
+    points: ["Document intake", "Client onboarding", "Executive authority"],
   },
   {
     num: "06",
-    title: "Healthcare & Wellness",
-    route: "/industries/healthcare",
-    points: ["HIPAA-conscious", "Doctor profiles", "Online booking"],
+    title: "Education & Academics",
+    route: "/industries/education",
+    points: ["Interactive catalogs", "24/7 AI counselor", "Easy enrollment"],
   },
   {
     num: "07",
-    title: "Consulting & Advisory",
-    route: "/industries/consulting",
-    points: ["Thought leadership", "Lead capture systems", "Authority positioning"],
+    title: "Technology & AI Labs",
+    route: "/industries/technology",
+    points: ["WebGL shaders", "Multi-agent workflows", "API documentation"],
   },
   {
     num: "08",
-    title: "Education & Academies",
-    route: "/industries/education",
-    points: ["Course catalogues", "Student enquiries", "Easy enrollment"],
+    title: "Small Businesses",
+    route: "/industries/small-business",
+    points: ["One-tap calling", "AI missed-call textback", "$0 monthly tax"],
   },
   {
     num: "09",
-    title: "Ecommerce & Retail",
-    route: "/industries/ecommerce",
-    points: ["Product catalogues", "Fast checkout", "Conversion-focused storefronts"],
+    title: "Restaurant & Hospitality",
+    route: "/industries/restaurants",
+    points: ["Instant mobile menus", "Voice AI booking", "0% commission orders"],
   },
   {
     num: "10",
-    title: "Technology & AI Labs",
-    route: "/industries/technology",
-    points: ["Product showcases", "AI & technology demos", "Technical credibility"],
-  },
-  {
-    num: "11",
-    title: "Professional Services",
-    route: "/industries/professional-services",
-    points: ["Service showcases", "Client enquiries", "Professional credibility"],
+    title: "Consulting & Advisory",
+    route: "/industries/consulting",
+    points: ["Pre-screening intake", "Calendar sync", "Thought leadership"],
   },
 ];
 
@@ -93,14 +87,14 @@ async function testIndustriesEcosystem() {
     const hubH1 = await pageDesktop.locator("h1").first().innerText();
     console.log(`  📄 Hub Page: /industries | H1: "${hubH1}"`);
 
-    // Verify exactly 11 cards in FeatureGrid (Explore Industry Sectors)
+    // Verify exactly 10 cards in FeatureGrid (Explore Industry Sectors)
     const featureGridSection = pageDesktop.locator('section:has(h2:has-text("Explore Industry Sectors"))');
-    const cards = featureGridSection.locator(".clay-card-interactive");
+    const cards = featureGridSection.locator(".service-card-yellow-glow, .clay-card-interactive");
     const cardCount = await cards.count();
     console.log(`  🃏 Total Industry Cards in Grid: ${cardCount}`);
 
-    if (cardCount !== 11) {
-      throw new Error(`Expected exactly 11 industry cards, but found ${cardCount}`);
+    if (cardCount !== 10) {
+      throw new Error(`Expected exactly 10 industry cards, but found ${cardCount}`);
     }
 
     // Inspect every card
@@ -124,10 +118,10 @@ async function testIndustriesEcosystem() {
     }
 
     // -------------------------------------------------------------
-    // TEST 2: AUDIT ALL 11 INDIVIDUAL INDUSTRY SUBPAGES
+    // TEST 2: AUDIT ALL 10 INDIVIDUAL INDUSTRY SUBPAGES
     // -------------------------------------------------------------
     console.log("\n=================================================");
-    console.log("🧪 2. VERIFYING ALL 11 INDIVIDUAL SUBPAGES & WHATSAPP CTAS");
+    console.log("🧪 2. VERIFYING ALL 10 INDIVIDUAL SUBPAGES & WHATSAPP CTAS");
     console.log("=================================================");
 
     for (const ind of EXPECTED_INDUSTRIES) {
@@ -174,26 +168,40 @@ async function testIndustriesEcosystem() {
       await pageVp.goto(`${baseUrl}/industries`, { waitUntil: "networkidle" });
 
       const vpFeatureGrid = pageVp.locator('section:has(h2:has-text("Explore Industry Sectors"))');
-      const vpCardCount = await vpFeatureGrid.locator(".clay-card-interactive").count();
+      const vpCardCount = await vpFeatureGrid.locator(".service-card-yellow-glow, .clay-card-interactive").count();
       const hasHorizontalScroll = await pageVp.evaluate(() => {
         return document.documentElement.scrollWidth > window.innerWidth;
       });
 
       console.log(`  📱 Viewport: ${vp.name}`);
-      console.log(`     Cards count: ${vpCardCount}/11`);
+      console.log(`     Cards count: ${vpCardCount}/10`);
       console.log(`     Horizontal overflow detected: ${hasHorizontalScroll ? "❌ YES" : "✅ NONE"}`);
 
       if (hasHorizontalScroll) {
         throw new Error(`Horizontal overflow detected on ${vp.name}`);
       }
-      if (vpCardCount !== 11) {
-        throw new Error(`Expected 11 cards on ${vp.name}, got ${vpCardCount}`);
+      if (vpCardCount !== 10) {
+        throw new Error(`Expected 10 cards on ${vp.name}, got ${vpCardCount}`);
       }
       await pageVp.close();
     }
 
+    // -------------------------------------------------------------
+    // TEST 4: VERIFY 301 REDIRECT OF /industries/startups -> /industries/saas
+    // -------------------------------------------------------------
     console.log("\n=================================================");
-    console.log("🎉 ALL 11 INDUSTRY CARDS, ROUTES & CTAS VERIFIED!");
+    console.log("🧪 4. VERIFYING CLIENT REDIRECT /industries/startups -> /industries/saas");
+    console.log("=================================================");
+    await pageDesktop.goto(`${baseUrl}/industries/startups`, { waitUntil: "networkidle" });
+    const redirectedUrl = pageDesktop.url();
+    console.log(`  🔀 Navigated to /industries/startups -> Resolved URL: ${redirectedUrl}`);
+    if (!redirectedUrl.includes("/industries/saas")) {
+      throw new Error(`Expected redirect to /industries/saas, but got ${redirectedUrl}`);
+    }
+    console.log("  ✅ Redirect verified successfully!");
+
+    console.log("\n=================================================");
+    console.log("🎉 ALL 10 INDUSTRY CARDS, ROUTES, CTAS & REDIRECT VERIFIED!");
     console.log("=================================================\n");
 
   } finally {

@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "@/context/RouteContext";
-import { Search, Sparkles, Clock, Calendar, ArrowRight, ArrowUpRight, BookOpen, Layers, Phone } from "lucide-react";
+import { Search, Sparkles, Clock, ArrowRight, ArrowUpRight, Phone } from "lucide-react";
 import SubpageLayout from "@/components/layout/SubpageLayout";
 import SEOHead from "@/components/seo/SEOHead";
-import { BlogCategoryHub, BlogArticle, getAllBlogArticles, getAllBlogCategories, searchBlogArticles, getBlogArticle } from "@/config/blogs";
+import { BlogCategoryHub, getAllBlogArticles, getAllBlogCategories, searchBlogArticles, getBlogArticle } from "@/config/blogs";
 
 interface BlogHubProps {
   hubType: "resources" | "blog" | "category";
@@ -52,8 +52,6 @@ export const BlogHubTemplate: React.FC<BlogHubProps> = ({ hubType, categoryHub }
     : isResources
     ? "/resources"
     : "/blog";
-
-  const heroImageAlt = isCategory ? categoryHub.heroImageAlt : isResources ? "Resources for Building Better Websites" : "The Navya Tech Industry Blog";
 
   const breadcrumbs = isCategory
     ? [
@@ -192,6 +190,8 @@ export const BlogHubTemplate: React.FC<BlogHubProps> = ({ hubType, categoryHub }
                   <img
                     src={featuredArticle.heroImageSrc}
                     alt={featuredArticle.heroImageAlt}
+                    width={600}
+                    height={375}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
@@ -263,6 +263,8 @@ export const BlogHubTemplate: React.FC<BlogHubProps> = ({ hubType, categoryHub }
                       <img
                         src={article.heroImageSrc}
                         alt={article.heroImageAlt}
+                        width={480}
+                        height={300}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                       />

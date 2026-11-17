@@ -153,9 +153,9 @@ export const seoArticles: Record<string, BlogArticle> = {
       "/blog/how-to-get-a-website-on-google",
     ],
     contextualService: {
-      title: "Performance Optimization Service",
+      title: "Website Development & Speed Optimization",
       description: "Upgrade your website speed to sub-second load times.",
-      href: "/services/website-performance-optimization",
+      href: "/services/website-development",
       ctaText: "Speed Up Your Website →",
     },
     tags: ["Core Web Vitals", "LCP", "INP", "CLS", "Performance"],

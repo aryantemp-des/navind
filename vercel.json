@@ -1,4 +1,51 @@
 {
+  "redirects": [
+    {
+      "source": "/services/technical-seo",
+      "destination": "/services/seo",
+      "permanent": true
+    },
+    {
+      "source": "/services/custom-website-design",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/website-design",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/3d-website-development",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/custom-web-development",
+      "destination": "/services/web-app-development",
+      "permanent": true
+    },
+    {
+      "source": "/services/landing-page-development",
+      "destination": "/services/business-website-development",
+      "permanent": true
+    },
+    {
+      "source": "/services/website-performance-optimization",
+      "destination": "/services/website-development",
+      "permanent": true
+    },
+    {
+      "source": "/services/website-maintenance",
+      "destination": "/services/website-development",
+      "permanent": true
+    },
+    {
+      "source": "/industries/startups",
+      "destination": "/industries/saas",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!assets/|robots.txt|sitemap.xml|favicon.*|logoimg.png|site.webmanifest|.*\\..*).*)",

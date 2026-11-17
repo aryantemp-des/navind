@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Spline from '@splinetool/react-spline';
-import { Shield, Sparkles, ArrowRight } from 'lucide-react';
-import { scrollToTarget } from '@/lib/scroll';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import PlexusCanvas from './plexus-canvas';
 import { GradientBars } from './gradient-bars-background';
 
@@ -59,12 +58,7 @@ function HeroSplineBackground() {
   );
 }
 
-function HeroContent({ onStartClick }: { onStartClick?: () => void }) {
-  const scrollToContact = () => {
-    scrollToTarget('final-project', { offset: -85, duration: 1.1 });
-    if (onStartClick) onStartClick();
-  };
-
+function HeroContent() {
   return (
     <div className="relative z-20 text-white px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full flex flex-col justify-center min-h-screen py-24 pointer-events-none">
       

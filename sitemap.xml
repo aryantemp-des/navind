@@ -25,6 +25,12 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://www.navyatech.co.in/terms</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://www.navyatech.co.in/blog/website-development</loc>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
@@ -112,80 +118,50 @@
   <url>
     <loc>https://www.navyatech.co.in/services/website-development</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/services/website-design</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/services/3d-website-development</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/services/custom-web-development</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/services/landing-page-development</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/services/website-performance-optimization</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/services/business-website-development</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://www.navyatech.co.in/services/ecommerce-website-development</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/services/web-app-development</loc>
+    <loc>https://www.navyatech.co.in/services/business-website-development</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://www.navyatech.co.in/services/website-redesign</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/services/website-maintenance</loc>
+    <loc>https://www.navyatech.co.in/services/web-app-development</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/services/technical-seo</loc>
+    <loc>https://www.navyatech.co.in/services/internet-marketing-bundle</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://www.navyatech.co.in/services/seo</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.navyatech.co.in/services/geo</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.navyatech.co.in/services/aeo</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://www.navyatech.co.in/industries</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/industries/startups</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/industries/small-business</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -195,17 +171,7 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/industries/restaurants</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
     <loc>https://www.navyatech.co.in/industries/real-estate</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.navyatech.co.in/industries/consulting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -215,12 +181,17 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/industries/education</loc>
+    <loc>https://www.navyatech.co.in/industries/ecommerce</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/industries/ecommerce</loc>
+    <loc>https://www.navyatech.co.in/industries/professional-services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.navyatech.co.in/industries/education</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -230,7 +201,17 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://www.navyatech.co.in/industries/professional-services</loc>
+    <loc>https://www.navyatech.co.in/industries/small-business</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.navyatech.co.in/industries/restaurants</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.navyatech.co.in/industries/consulting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>

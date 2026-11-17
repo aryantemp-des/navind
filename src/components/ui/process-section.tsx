@@ -1,6 +1,5 @@
 import React from "react";
-import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
-import { Link } from "@/context/RouteContext";
+import { Sparkles, CheckCircle2 } from "lucide-react";
 
 export interface ProcessStep {
   number: string;

@@ -152,9 +152,9 @@ export const geoHubPages: Record<string, SubpageConfig> = {
         category: "LOCAL HUB",
       },
       {
-        title: "3D Website Development",
-        description: "Discover how hardware-accelerated 3D WebGL elevates brand prestige.",
-        href: "/services/3d-website-development",
+        title: "Website Redesign",
+        description: "Modernize existing platforms with zero SEO loss.",
+        href: "/services/website-redesign",
         category: "SERVICES",
       },
     ],
@@ -374,15 +374,15 @@ export const geoHubPages: Record<string, SubpageConfig> = {
     ],
     relatedLinks: [
       {
-        title: "Startups & Scaleups Industry",
-        description: "Discover our specialized web development for high-growth tech startups.",
-        href: "/industries/startups",
+        title: "SaaS & Voice Automation",
+        description: "Explore our specialized web development and voice AI automation for SaaS scaleups.",
+        href: "/industries/saas",
         category: "INDUSTRIES",
       },
       {
-        title: "3D Website Development",
-        description: "Explore interactive WebGL graphics for tech platforms.",
-        href: "/services/3d-website-development",
+        title: "Website Redesign",
+        description: "Modernize existing web platforms with zero SEO loss.",
+        href: "/services/website-redesign",
         category: "SERVICES",
       },
       {
@@ -836,15 +836,15 @@ export const geoHubPages: Record<string, SubpageConfig> = {
     ],
     relatedLinks: [
       {
-        title: "3D Website Development",
-        description: "Explore our interactive 3D WebGL and Three.js capabilities.",
-        href: "/services/3d-website-development",
+        title: "Website Redesign",
+        description: "Modernize existing enterprise websites with SEO safety.",
+        href: "/services/website-redesign",
         category: "SERVICES",
       },
       {
-        title: "Startups & Scaleups Industry",
-        description: "Web development engineered specifically for venture-backed startups.",
-        href: "/industries/startups",
+        title: "Technology & AI Labs",
+        description: "Web development engineered specifically for technology and AI innovators.",
+        href: "/industries/technology",
         category: "INDUSTRIES",
       },
       {

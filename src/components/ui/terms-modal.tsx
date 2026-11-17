@@ -124,28 +124,27 @@ export const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onAccept }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                   <div className="clay-surface p-4 rounded-xl space-y-2">
                     <h4 className="font-bold text-white text-xs uppercase tracking-wider font-mono">
-                      Digital &amp; Web Development
+                      Website Solutions
                     </h4>
                     <ul className="list-disc list-inside space-y-1 text-zinc-400 text-xs">
-                      <li>Business &amp; Corporate websites</li>
-                      <li>Landing pages &amp; Portfolio websites</li>
-                      <li>E-commerce websites &amp; Web applications</li>
-                      <li>Interactive and premium websites</li>
-                      <li>Custom digital experiences</li>
-                      <li>Website maintenance and optimization</li>
+                      <li>Website Development</li>
+                      <li>Ecommerce Website Development</li>
+                      <li>Business Website Development</li>
+                      <li>Website Redesign</li>
+                      <li>Web App Development</li>
                     </ul>
                   </div>
 
                   <div className="clay-surface p-4 rounded-xl space-y-2">
                     <h4 className="font-bold text-white text-xs uppercase tracking-wider font-mono">
-                      AI &amp; Automation
+                      Internet Marketing
                     </h4>
                     <ul className="list-disc list-inside space-y-1 text-zinc-400 text-xs">
-                      <li>AI agents &amp; AI-powered customer support</li>
-                      <li>Business process &amp; workflow automation</li>
-                      <li>AI integrations &amp; internal business assistants</li>
-                      <li>Lead-generation &amp; customer-engagement systems</li>
-                      <li>Custom AI-powered solutions</li>
+                      <li>Internet Marketing Bundle (SEO + GEO)</li>
+                      <li>SEO (Search Engine Optimization)</li>
+                      <li>GEO (Generative Engine Optimization)</li>
+                      <li>Semantic Schema &amp; Knowledge Graph structuring</li>
+                      <li>AI Search &amp; LLM Citation engineering</li>
                     </ul>
                   </div>
 

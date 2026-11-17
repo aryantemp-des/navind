@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUpRight, Sparkles, Link2 } from "lucide-react";
+import { ArrowUpRight, Link2 } from "lucide-react";
 import { Link } from "@/context/RouteContext";
 
 export interface InternalLinkItem {

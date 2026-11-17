@@ -1,6 +1,7 @@
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "@/context/RouteContext";
-import { ShieldCheck, Zap, Code, Sparkles, Check, ArrowRight, Phone, MessageSquare } from "lucide-react";
+import { ShieldCheck, Zap, Sparkles, Check, ArrowRight, Phone, MessageSquare } from "lucide-react";
 import PageHero from "@/components/ui/page-hero";
 import FeatureGrid from "@/components/ui/feature-grid";
 import ProcessSection from "@/components/ui/process-section";
@@ -147,7 +148,13 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
       {/* 3. Deep Overview Section */}
       <section className="relative w-full py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-t border-zinc-900/80">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-16"
+          >
             <div className="lg:col-span-5 space-y-4">
               <div className="clay-badge inline-flex items-center gap-2 px-3.5 py-1.5 text-red-300 text-xs font-semibold uppercase tracking-widest font-mono">
                 <Sparkles className="w-3.5 h-3.5 text-red-400" />
@@ -162,14 +169,19 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
                 {config.overviewDescription}
               </p>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Overview Value Cards */}
+          {/* Overview Value Cards with Staggered Entrance */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {config.overviewCards.map((card, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="clay-card-interactive p-6 sm:p-8 flex flex-col justify-between"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -6, transition: { duration: 0.22, ease: "easeOut" } }}
+                className="clay-card-interactive p-6 sm:p-8 flex flex-col justify-between hover:border-red-500/40 transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -212,7 +224,7 @@ export const GenericSubpage: React.FC<{ config: SubpageConfig }> = ({ config }) 
                     </Link>
                   </div>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

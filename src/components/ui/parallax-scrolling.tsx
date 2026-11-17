@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FloatingHeroPhrases from "@/components/ui/floating-hero-phrases";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,19 +87,6 @@ export function ParallaxComponent() {
               style={{ willChange: "transform" }}
             />
 
-            {/* Layer 3: 3 Separate Stacked Headings */}
-            <div
-              data-parallax-layer="3"
-              className="parallax__layer-title"
-              style={{ willChange: "transform" }}
-            >
-              <div className="parallax__title-stack">
-                <h2 className="parallax__title">NAVYA</h2>
-                <h2 className="parallax__title">TECH</h2>
-                <h2 className="parallax__title">INDUSTRY</h2>
-              </div>
-            </div>
-
             {/* Layer 4 (Front Foreground) */}
             <img
               src="https://cdn.prod.website-files.com/671752cd4027f01b1b8f1c7f/6717795bb5aceca85011ad83_osmo-parallax-layer-1.webp"
@@ -110,6 +98,22 @@ export function ParallaxComponent() {
               className="parallax__layer-img"
               style={{ willChange: "transform" }}
             />
+
+            {/* Layer: Floating Animated Phrases (z-index 10: above mountain backgrounds & overlays, below central heading) */}
+            <FloatingHeroPhrases />
+
+            {/* Layer 3: 3 Separate Stacked Headings (z-index 20: highest visual priority) */}
+            <div
+              data-parallax-layer="3"
+              className="parallax__layer-title"
+              style={{ willChange: "transform" }}
+            >
+              <div className="parallax__title-stack">
+                <h2 className="parallax__title">NAVYA</h2>
+                <h2 className="parallax__title">TECH</h2>
+                <h2 className="parallax__title">INDUSTRY</h2>
+              </div>
+            </div>
           </div>
 
           <div className="parallax__fade"></div>

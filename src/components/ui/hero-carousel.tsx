@@ -7,7 +7,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Bot, Workflow, Cpu, MessageSquare, TrendingUp, Sparkles, ArrowRight } from "lucide-react";
+import { Bot, Workflow, Cpu, MessageSquare, TrendingUp, Sparkles } from "lucide-react";
 
 export interface HeroCarouselItem {
   id?: string | number;
@@ -52,8 +52,6 @@ export function HeroCarousel({
   defaultIndex = 2,
   onIndexChange,
   brand = "AI AGENTS",
-  onBack,
-  onMenu,
   autoplay = false,
   autoplayDelay = 4000,
   className,

@@ -9,7 +9,6 @@ import React, {
 import { useAnimationFrame, motion, stagger, useAnimate } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMousePositionRef } from "@/hooks/use-mouse-position-ref";
-import { scrollToTarget } from "@/lib/scroll";
 
 interface FloatingContextType {
   registerElement: (id: string, element: HTMLDivElement, depth: number) => void;
@@ -161,10 +160,6 @@ export const ParallaxFloatingShowcase: React.FC = () => {
   useEffect(() => {
     animate("img", { opacity: [0, 1] }, { duration: 0.5, delay: stagger(0.08) });
   }, [animate]);
-
-  const scrollToContact = () => {
-    scrollToTarget('final-project', { offset: -85, duration: 1.1 });
-  };
 
   return (
     <section

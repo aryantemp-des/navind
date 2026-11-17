@@ -14,28 +14,28 @@ const features: Feature[] = [
     title: "Elegant Design",
     description:
       "Beautiful shader effects and purposeful aesthetics that elevate your brand without overwhelming it. Crafted for enterprise digital presence.",
-    href: "/website-design",
+    href: "/services/website-development",
     icon: <Sparkles className="w-8 h-8 text-red-300" />,
   },
   {
     title: "High Performance",
     description:
       "Optimized WebGL pipelines and minimal DOM footprint that run smoothly across desktop, tablet, and mobile devices while maintaining 60fps.",
-    href: "/services/website-performance-optimization",
+    href: "/services/website-development",
     icon: <Zap className="w-8 h-8 text-amber-300" />,
   },
   {
     title: "Easy Integration",
     description:
       "Composable, modular architecture and unified design tokens that connect seamlessly with your existing infrastructure and business systems.",
-    href: "/services/custom-web-development",
+    href: "/services/web-app-development",
     icon: <Puzzle className="w-8 h-8 text-red-400" />,
   },
   {
     title: "Customizable",
     description:
       "Custom systems engineered around exact client requirements, workflows, brand guidelines, and operational parameters rather than generic templates.",
-    href: "/custom-website",
+    href: "/services/website-redesign",
     icon: <Sliders className="w-8 h-8 text-amber-400" />,
   },
   {
@@ -49,7 +49,7 @@ const features: Feature[] = [
     title: "Modern Tech Ecosystem",
     description:
       "Engineered with Next.js, React, TypeScript, Three.js, and autonomous AI agents for long-term maintainability and competitive advantage.",
-    href: "/3d-website",
+    href: "/services/website-development",
     icon: <Code2 className="w-8 h-8 text-red-200" />,
   },
 ];

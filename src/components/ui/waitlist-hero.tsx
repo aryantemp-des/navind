@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { GradientBars } from "./gradient-bars-background";
 import { Phone, ArrowRight, Clock, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import { FOUNDER_CONFIG, COMPANY_CONFIG } from "@/config/founder";
 
 export const WaitlistHero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -311,20 +312,20 @@ export const WaitlistHero: React.FC = () => {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none z-50"
             />
 
-            {/* Primary CTA: Start Project via WhatsApp */}
+            {/* Primary CTA: Chat on WhatsApp */}
             <a
-              href={`https://wa.me/919355412903?text=${encodeURIComponent("Hi we would like to know more about services")}`}
+              href={FOUNDER_CONFIG.whatsapp.url}
               target="_blank"
               rel="noopener noreferrer"
               onClick={fireConfetti}
               className="clay-btn-primary w-full sm:w-auto px-9 py-4 rounded-full font-bold text-white transition-all flex items-center justify-center gap-2.5 text-sm uppercase tracking-wider cursor-pointer shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:scale-105"
-              aria-label="Start Project with Navya Tech Industry on WhatsApp"
+              aria-label="Chat with Navya Tech Industry on WhatsApp"
             >
-              <span>Start Project</span>
+              <span>{FOUNDER_CONFIG.whatsapp.label}</span>
               <ArrowRight className="w-4 h-4" />
             </a>
 
-            {/* Direct Phone Call with Radiating Breathing Red Gradient Glow */}
+            {/* Direct Phone Call to Founder with Radiating Breathing Red Gradient Glow */}
             <div className="relative w-full sm:w-auto flex items-center justify-center">
               {/* Continuous Radiating Red Gradient Glow Layer */}
               <div
@@ -333,20 +334,33 @@ export const WaitlistHero: React.FC = () => {
               />
 
               <a
-                href="tel:+919355412903"
+                href={COMPANY_CONFIG.phone.link}
                 className="clay-btn-secondary relative z-10 w-full sm:w-auto px-8 py-4 rounded-full text-white font-medium text-sm uppercase tracking-wider cursor-pointer transition-all duration-300 flex items-center justify-center gap-2 border border-red-500/50 hover:border-red-400 hover:scale-105 call-now-breathing-button"
-                aria-label="Call Navya Tech Industry at +919355412903"
+                aria-label={`Call Decision Makers: ${COMPANY_CONFIG.phone.display}`}
+                title="Call Decision Makers"
               >
                 <Phone className="w-4 h-4 text-red-400" />
-                <span>Call Now!</span>
+                <span>Call Decision Makers</span>
               </a>
             </div>
           </div>
 
+          {/* Direct Founder Access Link */}
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-zinc-400 mt-2">
+            <span>Direct dialogue with founder:</span>
+            <a
+              href="/contact"
+              className="text-red-400 hover:text-red-300 underline underline-offset-4 font-semibold inline-flex items-center gap-1"
+            >
+              <span>Get in Touch Directly</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
           {/* Response Time Promise Reassurance */}
-          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mt-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
+          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mt-1 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
             <Clock className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span>We typically respond within 30 minutes. No obligation inquiry.</span>
+            <span>We typically respond within 30 minutes. Direct guidance with no obligation.</span>
           </div>
         </motion.div>
       </div>

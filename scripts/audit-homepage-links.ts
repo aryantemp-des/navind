@@ -45,7 +45,13 @@ async function auditHomepageLinks() {
     if (!item.href) continue;
 
     // Skip tel, mailto, wa.me, and external links for route validation but record them as PASS
-    if (item.href.startsWith("tel:") || item.href.startsWith("mailto:") || item.href.startsWith("https://wa.me")) {
+    if (
+      item.href.startsWith("tel:") ||
+      item.href.startsWith("mailto:") ||
+      item.href.startsWith("https://wa.me") ||
+      item.href.startsWith("https://") ||
+      item.href.startsWith("http://")
+    ) {
       auditResults.push({
         sourceText: item.text,
         href: item.href,
@@ -68,8 +74,23 @@ async function auditHomepageLinks() {
     discoveredHrefs.add(item.href);
 
     // Validate internal routes
-    const cleanPath = item.href.split("?")[0].replace(/\/$/, "") || "/";
-    const exists = cleanPath === "/" || Boolean(allSubpages[cleanPath]) || ALL_BLOG_ROUTES.includes(cleanPath);
+    const pathWithoutHash = item.href.split("#")[0];
+    const cleanPath = pathWithoutHash.split("?")[0].replace(/\/$/, "") || "/";
+    const STANDALONE_PAGES = [
+      "/",
+      "/pricing",
+      "/contact",
+      "/privacy-policy",
+      "/privacy",
+      "/resources",
+      "/blog",
+      "/admin/portfolio",
+      "/get-started",
+    ];
+    const exists =
+      STANDALONE_PAGES.includes(cleanPath) ||
+      Boolean(allSubpages[cleanPath]) ||
+      ALL_BLOG_ROUTES.includes(cleanPath);
 
     if (exists) {
       auditResults.push({
@@ -98,7 +119,7 @@ async function auditHomepageLinks() {
 
   await page.hover("text=Industries");
   await page.waitForTimeout(300);
-  const industriesDropdownVisible = await page.locator("text=Startups & Scaleups").first().isVisible();
+  const industriesDropdownVisible = await page.locator("text=SaaS & Voice Automation").first().isVisible();
   console.log(`Industries Dropdown Visible on Hover: ${industriesDropdownVisible}`);
 
   await page.hover("text=Pricing");
@@ -127,11 +148,33 @@ async function auditHomepageLinks() {
     console.log(`Found ${mobileLinks.length} total links in mobile menu.`);
 
     for (const item of mobileLinks) {
-      if (!item.href || item.href.startsWith("tel:") || item.href.startsWith("mailto:") || item.href.startsWith("https://wa.me") || item.href.startsWith("#")) {
+      if (
+        !item.href ||
+        item.href.startsWith("tel:") ||
+        item.href.startsWith("mailto:") ||
+        item.href.startsWith("https://") ||
+        item.href.startsWith("http://") ||
+        item.href.startsWith("#")
+      ) {
         continue;
       }
-      const cleanPath = item.href.split("?")[0].replace(/\/$/, "") || "/";
-      const exists = cleanPath === "/" || Boolean(allSubpages[cleanPath]) || ALL_BLOG_ROUTES.includes(cleanPath);
+      const pathWithoutHash = item.href.split("#")[0];
+      const cleanPath = pathWithoutHash.split("?")[0].replace(/\/$/, "") || "/";
+      const STANDALONE_PAGES = [
+        "/",
+        "/pricing",
+        "/contact",
+        "/privacy-policy",
+        "/privacy",
+        "/resources",
+        "/blog",
+        "/admin/portfolio",
+        "/get-started",
+      ];
+      const exists =
+        STANDALONE_PAGES.includes(cleanPath) ||
+        Boolean(allSubpages[cleanPath]) ||
+        ALL_BLOG_ROUTES.includes(cleanPath);
       if (!exists) {
         auditResults.push({
           sourceText: `[Mobile] ${item.text}`,
@@ -149,11 +192,12 @@ async function auditHomepageLinks() {
   await page.setViewportSize({ width: 1440, height: 900 });
   const sampleTestTargets = [
     { name: "Services Overview", selector: "a[href='/services']", expectedTitle: "Services" },
-    { name: "3D Website Development", selector: "a[href='/3d-website']", expectedTitle: "3D Website" },
-    { name: "Startups Industry", selector: "a[href='/industries/startups']", expectedTitle: "Startup Website Development" },
-    { name: "India Pricing", selector: "a[href='/pricing/india']", expectedTitle: "India Pricing" },
+    { name: "Website Development", selector: "a[href='/services/website-development']", expectedTitle: "Website Development" },
+    { name: "Website Redesign", selector: "a[href='/services/website-redesign']", expectedTitle: "Website Redesign" },
+    { name: "SaaS Industry", selector: "a[href='/industries/saas']", expectedTitle: "SaaS" },
+    { name: "Pricing Quotation", selector: "a[href='/pricing']", expectedTitle: "Quote" },
     { name: "Get Started Conversion", selector: "a[href='/get-started']", expectedTitle: "Get Started" },
-    { name: "Contact Page", selector: "a[href='/contact']", expectedTitle: "Contact Us" },
+    { name: "Contact Page", selector: "a[href='/contact']", expectedTitle: "Founder Directly" },
   ];
 
   for (const target of sampleTestTargets) {

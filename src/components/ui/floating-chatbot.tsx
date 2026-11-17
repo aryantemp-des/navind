@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MessageCircle, X, Send, Sparkles, Bot, ArrowRight, Minimize2, CheckCircle2, Globe, Layers, ArrowUpRight, Compass } from "lucide-react";
+import { X, Send, Sparkles, ArrowRight, Minimize2, ArrowUpRight, Compass } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRoute } from "@/context/RouteContext";
 import { queryAssistantNavigation, AssistantPageItem } from "@/config/assistant-registry";
@@ -39,13 +39,13 @@ export const FloatingChatbot: React.FC = () => {
     {
       id: "m-2",
       sender: "bot",
-      text: "I am your AI assistant and intelligent website navigator. How may I help you today? Ask about our web engineering, 3D systems, industry solutions, commercial packages, or request a custom quote.",
+      text: "I am your AI assistant and intelligent website navigator. How may I help you today? Ask about our approved website development services, internet marketing (SEO & GEO), commercial packages, or request a custom quote.",
       timestamp: "Just now",
       options: [
-        { label: "⚡ Build Website", action: "route_/build-website", route: "/build-website" },
-        { label: "🔮 3D Interactive Web", action: "route_/3d-website", route: "/3d-website" },
+        { label: "⚡ Website Development", action: "route_/services/website-development", route: "/services/website-development" },
+        { label: "🚀 Internet Marketing Bundle", action: "route_/services/internet-marketing-bundle", route: "/services/internet-marketing-bundle" },
         { label: "💼 Commercial Pricing ($1,000+)", action: "route_/pricing", route: "/pricing" },
-        { label: "🚀 Start a Project", action: "route_/get-started", route: "/get-started" },
+        { label: "✨ Start a Project", action: "route_/get-started", route: "/get-started" },
         { label: "📞 Direct Call (+91 93554 12903)", action: "direct_call" },
       ],
     },
@@ -118,7 +118,7 @@ export const FloatingChatbot: React.FC = () => {
         contact: { id: "final-project", path: "/get-started" },
         ai: { id: "ai-section", path: "/services/web-app-development" },
         services: { id: "services", path: "/services" },
-        features: { id: "features-cards", path: "/services/website-performance-optimization" },
+        features: { id: "features-cards", path: "/services/website-development" },
       };
       const target = map[targetId];
       if (window.location.pathname === "/" && target) {
@@ -173,7 +173,7 @@ export const FloatingChatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-16 right-4 sm:bottom-6 sm:right-6 z-50 font-sans flex flex-col items-end">
+    <div className="fixed bottom-20 right-3.5 sm:bottom-6 sm:right-6 z-50 font-sans flex flex-col items-end">
       <AnimatePresence>
         {isPopupVisible && !isOpen && (
           <motion.div
@@ -199,7 +199,7 @@ export const FloatingChatbot: React.FC = () => {
             </button>
             <div className="flex items-start gap-2.5">
               <div className="clay-icon-well w-8 h-8 rounded-xl flex items-center justify-center shrink-0 p-1 bg-black/50 border border-red-400/30">
-                <img src="/logoimg.png" alt="Navya Bot" className="w-full h-full object-contain filter drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
+                <img src="/logoimg.png" alt="Navya Bot" width={32} height={32} loading="lazy" className="w-full h-full object-contain filter drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
               </div>
               <div className="space-y-1.5 flex-1 overflow-hidden">
                 <p className="text-xs font-semibold text-white leading-snug">{GREETINGS[0]}</p>
@@ -233,13 +233,13 @@ export const FloatingChatbot: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 30 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-[94vw] sm:w-[410px] h-[580px] max-h-[84vh] rounded-3xl flex flex-col overflow-hidden mb-3 border border-red-500/40 shadow-[0_15px_45px_rgba(220,38,38,0.45),0_0_30px_rgba(239,68,68,0.25)] bg-gradient-to-b from-[#881337] via-[#991b1b] to-[#450a0a] backdrop-blur-xl"
+            className="w-[calc(100vw-1.5rem)] max-w-[410px] sm:w-[410px] h-[540px] sm:h-[580px] max-h-[78vh] sm:max-h-[84vh] rounded-3xl flex flex-col overflow-hidden mb-3 border border-red-500/40 shadow-[0_15px_45px_rgba(220,38,38,0.45),0_0_30px_rgba(239,68,68,0.25)] bg-gradient-to-b from-[#881337] via-[#991b1b] to-[#450a0a] backdrop-blur-xl"
           >
             <div className="px-5 py-4 bg-black/40 border-b border-red-400/20 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="clay-icon-well w-10 h-10 p-1.5 flex items-center justify-center overflow-hidden bg-black/60 border border-red-400/30">
-                    <img src="/logoimg.png" alt="Navya Bot" className="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
+                    <img src="/logoimg.png" alt="Navya Bot" width={40} height={40} loading="lazy" className="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
                   </div>
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-zinc-950" />
                 </div>
@@ -324,7 +324,7 @@ export const FloatingChatbot: React.FC = () => {
             </div>
 
             <form onSubmit={(e) => { e.preventDefault(); handleUserSubmit(); }} className="p-3 bg-black/50 border-t border-red-400/20 flex items-center gap-2">
-              <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="Ask about Web, 3D, Pricing, Industries..." className="flex-1 px-4 py-2.5 text-xs text-white placeholder-red-200/60 bg-black/50 border border-red-400/30 rounded-full focus:outline-none focus:border-red-400" />
+              <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="Ask about Web, 3D, Pricing, Industries..." className="flex-1 px-4 py-2.5 text-base sm:text-xs text-white placeholder-red-200/60 bg-black/50 border border-red-400/30 rounded-full focus:outline-none focus:border-red-400" />
               <button type="submit" disabled={!inputValue.trim()} className="clay-btn-primary w-9 h-9 rounded-full disabled:opacity-40 text-white flex items-center justify-center transition-all cursor-pointer flex-shrink-0 shadow-[0_0_12px_rgba(239,68,68,0.5)]">
                 <Send className="w-3.5 h-3.5" />
               </button>
@@ -396,6 +396,9 @@ export const FloatingChatbot: React.FC = () => {
               <img
                 src="/logoimg.png"
                 alt="Navya Bot"
+                width={56}
+                height={56}
+                loading="lazy"
                 className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]"
               />
               <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-zinc-900 rounded-full" />

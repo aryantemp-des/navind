@@ -1,7 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Check, Zap, Sparkles, Shield, ArrowRight } from "lucide-react";
-import { scrollToTarget } from "@/lib/scroll";
+import {
+  Check,
+  Sparkles,
+  ArrowRight,
+  Clock,
+  Layers,
+  UserCheck,
+  Building2,
+  Info
+} from "lucide-react";
 
 interface AuroraBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -42,24 +50,16 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
   );
 };
 
-export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }> = ({ onSelectPlan }) => {
-  const handleSelect = (plan: string) => {
-    scrollToTarget('final-project', { offset: -85, duration: 1.1 });
-    if (onSelectPlan) {
-      onSelectPlan(plan);
-    }
-  };
-
+export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }> = () => {
   return (
     <section id="pricing" className="relative w-full bg-black/50 py-16 md:py-24 border-t border-zinc-900">
       <AuroraBackground className="w-full py-8">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <div className="clay-badge inline-flex items-center gap-2 px-4 py-2 text-red-300 text-xs font-semibold uppercase tracking-widest mb-6 font-mono">
               <Sparkles className="w-3.5 h-3.5 text-red-400" />
-              Transparent Commercial Packages
+              Tailored Quotations &amp; Flexibility
             </div>
 
             <motion.h2
@@ -69,7 +69,7 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
               transition={{ duration: 0.6 }}
               className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight font-heading mb-6"
             >
-              Worried about payment?
+              Get a Pocket-Friendly Quote for Your Business
             </motion.h2>
 
             <motion.p
@@ -79,180 +79,167 @@ export const PricingSection: React.FC<{ onSelectPlan?: (plan: string) => void }>
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base sm:text-xl text-zinc-300 font-light leading-relaxed max-w-2xl mx-auto"
             >
-              We have designed most affordable payment quotation keeping best reaources and services to serve
+              Every business has different requirements. Choose the services you need, discuss your goals with our decision-makers, and get a customized quotation designed around your budget and business objectives.
             </motion.p>
-          </div>
 
-          {/* Pricing Cards Grid with Claymorphic Tactile Surfaces */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            
-            {/* Package 1: Website Package */}
-            <div className="clay-card-interactive p-8 sm:p-10 flex flex-col justify-between">
-              <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-2">Digital Experience</div>
-                <h3 className="text-2xl font-bold text-white font-heading mb-4">Website Package</h3>
-                <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-5xl font-black text-white font-heading">$1,000</span>
-                  <span className="text-zinc-400 text-xs font-mono">/ One-time lifetime access</span>
-                </div>
-                <p className="text-zinc-300 text-sm leading-relaxed mb-8 font-light">
-                  Complete modern digital presence built with Next.js, 3D WebGL interactions, and responsive design systems.
-                </p>
-
-                <ul className="space-y-3.5 mb-8">
-                  {[
-                    "Custom Next.js & React Architecture",
-                    "3D WebGL & Spline Integration",
-                    "Enterprise UI/UX Design System",
-                    "SEO & Core Web Vitals Optimization",
-                    "Full Source Code & Lifetime Ownership"
-                  ].map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-zinc-300">
-                      <div className="clay-icon-well-inset w-5 h-5 flex items-center justify-center rounded-full shrink-0">
-                        <Check className="w-3 h-3 text-red-400" />
-                      </div>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="/get-started"
-                className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.45)] hover:shadow-[0_0_30px_rgba(239,68,68,0.7)] hover:scale-[1.02] transition-all group"
+                href="/pricing"
+                className="clay-btn-primary group w-full sm:w-auto py-4 px-8 rounded-full text-white font-bold text-sm uppercase tracking-wider cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.5)] hover:shadow-[0_0_35px_rgba(239,68,68,0.75)] hover:scale-[1.02] transition-all"
               >
-                <span>Start Project</span>
+                <span>Get My Custom Quote</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
-            </div>
-
-            {/* Package 3: Both Packages Together (Featured in Center) */}
-            <div className="clay-card-interactive relative p-8 sm:p-10 flex flex-col justify-between lg:-translate-y-4 border-2 border-red-500/70 shadow-[0_20px_50px_rgba(239,68,68,0.35)]">
-              <div className="clay-badge absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 text-white font-mono text-xs font-bold uppercase tracking-wider bg-red-600 border-red-400">
-                Best Value — Save $500
-              </div>
-
-              <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-red-300 mb-2">Complete Ecosystem</div>
-                <h3 className="text-2xl font-bold text-white font-heading mb-4">Both Packages Together</h3>
-                <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-5xl font-black text-white font-heading">$1,500</span>
-                  <span className="text-zinc-400 text-xs font-mono">/ One-time lifetime access</span>
-                </div>
-                <p className="text-zinc-300 text-sm leading-relaxed mb-8 font-light">
-                  The complete Navya technology powerhouse: enterprise web experience unified with intelligent autonomous AI workflows.
-                </p>
-
-                <ul className="space-y-3.5 mb-8">
-                  {[
-                    "Complete Website Package Included ($1,000 value)",
-                    "Complete AI Agents & Automation ($1,000 value)",
-                    "Unified CRM, Database & Lead Sync",
-                    "Priority Architecture & Deployment",
-                    "Direct WhatsApp & Phone Engineering Channel",
-                    "Full Lifetime Commercial Rights"
-                  ].map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-white">
-                      <div className="clay-icon-well-inset w-5 h-5 flex items-center justify-center rounded-full shrink-0">
-                        <Zap className="w-3 h-3 text-amber-400" />
-                      </div>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
               <a
-                href="/get-started"
-                className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,68,68,0.5)] hover:shadow-[0_0_35px_rgba(239,68,68,0.75)] hover:scale-[1.02] transition-all group"
+                href="/pricing#consult-decision-makers"
+                className="clay-btn-secondary group w-full sm:w-auto py-4 px-8 rounded-full text-zinc-200 hover:text-white font-medium text-sm tracking-wide cursor-pointer text-center flex items-center justify-center gap-2 border border-white/10 hover:border-red-500/40 transition-all"
               >
-                <span>Start Project</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <UserCheck className="w-4 h-4 text-red-400" />
+                <span>Talk to Our Decision Makers</span>
               </a>
             </div>
+          </div>
 
-            {/* Package 2: AI Agents & Automation */}
-            <div className="clay-card-interactive p-8 sm:p-10 flex flex-col justify-between">
-              <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">Intelligent Systems</div>
-                <h3 className="text-2xl font-bold text-white font-heading mb-4">AI Agents &amp; Automation</h3>
-                <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-5xl font-black text-white font-heading">$1,000</span>
-                  <span className="text-zinc-400 text-xs font-mono">/ One-time lifetime access</span>
+          {/* Four-Step Visual Quotation Process Overview */}
+          <div className="mb-14">
+            <div className="text-center mb-8">
+              <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-400">
+                OUR PERSONALIZED FOUR-STEP APPROACH
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-white font-heading mt-1">
+                How Your Custom Quote is Created
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Step 1 */}
+              <div className="clay-card-interactive p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono font-bold text-red-400">STEP 01</span>
+                    <Building2 className="w-4 h-4 text-zinc-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-white font-heading mb-2">
+                    Choose Your Services
+                  </h4>
+                  <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
+                    Choose from Website Solutions (Web Dev, Ecommerce, Redesign, Web Apps) or Internet Marketing (Bundle, SEO, GEO).
+                  </p>
                 </div>
-                <p className="text-zinc-300 text-sm leading-relaxed mb-8 font-light">
-                  Autonomous agents and agentic workflows to eliminate manual work, automate lead response, and connect internal databases.
-                </p>
-
-                <ul className="space-y-3.5 mb-8">
-                  {[
-                    "Custom Multi-Agent Orchestrator",
-                    "Automated Lead Qualification & Routing",
-                    "CRM, Email, & WhatsApp Tool Integrations",
-                    "Automated Business Reporting",
-                    "Human-in-the-Loop Safeguards"
-                  ].map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-zinc-300">
-                      <div className="clay-icon-well-inset w-5 h-5 flex items-center justify-center rounded-full shrink-0">
-                        <Check className="w-3 h-3 text-amber-400" />
-                      </div>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="pt-3 border-t border-white/10 text-[11px] font-mono text-zinc-400">
+                  Multiple selections supported
+                </div>
               </div>
 
-              <a
-                href="/get-started"
-                className="clay-btn-primary w-full py-4 px-6 rounded-full text-white font-bold text-sm tracking-wider uppercase cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.45)] hover:shadow-[0_0_30px_rgba(239,68,68,0.7)] hover:scale-[1.02] transition-all group"
-              >
-                <span>Start Project</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              {/* Step 2 */}
+              <div className="clay-card-interactive p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono font-bold text-red-400">STEP 02</span>
+                    <Layers className="w-4 h-4 text-zinc-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-white font-heading mb-2">
+                    Tell Us About Your Business
+                  </h4>
+                  <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
+                    Outline your industry, requirements, timeline, and budget preferences in a simple, mobile-friendly format.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-white/10 text-[11px] font-mono text-zinc-400">
+                  Tailored to your budget
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="clay-card-interactive p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono font-bold text-red-400">STEP 03</span>
+                    <UserCheck className="w-4 h-4 text-red-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-white font-heading mb-2">
+                    Consult with Decision-Makers
+                  </h4>
+                  <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
+                    Discuss your goals directly with our leadership team to identify suitable solutions and clarify project milestones.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-white/10 text-[11px] font-mono text-zinc-400">
+                  Direct senior consultation
+                </div>
+              </div>
+
+              {/* Step 4 */}
+              <div className="clay-card-interactive p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono font-bold text-red-400">STEP 04</span>
+                    <Check className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-white font-heading mb-2">
+                    Receive Your Custom Quote
+                  </h4>
+                  <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
+                    Get an itemized proposal with confirmed deliverables, roadmap, and milestone billing tailored to your scope.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-white/10 text-[11px] font-mono text-emerald-400">
+                  Pocket-friendly &amp; transparent
+                </div>
+              </div>
             </div>
-
           </div>
 
-          {/* Regional Pricing Links Matrix */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="/pricing/usa"
-              className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
-            >
-              <span>🇺🇸 USA Pricing: $1,000 / $1,500 (USD Stripe/Wire)</span>
-              <ArrowRight className="w-3 h-3 text-red-400" />
-            </a>
-            <a
-              href="/pricing/3d-website"
-              className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
-            >
-              <span>3D Web Package</span>
-              <ArrowRight className="w-3 h-3 text-red-400" />
-            </a>
-            <a
-              href="/pricing/ecommerce"
-              className="clay-badge px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white flex items-center gap-1.5"
-            >
-              <span>Ecommerce Store Package</span>
-              <ArrowRight className="w-3 h-3 text-red-400" />
-            </a>
-          </div>
+          {/* Last Month's Average Pricing Highlight Card */}
+          <div className="max-w-4xl mx-auto mb-10">
+            <div className="clay-card-interactive p-6 sm:p-10 relative overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-amber-500/30 shadow-[0_0_30px_rgba(245,158,11,0.1)]">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="space-y-2">
+                  <div className="clay-badge inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-mono uppercase tracking-widest text-amber-300 border-amber-500/30">
+                    <Clock className="w-3 h-3 text-amber-400" />
+                    Previous Month's Average
+                  </div>
+                  <h4 className="text-xl sm:text-2xl font-black text-white font-heading">
+                    What Businesses Invested Last Month
+                  </h4>
+                  <p className="text-xs sm:text-sm text-zinc-300 font-light">
+                    Last month's average pricing for Internet Marketing services at Navya Tech Industry.
+                  </p>
+                </div>
 
-          {/* Ongoing Support & Maintenance Note */}
-          <div className="clay-card mt-8 text-center max-w-2xl mx-auto p-6 rounded-2xl">
-            <div className="flex items-center justify-center gap-2 text-zinc-200 text-sm mb-1 font-medium">
-              <Shield className="w-4 h-4 text-red-400" />
-              <span>Ongoing Maintenance &amp; Customization</span>
+                <div className="flex flex-col items-start md:items-end justify-center shrink-0 p-5 rounded-xl bg-black/60 border border-amber-500/30">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400">
+                    Average Investment
+                  </span>
+                  <span className="text-4xl sm:text-5xl font-black font-heading text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-400">
+                    $2,500
+                  </span>
+                  <span className="text-[10px] font-mono text-zinc-500 mt-0.5">
+                    Historical Benchmark
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-white/10 flex items-start gap-2.5">
+                <Info className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                <p className="text-[11px] text-zinc-400 font-light leading-relaxed">
+                  Actual pricing varies depending on service requirements, project scope, competition, deliverables, and business objectives. Contact our team for a personalized quotation.
+                </p>
+              </div>
             </div>
-            <p className="text-xs text-zinc-400 font-light">
-              All packages include one-time lifetime access. Ongoing maintenance, customizations, or feature expansions after launch are billed simply at{" "}
-              <a href="/services/website-maintenance" className="text-red-400 font-semibold underline underline-offset-2 hover:text-red-300">
-                $50 per request or service
-              </a>
-              .
-            </p>
           </div>
 
+          {/* Bottom Quotation Link Action */}
+          <div className="text-center">
+            <a
+              href="/pricing"
+              className="inline-flex items-center gap-2 text-xs font-mono text-zinc-300 hover:text-white transition-colors underline underline-offset-4 decoration-red-500/60 hover:decoration-red-400"
+            >
+              <span>Launch the Full Interactive Quotation Wizard on our Pricing Page</span>
+              <ArrowRight className="w-3.5 h-3.5 text-red-400" />
+            </a>
+          </div>
         </div>
       </AuroraBackground>
     </section>

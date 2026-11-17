@@ -29,9 +29,9 @@ export const TestimonialCard: React.FC<Testimonial> = ({
   avatarUrl,
 }) => {
   return (
-    <div className="clay-card-interactive flex flex-col justify-between gap-4 p-6 sm:p-7 w-80 sm:w-96 flex-shrink-0 cursor-default">
+    <div className="clay-card-interactive flex flex-col justify-between gap-4 p-6 sm:p-7 w-80 sm:w-96 flex-shrink-0 cursor-default hover:border-red-500/40 transition-all duration-300 hover:-translate-y-1">
       <div className="space-y-3">
-        <div className="clay-icon-well w-8 h-8 flex items-center justify-center rounded-xl">
+        <div className="clay-icon-well w-8 h-8 flex items-center justify-center rounded-xl group-hover:scale-110 transition-transform">
           <Quote className="w-4 h-4 text-red-400" />
         </div>
         <p className="text-zinc-200 text-sm sm:text-base font-light leading-relaxed">
@@ -43,7 +43,7 @@ export const TestimonialCard: React.FC<Testimonial> = ({
         <img
           src={avatarUrl}
           alt={authorName}
-          className="w-11 h-11 rounded-full bg-zinc-800 object-cover border border-white/20 shadow-[0_4px_10px_rgba(0,0,0,0.6)]"
+          className="w-11 h-11 rounded-full bg-zinc-800 object-cover border border-white/20 shadow-[0_4px_10px_rgba(0,0,0,0.6)] group-hover:border-red-400/50 transition-colors"
           loading="lazy"
         />
         <div>
@@ -68,7 +68,7 @@ export const HorizontalScroller: React.FC<{
   return (
     <div className="w-full overflow-hidden group relative mask-fade py-2">
       <div
-        className={`flex ${animationClass}`}
+        className={`flex ${animationClass} group-hover:[animation-play-state:paused]`}
         style={{ "--scroll-duration": speed } as React.CSSProperties}
       >
         <div className="flex items-stretch justify-center gap-6 px-3">{children}</div>

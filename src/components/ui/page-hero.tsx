@@ -51,22 +51,22 @@ export const PageHero: React.FC<PageHeroProps> = ({
             </div>
 
             {/* Page H1 Title */}
-            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] font-heading">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] font-heading break-words">
               {title}
             </h1>
 
             {/* Concise Value Description */}
-            <p className="text-lg sm:text-xl text-zinc-300 font-light leading-relaxed max-w-2xl">
+            <p className="text-base sm:text-xl text-zinc-300 font-light leading-relaxed max-w-2xl">
               {description}
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-2">
               {/* Primary CTA (Rendered only when configured) */}
               {primaryCtaLink && primaryCtaText && (
                 <Link
                   href={primaryCtaLink}
-                  className="clay-btn-primary group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white font-bold text-sm uppercase tracking-wider cursor-pointer shadow-[0_0_25px_rgba(239,68,68,0.45)] hover:shadow-[0_0_35px_rgba(239,68,68,0.7)]"
+                  className="clay-btn-primary group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-white font-bold text-xs sm:text-sm uppercase tracking-wider cursor-pointer shadow-[0_0_25px_rgba(239,68,68,0.45)] hover:shadow-[0_0_35px_rgba(239,68,68,0.7)] min-h-[44px] text-center"
                 >
                   <span>{primaryCtaText}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -78,7 +78,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
                 href={`https://wa.me/919355412903?text=${encodeURIComponent(whatsappMessage || "Hi, I'm interested in learning more about your services.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="clay-btn-secondary inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-emerald-300 hover:text-emerald-200 uppercase tracking-wider border border-emerald-500/40 hover:border-emerald-500/80 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all"
+                className="clay-btn-secondary inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-emerald-300 hover:text-emerald-200 uppercase tracking-wider border border-emerald-500/40 hover:border-emerald-500/80 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all min-h-[44px] text-center"
                 aria-label="Contact on WhatsApp"
               >
                 <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -89,7 +89,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
               {showCallNow && (
                 <a
                   href="tel:+919355412903"
-                  className="clay-btn-secondary inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-zinc-200 hover:text-white uppercase tracking-wider border border-red-500/30 hover:border-red-500/70 cursor-pointer"
+                  className="clay-btn-secondary inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-zinc-200 hover:text-white uppercase tracking-wider border border-red-500/30 hover:border-red-500/70 cursor-pointer min-h-[44px] text-center"
                   title="Call Navya Tech Industry directly"
                 >
                   <Phone className="w-4 h-4 text-red-400" />
@@ -101,7 +101,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
               {secondaryCtaLink && (
                 <Link
                   href={secondaryCtaLink}
-                  className="clay-btn-secondary inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-zinc-300 hover:text-white uppercase tracking-wider cursor-pointer"
+                  className="clay-btn-secondary inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono text-zinc-300 hover:text-white uppercase tracking-wider cursor-pointer min-h-[44px] text-center"
                 >
                   <span>{secondaryCtaText}</span>
                 </Link>
@@ -110,7 +110,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
 
             {/* Quick Proof Stats */}
             {stats && stats.length > 0 && (
-              <div className="pt-6 border-t border-white/10 grid grid-cols-3 gap-4">
+              <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {stats.map((stat, i) => (
                   <div key={i} className="space-y-1">
                     <div className="text-xl sm:text-2xl font-bold text-white font-heading">

@@ -20,7 +20,7 @@ export function formatValidISO8601Date(dateInput?: string): string | undefined {
     const year = parseInt(isoMatch[1], 10);
     const month = parseInt(isoMatch[2], 10);
     const day = parseInt(isoMatch[3], 10);
-    if (year >= 2020 && year <= 2026 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+    if (year >= 2020 && year <= 2030 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
       return trimmed;
     }
   }
@@ -32,7 +32,7 @@ export function formatValidISO8601Date(dateInput?: string): string | undefined {
     const y = d.getUTCFullYear();
     const m = String(d.getUTCMonth() + 1).padStart(2, "0");
     const day = String(d.getUTCDate()).padStart(2, "0");
-    if (y >= 2020 && y <= 2026) {
+    if (y >= 2020 && y <= 2030) {
       return `${y}-${m}-${day}`;
     }
   }
@@ -85,6 +85,7 @@ export function generateSitemapXML(): string {
   addEntry("/resources", "2026-08-30", "weekly", "0.85");
   addEntry("/blog", "2026-08-30", "weekly", "0.85");
   addEntry("/privacy-policy", "2026-08-30", "monthly", "0.75");
+  addEntry("/terms", "2026-08-30", "monthly", "0.75");
 
   // 3. Blog Category Hubs
   const categories = getAllBlogCategories();
@@ -100,7 +101,11 @@ export function generateSitemapXML(): string {
     if (subpage.category === "commercial" || subpage.category === "pricing") {
       priority = "0.90";
       changefreq = "weekly";
-    } else if (subpage.category === "services") {
+    } else if (
+      subpage.category === "services" ||
+      subpage.category === "Website Solutions" ||
+      subpage.category === "Internet Marketing"
+    ) {
       priority = "0.90";
       changefreq = "monthly";
     } else if (subpage.category === "geo" || route.startsWith("/internet-marketing-company-")) {

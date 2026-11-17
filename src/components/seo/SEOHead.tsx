@@ -8,6 +8,8 @@ export interface SEOProps {
   ogImage?: string;
   structuredData?: Record<string, any>;
   breadcrumbs?: { label: string; href?: string }[];
+  robots?: string;
+  noIndex?: boolean;
 }
 
 export const SEOHead: React.FC<SEOProps> = ({
@@ -18,6 +20,8 @@ export const SEOHead: React.FC<SEOProps> = ({
   ogImage = "/logoimg.png",
   structuredData,
   breadcrumbs,
+  robots,
+  noIndex = false,
 }) => {
   useEffect(() => {
     // 1. Update Title
@@ -25,25 +29,6 @@ export const SEOHead: React.FC<SEOProps> = ({
       ? title
       : `${title} | Navya Tech Industry`;
     document.title = fullTitle;
-
-    // 2. Update Meta Description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement("meta");
-      metaDesc.setAttribute("name", "description");
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute("content", description);
-
-    // 3. Update Canonical URL
-    const canonicalUrl = `https://www.navyatech.co.in${canonicalPath.startsWith("/") ? canonicalPath : `/${canonicalPath}`}`;
-    let linkCanonical = document.querySelector('link[rel="canonical"]');
-    if (!linkCanonical) {
-      linkCanonical = document.createElement("link");
-      linkCanonical.setAttribute("rel", "canonical");
-      document.head.appendChild(linkCanonical);
-    }
-    linkCanonical.setAttribute("href", canonicalUrl);
 
     // Helper for Meta Tags
     const setMetaTag = (attrName: "name" | "property", attrValue: string, content: string) => {
@@ -55,6 +40,21 @@ export const SEOHead: React.FC<SEOProps> = ({
       }
       tag.setAttribute("content", content);
     };
+
+    // 2. Update Meta Description & Robots
+    const resolvedRobots = noIndex ? "noindex, nofollow" : (robots || "index, follow");
+    setMetaTag("name", "description", description);
+    setMetaTag("name", "robots", resolvedRobots);
+
+    // 3. Update Canonical URL
+    const canonicalUrl = `https://www.navyatech.co.in${canonicalPath.startsWith("/") ? canonicalPath : `/${canonicalPath}`}`;
+    let linkCanonical = document.querySelector('link[rel="canonical"]');
+    if (!linkCanonical) {
+      linkCanonical = document.createElement("link");
+      linkCanonical.setAttribute("rel", "canonical");
+      document.head.appendChild(linkCanonical);
+    }
+    linkCanonical.setAttribute("href", canonicalUrl);
 
     // 4. Update OpenGraph Tags
     const fullImageUrl = ogImage.startsWith("http") ? ogImage : `https://www.navyatech.co.in${ogImage}`;
@@ -85,11 +85,29 @@ export const SEOHead: React.FC<SEOProps> = ({
     // Build Unified Schema Graph
     const schemaGraph: any[] = [
       {
+        "@type": "Person",
+        "@id": "https://www.navyatech.co.in/#founder",
+        name: "Aryan Singh",
+        jobTitle: "Founder | Digital Growth Strategist | AI & Automation Entrepreneur",
+        worksFor: {
+          "@id": "https://www.navyatech.co.in/#organization",
+        },
+        sameAs: [
+          "https://in.linkedin.com/in/invaded-author",
+          "https://wa.me/919355412903",
+        ],
+        telephone: "+91-74518-12065",
+        email: "navyatechindustry@gmail.com",
+      },
+      {
         "@type": "Organization",
         "@id": "https://www.navyatech.co.in/#organization",
         name: "Navya Tech Industry",
         url: "https://www.navyatech.co.in",
         logo: "https://www.navyatech.co.in/logoimg.png",
+        founder: {
+          "@id": "https://www.navyatech.co.in/#founder",
+        },
         contactPoint: {
           "@type": "ContactPoint",
           telephone: "+91-93554-12903",
@@ -97,7 +115,10 @@ export const SEOHead: React.FC<SEOProps> = ({
           areaServed: ["Global", "India", "United States"],
           availableLanguage: ["English", "Hindi"],
         },
-        sameAs: ["https://wa.me/919355412903"],
+        sameAs: [
+          "https://in.linkedin.com/in/invaded-author",
+          "https://wa.me/919355412903",
+        ],
       },
       {
         "@type": "WebPage",
@@ -135,7 +156,7 @@ export const SEOHead: React.FC<SEOProps> = ({
       "@graph": schemaGraph,
     });
     document.head.appendChild(script);
-  }, [title, description, canonicalPath, keywords, ogImage, structuredData, breadcrumbs]);
+  }, [title, description, canonicalPath, keywords, ogImage, structuredData, breadcrumbs, robots, noIndex]);
 
   return null;
 };

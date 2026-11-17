@@ -38,8 +38,8 @@ export const blogCategories: Record<string, BlogCategoryHub> = {
       "/blog/benefits-of-3d-web-design",
       "/blog/custom-website-vs-website-builder",
     ],
-    relatedServiceHref: "/services/website-design",
-    relatedServiceTitle: "Website Design Services",
+    relatedServiceHref: "/services/website-development",
+    relatedServiceTitle: "Website Development Services",
     heroImageAlt: "Website Design & UI/UX",
   },
 
@@ -60,8 +60,8 @@ export const blogCategories: Record<string, BlogCategoryHub> = {
       "/blog/is-a-3d-website-good-for-business",
       "/blog/webgl-website-development",
     ],
-    relatedServiceHref: "/services/3d-website-development",
-    relatedServiceTitle: "3D Website Development",
+    relatedServiceHref: "/services/website-development",
+    relatedServiceTitle: "Website Development Services",
     heroImageAlt: "3D Websites & WebGL Engineering",
   },
 

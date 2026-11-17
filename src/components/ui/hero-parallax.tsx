@@ -213,7 +213,7 @@ export const defaultProducts: ProductItem[] = [
   },
   {
     title: "High-Yield Cloud Infrastructure",
-    link: "/services/website-performance-optimization",
+    link: "/services/website-development",
     thumbnail: "/dot2/high-yield-cloud-infrastructure.png",
   },
   {
@@ -223,12 +223,12 @@ export const defaultProducts: ProductItem[] = [
   },
   {
     title: "Real-time Business Telemetry",
-    link: "/services/custom-web-development",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/human-in-the-loop-review.png",
   },
   {
     title: "Secure Distributed Architecture",
-    link: "/services/custom-web-development",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/high-yield-cloud-infrastructure.png",
   },
   {
@@ -238,7 +238,7 @@ export const defaultProducts: ProductItem[] = [
   },
   {
     title: "Interactive 3D Web Framework",
-    link: "/3d-website",
+    link: "/services/website-development",
     thumbnail: "/dot2/interactive-3d-framework.png",
   },
   {
@@ -258,7 +258,7 @@ export const defaultProducts: ProductItem[] = [
   },
   {
     title: "Enterprise Data Pipeline",
-    link: "/services/custom-web-development",
+    link: "/services/web-app-development",
     thumbnail: "/dot2/autonomous-work-orchestration.png",
   },
   {
@@ -273,7 +273,7 @@ export const defaultProducts: ProductItem[] = [
   },
   {
     title: "Conversion Optimization Engine",
-    link: "/services/landing-page-development",
+    link: "/services/business-website-development",
     thumbnail: "/dot2/automated-communication-hub.png",
   },
   {

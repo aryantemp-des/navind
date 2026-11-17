@@ -525,9 +525,9 @@ export const commercialPages: Record<string, SubpageConfig> = {
     ],
     relatedLinks: [
       {
-        title: "3D Website Services",
-        description: "Deep dive into our 3D web development services.",
-        href: "/services/3d-website-development",
+        title: "Website Development",
+        description: "Full-stack Next.js web engineering services.",
+        href: "/services/website-development",
         category: "Services",
       },
       {
@@ -623,9 +623,9 @@ export const commercialPages: Record<string, SubpageConfig> = {
     ],
     relatedLinks: [
       {
-        title: "Custom Web Development",
-        description: "Custom solutions for complex enterprise requirements.",
-        href: "/services/custom-web-development",
+        title: "Website Redesign",
+        description: "Modernize existing platforms with zero SEO loss.",
+        href: "/services/website-redesign",
         category: "Services",
       },
       {
@@ -819,9 +819,9 @@ export const commercialPages: Record<string, SubpageConfig> = {
     ],
     relatedLinks: [
       {
-        title: "Custom Web Development",
-        description: "Explore our full custom development services.",
-        href: "/services/custom-web-development",
+        title: "Web App Development",
+        description: "Explore our full custom web application services.",
+        href: "/services/web-app-development",
         category: "Services",
       },
       {

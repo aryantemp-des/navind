@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@/context/RouteContext";
-import { Clock, Calendar, User, ArrowRight, ArrowUpRight, Sparkles, Check, Phone, Bookmark, Share2 } from "lucide-react";
+import { Clock, Calendar, ArrowRight, ArrowUpRight, Sparkles, Check, Phone } from "lucide-react";
 import SubpageLayout from "@/components/layout/SubpageLayout";
 import SEOHead from "@/components/seo/SEOHead";
 import { BlogArticle, getBlogArticle } from "@/config/blogs";
@@ -127,8 +127,11 @@ export const BlogArticleTemplate: React.FC<{ article: BlogArticle }> = ({ articl
               <img
                 src={article.heroImageSrc}
                 alt={article.heroImageAlt}
+                width={1200}
+                height={675}
                 className="w-full h-full object-cover filter saturate-[1.1] contrast-[1.05]"
                 loading="eager"
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-4 left-4 right-4 text-xs font-mono text-zinc-300">

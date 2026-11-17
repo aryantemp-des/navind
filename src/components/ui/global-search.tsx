@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Search, X, ArrowRight, Sparkles, Layers, ShieldCheck, DollarSign, Bot, Globe, Phone, FileText, Briefcase, Building2, ShoppingBag, Code, Wrench, Zap, MessageSquare } from "lucide-react";
+import { Search, X, ArrowRight, Sparkles, ShieldCheck, DollarSign, Bot, Globe, HelpCircle, Phone, FileText, Building2, Wrench, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { allSubpages } from "@/config/subpages";
 import { scrollToTarget } from "@/lib/scroll";
@@ -17,41 +17,57 @@ interface SearchItem {
 const BASE_SEARCH_ITEMS: SearchItem[] = [
   {
     id: "services-web",
-    title: "Digital Experiences & Web Engineering",
+    title: "Website Solutions",
     category: "Capability",
-    description: "High-performance websites and platforms engineered with Next.js, WebGL 3D, and Core Web Vitals.",
+    description: "High-performance website development, ecommerce, business websites, custom design, redesign, and web apps.",
     targetId: "services",
     icon: Globe,
   },
   {
-    id: "services-ai",
-    title: "AI Agents & Autonomous Automation",
+    id: "services-marketing",
+    title: "Internet Marketing Bundle (SEO + GEO)",
     category: "Capability",
-    description: "Autonomous agents that handle customer intake, qualification, and ERP/CRM synchronization.",
+    description: "Dual-engine search dominance: SEO for Google rankings and GEO for ChatGPT, Perplexity, and AI citations.",
     targetId: "services",
+    icon: Sparkles,
+  },
+  {
+    id: "services-seo",
+    title: "SEO - Search Engine Optimization",
+    category: "Capability",
+    description: "Technical crawl optimization, structured JSON-LD schema, on-page hierarchy, and search authority.",
+    path: "/services/seo",
+    icon: Globe,
+  },
+  {
+    id: "services-geo",
+    title: "GEO - Generative Engine Optimization",
+    category: "Capability",
+    description: "Optimize your brand to get cited and recommended across conversational AI answer engines.",
+    path: "/services/geo",
     icon: Bot,
   },
   {
-    id: "services-sec",
-    title: "Security Architecture & Zero-Trust",
+    id: "services-aeo",
+    title: "AEO - Answer Engine Optimization",
     category: "Capability",
-    description: "Secure-by-design infrastructure built with zero-trust principles and audit readiness.",
-    targetId: "services",
-    icon: ShieldCheck,
+    description: "Optimize content and brand information for direct answers in AI answer engines and conversational search.",
+    path: "/services/aeo",
+    icon: HelpCircle,
   },
   {
     id: "pricing-web",
     title: "Website Package ($1,000 / ₹10k)",
     category: "Package",
-    description: "Complete modern digital presence with Next.js, 3D WebGL, and lifetime source ownership.",
+    description: "Complete modern digital presence with Next.js and lifetime source code ownership.",
     path: "/pricing",
     icon: DollarSign,
   },
   {
     id: "pricing-bundle",
-    title: "Full Ecosystem Bundle ($1,500 / ₹1,19k)",
+    title: "Full Ecosystem Bundle ($1,500 / ₹17k)",
     category: "Package",
-    description: "Complete package: Website + AI Agents pipeline together with priority engineering.",
+    description: "Complete package: Website Solution + Internet Marketing Bundle together with priority engineering.",
     path: "/pricing",
     icon: Zap,
   },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import GlobalHeader from "@/components/ui/global-header";
 import { SaaSHero } from "@/components/ui/saa-s-template";
 import ParallaxComponent from "@/components/ui/parallax-scrolling";
@@ -22,7 +22,12 @@ const BlogArticleTemplate = lazy(() => import("@/components/templates/BlogArticl
 const BlogHubTemplate = lazy(() => import("@/components/templates/BlogHubTemplate"));
 const GlobalSearch = lazy(() => import("@/components/ui/global-search"));
 const TermsModal = lazy(() => import("@/components/ui/terms-modal"));
+const TermsPage = lazy(() => import("@/components/pages/TermsPage"));
 const PrivacyPolicyPage = lazy(() => import("@/components/pages/PrivacyPolicyPage"));
+const PricingPage = lazy(() => import("@/components/pages/PricingPage"));
+const ContactPage = lazy(() => import("@/components/pages/ContactPage"));
+const AdminPortfolioPage = lazy(() => import("@/components/pages/AdminPortfolioPage"));
+const NotFoundPage = lazy(() => import("@/components/pages/NotFoundPage"));
 
 // Lazy-load below-the-fold homepage sections for hyper-lean initial mobile bundle
 const HeroSection = lazy(() => import("@/components/ui/3d-hero-section-boxes"));
@@ -137,6 +142,42 @@ function MainContent() {
     );
   }
 
+  // 3.55. Check if route matches /terms or /terms-and-conditions
+  if (currentPath === "/terms" || currentPath === "/terms-and-conditions" || currentPath === "/terms-of-service") {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <TermsPage />
+      </Suspense>
+    );
+  }
+
+  // 3.6. Check if route matches /pricing
+  if (currentPath === "/pricing") {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <PricingPage />
+      </Suspense>
+    );
+  }
+
+  // 3.7. Check if route matches /contact
+  if (currentPath === "/contact") {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <ContactPage />
+      </Suspense>
+    );
+  }
+
+  // 3.8. Check if route matches /admin/portfolio
+  if (currentPath === "/admin/portfolio") {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <AdminPortfolioPage />
+      </Suspense>
+    );
+  }
+
   // 4. Check if currentPath matches one of our subpages
   const subpageConfig = getSubpageConfig(currentPath);
   if (subpageConfig) {
@@ -147,12 +188,21 @@ function MainContent() {
     );
   }
 
+  // 5. If currentPath is not "/" or empty, it's a 404 Not Found!
+  if (currentPath !== "/" && currentPath !== "") {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <NotFoundPage />
+      </Suspense>
+    );
+  }
+
   // Otherwise render primary "/" Homepage
   return (
     <div className="relative min-h-screen text-foreground selection:bg-red-600/30 selection:text-red-200 overflow-x-hidden" style={{ background: "transparent" }}>
       {/* Homepage SEO Head */}
       <SEOHead
-        title="Navya Tech Industry | Best Internet Marketing Company in India"
+        title="Best Internet Marketing Company in India | Navya Tech"
         description="Navya Tech Industry delivers AI automation, website development, SEO, and digital marketing solutions to help businesses grow online."
         canonicalPath="/"
         keywords={[

@@ -34,7 +34,9 @@ const SolarArcCanvas: React.FC = () => {
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
         if (entry.isIntersecting && !animRef.current) {
-          animRef.current = requestAnimationFrame(draw);
+          if (!prefersReducedMotion) {
+        animRef.current = requestAnimationFrame(draw);
+      }
         }
       },
       { threshold: 0.01 }
@@ -72,7 +74,9 @@ const SolarArcCanvas: React.FC = () => {
       }
 
       if (isMobile && t - lastDrawTime < 33) {
+        if (!prefersReducedMotion) {
         animRef.current = requestAnimationFrame(draw);
+      }
         return;
       }
       lastDrawTime = t;
@@ -82,7 +86,9 @@ const SolarArcCanvas: React.FC = () => {
       const H = height || canvas.height;
 
       if (W === 0 || H === 0) {
+        if (!prefersReducedMotion) {
         animRef.current = requestAnimationFrame(draw);
+      }
         return;
       }
 
@@ -174,7 +180,9 @@ const SolarArcCanvas: React.FC = () => {
       ctx.fillStyle = vig;
       ctx.fillRect(0, 0, W, H);
 
-      animRef.current = requestAnimationFrame(draw);
+      if (!prefersReducedMotion) {
+        animRef.current = requestAnimationFrame(draw);
+      }
     };
 
     animRef.current = requestAnimationFrame(draw);
