@@ -30,6 +30,7 @@ const AdminPortfolioPage = lazy(() => import("@/components/pages/AdminPortfolioP
 const NotFoundPage = lazy(() => import("@/components/pages/NotFoundPage"));
 
 // Lazy-load below-the-fold homepage sections for hyper-lean initial mobile bundle
+const VerifiedExecutionTrackRecord = lazy(() => import("@/components/ui/verified-execution-track-record"));
 const HeroSection = lazy(() => import("@/components/ui/3d-hero-section-boxes"));
 const HeroParallax = lazy(() => import("@/components/ui/hero-parallax"));
 const GlassmorphismTrustHero = lazy(() => import("@/components/ui/glassmorphism-trust-hero"));
@@ -230,6 +231,11 @@ function MainContent() {
 
         {/* 2. SaaS Hero Section (Main Intro) */}
         <SaaSHero />
+
+        {/* 2.5 Verified Execution Track Record (Relocated from Contact page) */}
+        <Suspense fallback={<SectionFallback />}>
+          <VerifiedExecutionTrackRecord />
+        </Suspense>
 
         {/* 3. Body Hero — 3D Spline Engine & Platform Showcase */}
         <Suspense fallback={<SectionFallback />}>
